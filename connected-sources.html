@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Sportek AI Dashboard Mockup</title>
+<style>
+    :root {
+      --sportek-blue: #0a4c3a;
+
+      /* Earthy, premium palette */
+      --forest: #0a4c3a;
+      --forest-dark: #06382a;
+      --accent: #70561d;
+      --accent-dark: #4d3b14;
+      --accent-soft: #ded5c5;
+      --accent-wash: #fff8ec;
+      --bronze: #70561d;
+      --bronze-soft: #efe2c3;
+      --bronze-wash: #faf2e2;
+      --sage: #dce8d8;
+      --sage-soft: #f2f7ef;
+      --sand: #e9e2d3;
+      --sand-soft: #fff8ec;
+      --moss: #a9b86f;
+      --terracotta: #b86143;
+      --terracotta-soft: #f4ddd4;
+      --paper: #fffaf1;
+      --ink: #19231f;
+      --muted: #6b716c;
+      --line: #ded5c5;
+      --card: #fffdf8;
+
+      --lavender: #ded5c5;
+      --lavender-soft: #fff8ec;
+      --mint: #dce8d8;
+      --mint-strong: #0a4c3a;
+      --cream: #fff8ec;
+      --coral: #b86143;
+      --coral-soft: #f4ddd4;
+      --amber: #a7863a;
+      --amber-soft: #efe2c3;
+
+      --bg: #e9e2d3;
+      --ai: #fff8ec;
+
+      --high-bg: #f4ddd4;
+      --high-text: #8d3d26;
+
+      --medium-bg: #efe2c3;
+      --medium-text: #70561d;
+
+      --low-bg: #dce8d8;
+      --low-text: #0a4c3a;
+
+      --sync-bg: #efe2c3;
+      --sync-text: #70561d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .app {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 1420px;
+      margin: 0 auto;
+      background: var(--paper);
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 30px;
+      box-shadow: 0 30px 70px rgba(18, 31, 58, 0.14);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 22px 28px 18px;
+      background: #fffdf2;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-img {
+      height: 21px;
+      width: auto;
+      display: block;
+    }
+
+    .divider {
+      width: 1px;
+      height: 30px;
+      background: rgba(0, 51, 160, 0.18);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 31px;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      font-weight: 850;
+      color: var(--sportek-blue);
+    }
+
+    .account {
+      color: var(--muted);
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .account strong {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .signout {
+      color: var(--sportek-blue);
+      font-weight: 850;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      border: 1px solid rgba(0, 51, 160, 0.12);
+      background: var(--lavender-soft);
+      color: #4f43a5;
+      border-radius: 999px;
+      padding: 11px 18px;
+      font-size: 15px;
+      font-weight: 850;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .tab:nth-child(2) {
+      background: #e4f7ef;
+      color: #15735e;
+    }
+
+    .tab:nth-child(3) {
+      background: #fff0cf;
+      color: #855000;
+    }
+
+    .tab.active {
+      background: var(--sportek-blue);
+      color: #fff;
+      border-color: var(--sportek-blue);
+      box-shadow: 0 12px 26px rgba(0, 51, 160, 0.24);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 22px;
+      padding: 24px;
+      background: #f5f1e7;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(17, 32, 59, 0.07);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      background: #ffffff;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 23px;
+      letter-spacing: -0.025em;
+      font-weight: 850;
+      color: var(--sportek-blue);
+    }
+
+    .panel-subtitle {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .alerts-panel {
+      min-height: 760px;
+      background: #ffffff;
+    }
+
+    .alerts-list {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #ffffff;
+    }
+
+    .alert {
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 20px;
+      background: #ffffff;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(17, 32, 59, 0.055);
+    }
+
+    .alert-top {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 9px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+    }
+
+    .pill.high { background: var(--high-bg); color: var(--high-text); }
+    .pill.medium { background: var(--medium-bg); color: var(--medium-text); }
+    .pill.low { background: var(--low-bg); color: var(--low-text); }
+    .pill.sync { background: var(--sync-bg); color: var(--sync-text); }
+
+    .alert-title {
+      font-size: 16px;
+      font-weight: 850;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .alert-body {
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.42;
+      margin: 0 0 10px;
+    }
+
+    .alert-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .alert-link {
+      color: var(--sportek-blue);
+      text-decoration: none;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 12px 28px rgba(17, 32, 59, 0.045);
+    }
+
+    .section-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-title-row.compact {
+      margin-bottom: 14px;
+    }
+
+    .section-title-row h3 {
+      margin: 0;
+      font-size: 19px;
+      letter-spacing: -0.025em;
+      color: var(--sportek-blue);
+      font-weight: 900;
+    }
+
+    .section-title-row p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    /* New palette override */
+    body {
+      background: #e9e2d3;
+      color: #19231f;
+    }
+
+    .shell,
+    .panel,
+    .alerts-panel,
+    .alerts-list,
+    .section-card,
+    .alert,
+    .panel-head {
+      background: #fffdf8;
+    }
+
+    header {
+      background: #fff8ec;
+    }
+
+    main {
+      background: #e9e2d3;
+    }
+
+    h1,
+    .panel-title,
+    .section-title-row h3,
+    .signout,
+    .alert-link {
+      color: #0a4c3a;
+    }
+
+    .divider {
+      background: rgba(10, 76, 58, 0.18);
+    }
+
+    .tab {
+      background: #fff8ec;
+      color: #70561d;
+      border-color: rgba(112, 86, 29, 0.24);
+    }
+
+    .tab:nth-child(2),
+    .tab.active {
+      background: #0a4c3a;
+      border-color: #0a4c3a;
+      color: #ffffff;
+      box-shadow: 0 12px 26px rgba(10, 76, 58, 0.22);
+    }
+
+    .tab:nth-child(3) {
+      background: #efe2c3;
+      color: #70561d;
+    }
+
+    .pill.low {
+      background: #dce8d8;
+      border-color: rgba(10, 76, 58, 0.22);
+      color: #0a4c3a;
+    }
+
+    .pill.high { background: #f4ddd4; color: #8d3d26; }
+    .pill.medium { background: #efe2c3; color: #70561d; }
+    .pill.sync { background: #efe2c3; color: #70561d; }
+
+    .section-card,
+    .panel,
+    .alert {
+      border-color: #ded5c5;
+    }
+
+    .account,
+    .panel-subtitle,
+    .section-title-row p,
+    .alert-meta {
+      color: #6b716c;
+    }
+
+    .data-panel {
+      min-height: 760px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .data-content {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: #fffdf8;
+      flex: 1;
+    }
+
+    .data-table {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ded5c5;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fffdf8;
+    }
+
+    .data-row {
+      display: grid;
+      grid-template-columns: 1.2fr .68fr 1.85fr .8fr .5fr;
+      gap: 12px;
+      padding: 14px 15px;
+      align-items: center;
+      border-bottom: 1px solid #ded5c5;
+      font-size: 14px;
+    }
+
+    .data-row:last-child {
+      border-bottom: 0;
+    }
+
+    .data-head {
+      background: #efe2c3;
+      color: #70561d;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 900;
+    }
+
+    .data-row strong {
+      display: block;
+      font-size: 15px;
+      color: #19231f;
+      margin-bottom: 3px;
+    }
+
+    .data-row span {
+      display: block;
+      color: #6b716c;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .compact-sources {
+      justify-content: flex-start;
+    }
+
+    .connected-sources-card {
+      min-height: 660px;
+    }
+
+    .connected-sources-table .data-row {
+      grid-template-columns: 1.2fr .68fr 1.85fr .8fr .5fr;
+    }
+
+    .connected-sources-table .data-row:not(.data-head) {
+      min-height: 76px;
+      background: #fffdf8;
+    }
+
+    .connected-sources-table .future-divider {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      background: #fffdf8;
+      color: #0a4c3a;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 14px 15px 10px;
+      border-top: 2px solid #ded5c5;
+      border-bottom: 1px solid #ded5c5;
+    }
+
+    .connected-sources-table .future-source,
+    .connected-sources-table .current-source {
+      background: #fffdf8 !important;
+    }
+
+    .refresh-icon {
+      width: 22px;
+      height: 22px;
+      display: block;
+      margin: 0 auto;
+      color: #0a4c3a;
+    }
+
+    .connected-sources-table .data-row > div:last-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-sync-button {
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: #0a4c3a;
+      cursor: pointer;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .icon-sync-button:hover {
+      background: transparent;
+      color: #06382a;
+    }
+
+    .health-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .health-pill.healthy {
+      background: #dce8d8;
+      color: #0a4c3a;
+      border: 1px solid rgba(10, 76, 58, 0.22);
+    }
+
+    .health-pill.not-connected {
+      background: #f7f4ea;
+      color: #6b716c;
+      border: 1px solid #ded5c5;
+    }
+
+    .connect-button {
+      border: 1px solid #ded5c5;
+      background: #f7f4ea;
+      color: #6b716c;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: none;
+    }
+
+    .connect-button:hover {
+      background: #efe2c3;
+      color: #70561d;
+    }
+
+    .data-row .trend-cell {
+      color: #19231f;
+      font-size: 14px;
+      line-height: 1.38;
+      font-weight: 400;
+    }
+
+    .sync-meta-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      color: #6b716c;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .sync-meta-line {
+      display: block;
+      color: #6b716c;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .sync-meta-line strong {
+      display: inline;
+      color: #19231f;
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .connected-sources-table .trend-cell {
+      color: #19231f;
+      font-size: 14px;
+      line-height: 1.38;
+      font-weight: 400;
+    }
+
+    .connected-sources-table .trend-cell a.trend-details-link,
+    .connected-sources-table .trend-cell a.trend-details-link:visited,
+    .connected-sources-table .trend-cell a.trend-details-link:hover,
+    .connected-sources-table .trend-cell a.trend-details-link:active {
+      display: inline;
+      color: #0a4c3a;
+      font-size: 14px;
+      line-height: 1.38;
+      font-weight: 900;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 980px) {
+      .data-row {
+        grid-template-columns: 1fr;
+      }
+
+      .app {
+        padding: 14px;
+      }
+
+      .top-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        overflow: auto;
+        padding-bottom: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+<div class="shell">
+<header>
+<div class="top-row">
+<div class="brand-wrap">
+<img alt="Sport-Tek" class="logo-img" src="https://cdnp.sanmar.com/medias/sys_master/images/images/hf9/h18/10401320009758/10401320009758.png"/>
+<div class="divider"></div>
+<h1>Sportek AI Dashboard</h1>
+</div>
+<div class="account"><strong>Alex C.</strong> <a class="signout" href="#">Sign out</a></div>
+</div>
+<nav aria-label="Dashboard tabs">
+<a class="tab" href="internal-chatbot.html">Internal Chatbot</a>
+<a class="tab" href="analytics.html">Analytics</a>
+<a class="tab active" href="connected-sources.html">Connected Sources</a>
+</nav>
+</header>
+<main>
+<section class="panel data-panel">
+<div class="panel-head">
+<div>
+<h2 class="panel-title">Connected Sources</h2>
+<p class="panel-subtitle">Manage the approved data connections that power Sportek AI.</p>
+</div>
+</div>
+<div class="data-content compact-sources">
+<div class="section-card connected-sources-card">
+<div class="section-title-row compact">
+<div>
+<h3>Current Shopify Integration</h3>
+<p>Each Shopify data domain shows health, a short trend summary, sync timing, and a manual refresh action.</p>
+</div>
+<button aria-label="Refresh Shopify integration" class="icon-sync-button" title="Refresh Shopify integration" type="button">
+<svg aria-hidden="true" class="refresh-icon" fill="none" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M18.2 13.4A6.8 6.8 0 1 1 15.8 7" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M19 5.2V9.4H14.8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+<div class="data-table connected-sources-table">
+<div class="data-row data-head"><div>Data Source</div><div>Health</div><div>Trends</div><div>Sync</div><div>Action</div></div>
+<div class="data-row current-source"><div><strong>Shopify Product Data</strong><span>Products, variants, SKUs, prices, descriptions, images, collections, color options, sizes, and product tags</span></div><div><span class="health-pill healthy">Healthy</span></div><div class="trend-cell">Product lookup activity is clustering around stretch velvet, royal blue, bulk tees, and color-card q... <a class="trend-details-link" href="#">See full details</a></div><div class="sync-meta-cell"><span class="sync-meta-line"><strong>Last: </strong>3 min ago</span><span class="sync-meta-line"><strong>Next: </strong>In 12 min</span></div><div><button aria-label="Refresh shopify product data" class="icon-sync-button" title="Refresh shopify product data" type="button"><svg aria-hidden="true" class="refresh-icon" fill="none" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M18.2 13.4A6.8 6.8 0 1 1 15.8 7" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M19 5.2V9.4H14.8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button></div></div>
+<div class="data-row current-source"><div><strong>Shopify Inventory Data</strong><span>Inventory levels, stock by Shopify location, available quantity, committed quantity, and incoming inventory</span></div><div><span class="health-pill healthy">Healthy</span></div><div class="trend-cell">Fast-moving basics are trending down against preferred reserve levels, especially black tees and roy... <a class="trend-details-link" href="#">See full details</a></div><div class="sync-meta-cell"><span class="sync-meta-line"><strong>Last: </strong>3 min ago</span><span class="sync-meta-line"><strong>Next: </strong>In 12 min</span></div><div><button aria-label="Refresh shopify inventory data" class="icon-sync-button" title="Refresh shopify inventory data" type="button"><svg aria-hidden="true" class="refresh-icon" fill="none" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M18.2 13.4A6.8 6.8 0 1 1 15.8 7" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M19 5.2V9.4H14.8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button></div></div>
+<div class="data-row current-source"><div><strong>Shopify Order Data</strong><span>Orders, line items, discounts, payment status, fulfillment status, shipping status, and order notes</span></div><div><span class="health-pill healthy">Healthy</span></div><div class="trend-cell">Recent order issues are concentrated around fulfillment timing, not payment failures. See full...... <a class="trend-details-link" href="#">See full details</a></div><div class="sync-meta-cell"><span class="sync-meta-line"><strong>Last: </strong>4 min ago</span><span class="sync-meta-line"><strong>Next: </strong>In 11 min</span></div><div><button aria-label="Refresh shopify order data" class="icon-sync-button" title="Refresh shopify order data" type="button"><svg aria-hidden="true" class="refresh-icon" fill="none" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M18.2 13.4A6.8 6.8 0 1 1 15.8 7" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M19 5.2V9.4H14.8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button></div></div>
+<div class="data-row current-source"><div><strong>Shopify Customer Data</strong><span>Customer profiles, customer tags, order history, addresses, marketing consent, and customer notes</span></div><div><span class="health-pill healthy">Healthy</span></div><div class="trend-cell">Repeat buyers are driving a larger share of recent activity, with several accounts showing higher-th... <a class="trend-details-link" href="#">See full details</a></div><div class="sync-meta-cell"><span class="sync-meta-line"><strong>Last: </strong>6 min ago</span><span class="sync-meta-line"><strong>Next: </strong>In 9 min</span></div><div><button aria-label="Refresh shopify customer data" class="icon-sync-button" title="Refresh shopify customer data" type="button"><svg aria-hidden="true" class="refresh-icon" fill="none" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M18.2 13.4A6.8 6.8 0 1 1 15.8 7" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M19 5.2V9.4H14.8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button></div></div>
+<div class="data-row current-source"><div><strong>Shopify Fulfillment / Location Data</strong><span>Fulfillment locations, ship-from locations, fulfillment routing, and location-level availability</span></div><div><span class="health-pill healthy">Healthy</span></div><div class="trend-cell">Most fulfillment delays appear tied to location-level availability mismatches rather than missing or... <a class="trend-details-link" href="#">See full details</a></div><div class="sync-meta-cell"><span class="sync-meta-line"><strong>Last: </strong>8 min ago</span><span class="sync-meta-line"><strong>Next: </strong>In 7 min</span></div><div><button aria-label="Refresh shopify fulfillment / location data" class="icon-sync-button" title="Refresh shopify fulfillment / location data" type="button"><svg aria-hidden="true" class="refresh-icon" fill="none" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M18.2 13.4A6.8 6.8 0 1 1 15.8 7" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M19 5.2V9.4H14.8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button></div></div>
+<div class="data-row current-source"><div><strong>Shopify Refund Data</strong><span>Refund history, refunded line items, refund transactions, restock instructions, and refund notes</span></div><div><span class="health-pill healthy">Healthy</span></div><div class="trend-cell">Refund requests are slightly elevated this week, mostly tied to sizing, color mismatch, and damaged-... <a class="trend-details-link" href="#">See full details</a></div><div class="sync-meta-cell"><span class="sync-meta-line"><strong>Last: </strong>9 min ago</span><span class="sync-meta-line"><strong>Next: </strong>In 6 min</span></div><div><button aria-label="Refresh shopify refund data" class="icon-sync-button" title="Refresh shopify refund data" type="button"><svg aria-hidden="true" class="refresh-icon" fill="none" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M18.2 13.4A6.8 6.8 0 1 1 15.8 7" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M19 5.2V9.4H14.8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button></div></div>
+<div class="data-row future-divider">
+<div>Future Integrations</div>
+</div>
+<div class="data-row future-source"><div><strong>QuickBooks data</strong><span>Invoices, customer balances, payment status, unpaid accounts, and revenue context</span></div><div><span class="health-pill not-connected">Not connected</span></div><div class="trend-cell">Once connected, trends can show overdue balances, payment timing, account risk, and customer revenue... <a class="trend-details-link" href="#">See full details</a></div><div>Not scheduled</div><div><button class="connect-button" type="button">Connect</button></div></div>
+<div class="data-row future-source"><div><strong>Warehouse data</strong><span>Actual stock counts, reserved inventory, damaged goods, manual adjustments, and pick notes</span></div><div><span class="health-pill not-connected">Not connected</span></div><div class="trend-cell">Once connected, trends can show stock adjustments, damaged goods, pick delays, and count discrepanci... <a class="trend-details-link" href="#">See full details</a></div><div>Not scheduled</div><div><button class="connect-button" type="button">Connect</button></div></div>
+<div class="data-row future-source"><div><strong>Shipping data</strong><span>UPS, FedEx, USPS, ShipStation, labels, tracking events, and delivery exceptions</span></div><div><span class="health-pill not-connected">Not connected</span></div><div class="trend-cell">Once connected, trends can show carrier delays, label issues, delivery exceptions, and lost-package... <a class="trend-details-link" href="#">See full details</a></div><div>Not scheduled</div><div><button class="connect-button" type="button">Connect</button></div></div>
+<div class="data-row future-source"><div><strong>Supplier data</strong><span>Vendor lead times, purchase orders, replenishment dates, backorders, and price sheets</span></div><div><span class="health-pill not-connected">Not connected</span></div><div class="trend-cell">Once connected, trends can show replenishment risk, backorders, vendor timing issues, and price-shee... <a class="trend-details-link" href="#">See full details</a></div><div>Not scheduled</div><div><button class="connect-button" type="button">Connect</button></div></div>
+<div class="data-row future-source"><div><strong>Business spreadsheets</strong><span>VIP lists, wholesale terms, product mappings, reorder rules, and manual exceptions</span></div><div><span class="health-pill not-connected">Not connected</span></div><div class="trend-cell">Once connected, trends can show VIP lists, wholesale terms, product mappings, and manual rules. See... <a class="trend-details-link" href="#">See full details</a></div><div>Not scheduled</div><div><button class="connect-button" type="button">Connect</button></div></div>
+<div class="data-row future-source"><div><strong>Email inbox data</strong><span>Vendor updates, customer requests, shipment confirmations, and internal decisions</span></div><div><span class="health-pill not-connected">Not connected</span></div><div class="trend-cell">Once connected, trends can show vendor updates, customer requests, shipment confirmations, and inter... <a class="trend-details-link" href="#">See full details</a></div><div>Not scheduled</div><div><button class="connect-button" type="button">Connect</button></div></div>
+<div class="data-row future-source"><div><strong>Support inbox data</strong><span>Zendesk, Gorgias, Help Scout, Front, Shopify Inbox, or shared Gmail tickets</span></div><div><span class="health-pill not-connected">Not connected</span></div><div class="trend-cell">Once connected, trends can show unresolved issues, complaint patterns, escalation history, and suppo... <a class="trend-details-link" href="#">See full details</a></div><div>Not scheduled</div><div><button class="connect-button" type="button">Connect</button></div></div>
+<div class="data-row future-source"><div><strong>Pricing and discount rules</strong><span>Wholesale terms, customer-specific pricing, promo rules, and margin guardrails</span></div><div><span class="health-pill not-connected">Not connected</span></div><div class="trend-cell">Once connected, trends can show risky discounts, margin exceptions, customer-specific pricing, and p... <a class="trend-details-link" href="#">See full details</a></div><div>Not scheduled</div><div><button class="connect-button" type="button">Connect</button></div></div>
+</div>
+</div>
+</div>
+</section>
+<aside class="panel alerts-panel">
+<div class="panel-head">
+<div>
+<h2 class="panel-title">Live Alerts</h2>
+<p class="panel-subtitle">Operational items that may need attention.</p>
+</div>
+</div>
+<div class="alerts-list">
+<div class="alert">
+<div class="alert-top">
+<span class="pill high">HIGH</span>
+<span class="alert-title">Large order at risk</span>
+</div>
+<p class="alert-body">Order SO-1048921 is waiting on inventory confirmation. Customer has been waiting 2 days.</p>
+<div class="alert-meta"><span>12 min ago</span><a class="alert-link" href="#">View order</a></div>
+</div>
+<div class="alert">
+<div class="alert-top">
+<span class="pill high">HIGH</span>
+<span class="alert-title">Mary Smith return pattern</span>
+</div>
+<p class="alert-body">Mary Smith's latest return request is her 5th return request this month.</p>
+<div class="alert-meta"><span>18 min ago</span><a class="alert-link" href="#">Review customer history</a></div>
+</div>
+<div class="alert">
+<div class="alert-top">
+<span class="pill medium">MEDIUM</span>
+<span class="alert-title">Low inventory</span>
+</div>
+<p class="alert-body">Royal Blue Stretch Velvet is below the preferred reserve level.</p>
+<div class="alert-meta"><span>24 min ago</span><a class="alert-link" href="#">View product</a></div>
+</div>
+<div class="alert">
+<div class="alert-top">
+<span class="pill medium">MEDIUM</span>
+<span class="alert-title">Fast-moving product</span>
+</div>
+<p class="alert-body">Black PosiCharge Tee is selling faster than the current reorder pace.</p>
+<div class="alert-meta"><span>34 min ago</span><a class="alert-link" href="#">Check inventory</a></div>
+</div>
+<div class="alert">
+<div class="alert-top">
+<span class="pill sync">SYNC</span>
+<span class="alert-title">Order sync delayed</span>
+</div>
+<p class="alert-body">Order data has not synced in 42 minutes.</p>
+<div class="alert-meta"><span>42 min ago</span><a class="alert-link" href="#">Check sync</a></div>
+</div>
+<div class="alert">
+<div class="alert-top">
+<span class="pill low">LOW</span>
+<span class="alert-title">Product catalog synced</span>
+</div>
+<p class="alert-body">Product catalog synced successfully 3 minutes ago.</p>
+<div class="alert-meta"><span>3 min ago</span><a class="alert-link" href="#">View sync status</a></div>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</div>
+</body>
+</html>

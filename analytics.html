@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sportek AI Dashboard Mockup</title>
+
+
+  <style>
+    :root {
+      --sportek-blue: #0a4c3a;
+
+      /* Earthy, premium palette */
+      --forest: #0a4c3a;
+      --forest-dark: #06382a;
+      --accent: #70561d;
+      --accent-dark: #4d3b14;
+      --accent-soft: #ded5c5;
+      --accent-wash: #fff8ec;
+      --bronze: #70561d;
+      --bronze-soft: #efe2c3;
+      --bronze-wash: #faf2e2;
+      --sage: #dce8d8;
+      --sage-soft: #f2f7ef;
+      --sand: #e9e2d3;
+      --sand-soft: #fff8ec;
+      --moss: #a9b86f;
+      --terracotta: #b86143;
+      --terracotta-soft: #f4ddd4;
+      --paper: #fffaf1;
+      --ink: #19231f;
+      --muted: #6b716c;
+      --line: #ded5c5;
+      --card: #fffdf8;
+
+      --lavender: #ded5c5;
+      --lavender-soft: #fff8ec;
+      --mint: #dce8d8;
+      --mint-strong: #0a4c3a;
+      --cream: #fff8ec;
+      --coral: #b86143;
+      --coral-soft: #f4ddd4;
+      --amber: #a7863a;
+      --amber-soft: #efe2c3;
+
+      --bg: #e9e2d3;
+      --ai: #fff8ec;
+
+      --high-bg: #f4ddd4;
+      --high-text: #8d3d26;
+
+      --medium-bg: #efe2c3;
+      --medium-text: #70561d;
+
+      --low-bg: #dce8d8;
+      --low-text: #0a4c3a;
+
+      --sync-bg: #efe2c3;
+      --sync-text: #70561d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .app {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 1420px;
+      margin: 0 auto;
+      background: var(--paper);
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 30px;
+      box-shadow: 0 30px 70px rgba(18, 31, 58, 0.14);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 22px 28px 18px;
+      background: #fffdf2;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-img {
+      height: 21px;
+      width: auto;
+      display: block;
+    }
+
+    .divider {
+      width: 1px;
+      height: 30px;
+      background: rgba(0, 51, 160, 0.18);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 31px;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      font-weight: 850;
+      color: var(--sportek-blue);
+    }
+
+    .account {
+      color: var(--muted);
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .account strong {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .signout {
+      color: var(--sportek-blue);
+      font-weight: 850;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      border: 1px solid rgba(0, 51, 160, 0.12);
+      background: var(--lavender-soft);
+      color: #4f43a5;
+      border-radius: 999px;
+      padding: 11px 18px;
+      font-size: 15px;
+      font-weight: 850;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .tab:nth-child(2) {
+      background: #e4f7ef;
+      color: #15735e;
+    }
+
+    .tab:nth-child(3) {
+      background: #fff0cf;
+      color: #855000;
+    }
+
+    .tab.active {
+      background: var(--sportek-blue);
+      color: #fff;
+      border-color: var(--sportek-blue);
+      box-shadow: 0 12px 26px rgba(0, 51, 160, 0.24);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 22px;
+      padding: 24px;
+      background: #f5f1e7;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(17, 32, 59, 0.07);
+      overflow: hidden;
+    }
+
+    .chat-panel {
+      min-height: 760px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-head {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      background: #ffffff;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 23px;
+      letter-spacing: -0.025em;
+      font-weight: 850;
+      color: var(--sportek-blue);
+    }
+
+    .panel-subtitle {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .status-chip {
+      background: var(--mint);
+      border: 1px solid rgba(76, 190, 159, 0.52);
+      color: #11634f;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .messages {
+      padding: 28px 26px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      flex: 1;
+      background: #ffffff;
+    }
+
+    .message {
+      display: flex;
+      flex-direction: column;
+      max-width: 72%;
+      gap: 7px;
+    }
+
+    .message.user {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+
+    .message.ai {
+      align-self: flex-start;
+      align-items: flex-start;
+    }
+
+    .speaker {
+      font-size: 13px;
+      font-weight: 850;
+      color: var(--muted);
+      padding: 0 4px;
+    }
+
+    .bubble {
+      border-radius: 24px;
+      padding: 17px 19px;
+      font-size: 18px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .user .bubble {
+      background: var(--sportek-blue);
+      color: #fff;
+      border-bottom-right-radius: 8px;
+      box-shadow: 0 14px 28px rgba(0, 51, 160, 0.24);
+    }
+
+    .ai .bubble {
+      background: var(--ai);
+      color: var(--ink);
+      border: 1px solid #eee8d2;
+      border-bottom-left-radius: 8px;
+      box-shadow: 0 10px 24px rgba(23, 32, 51, 0.05);
+    }
+
+    .source-line {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 2px;
+      padding-left: 4px;
+    }
+
+    .composer-wrap {
+      padding: 18px 22px 22px;
+      border-top: 1px solid var(--line);
+      background: #fffdf2;
+    }
+
+    .composer {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #ded7c7;
+      border-radius: 20px;
+      padding: 9px 9px 9px 18px;
+      box-shadow: 0 10px 24px rgba(25, 35, 67, 0.06);
+    }
+
+    .composer input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      font-size: 17px;
+      color: var(--ink);
+      min-width: 0;
+      background: transparent;
+    }
+
+    .composer input::placeholder {
+      color: #8a93a2;
+    }
+
+    .send {
+      border: 0;
+      background: var(--sportek-blue);
+      color: #fff;
+      font-weight: 850;
+      font-size: 15px;
+      border-radius: 16px;
+      padding: 13px 18px;
+      box-shadow: 0 12px 22px rgba(0, 51, 160, 0.24);
+    }
+
+    .review-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 10px 3px 0;
+    }
+
+    .alerts-panel {
+      min-height: 760px;
+      background: #ffffff;
+    }
+
+    .alerts-list {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #ffffff;
+    }
+
+    .alert {
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 20px;
+      background: #ffffff;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(17, 32, 59, 0.055);
+    }
+
+    .alert-top {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 9px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+    }
+
+    .pill.high {
+      background: var(--high-bg);
+      color: var(--high-text);
+    }
+
+    .pill.medium {
+      background: var(--medium-bg);
+      color: var(--medium-text);
+    }
+
+    .pill.low {
+      background: var(--low-bg);
+      color: var(--low-text);
+    }
+
+    .pill.sync {
+      background: var(--sync-bg);
+      color: var(--sync-text);
+    }
+
+    .alert-title {
+      font-size: 16px;
+      font-weight: 850;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .alert-body {
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.42;
+      margin: 0 0 10px;
+    }
+
+    .alert-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .alert-link {
+      color: var(--sportek-blue);
+      text-decoration: none;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+
+    .analytics-panel {
+      min-height: 760px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .analytics-content {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: #ffffff;
+      flex: 1;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric-card {
+      border-radius: 22px;
+      padding: 18px;
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      min-height: 132px;
+    }
+
+    .lavender-card {
+      background: #f0ecff;
+    }
+
+    .mint-card {
+      background: #ddf8ed;
+    }
+
+    .cream-card {
+      background: #fffdf2;
+    }
+
+    .coral-card {
+      background: #ffe5e1;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.35;
+      min-height: 36px;
+    }
+
+    .metric-value {
+      margin-top: 14px;
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -0.045em;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .metric-note {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid rgba(23, 32, 51, 0.08);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 12px 28px rgba(17, 32, 59, 0.045);
+    }
+
+    .section-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-title-row.compact {
+      margin-bottom: 14px;
+    }
+
+    .section-title-row h3 {
+      margin: 0;
+      font-size: 19px;
+      letter-spacing: -0.025em;
+      color: var(--sportek-blue);
+      font-weight: 900;
+    }
+
+    .section-title-row p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .small-pill {
+      border-radius: 999px;
+      background: #ddf8ed;
+      color: #15735e;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .test-table {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ece9df;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .test-row {
+      display: grid;
+      grid-template-columns: 1.7fr .9fr .9fr .9fr;
+      gap: 10px;
+      padding: 14px 15px;
+      align-items: center;
+      border-bottom: 1px solid #ece9df;
+      font-size: 14px;
+    }
+
+    .test-row:last-child {
+      border-bottom: 0;
+    }
+
+    .test-head {
+      background: #f7f4ea;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 900;
+    }
+
+    .test-row strong {
+      display: block;
+      font-size: 15px;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .test-row span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .insight-list,
+    .review-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      font-size: 15px;
+    }
+
+    .insight-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.35;
+    }
+
+    .insight-list li span {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0ecff;
+      color: #4a3bb8;
+      font-weight: 900;
+      font-size: 12px;
+      flex: 0 0 auto;
+    }
+
+    .review-list li {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      line-height: 1.35;
+    }
+
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .question-item {
+      border: 1px solid #ded5c5;
+      border-radius: 18px;
+      background: #fff8ec;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .question-item summary {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      cursor: pointer;
+      list-style: none;
+      padding: 14px;
+    }
+
+    .question-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .question-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #efe2c3;
+      color: #70561d;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .question-text {
+      color: #19231f;
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 850;
+    }
+
+    .question-action {
+      color: #0a4c3a;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .question-details {
+      border-top: 1px solid #ded5c5;
+      padding: 12px 14px 14px 60px;
+      color: #6b716c;
+      font-size: 14px;
+      line-height: 1.45;
+      background: #fffdf8;
+    }
+
+    .question-details strong {
+      display: block;
+      color: #19231f;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .transcript-toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      border: 1px solid #ece9df;
+      background: #f7f4ea;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .filter-chip.active {
+      background: var(--sportek-blue);
+      border-color: var(--sportek-blue);
+      color: #ffffff;
+    }
+
+    .transcript-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .transcript-item {
+      border: 1px solid #ece9df;
+      border-radius: 18px;
+      padding: 14px;
+      background: #fffdf2;
+    }
+
+    .transcript-item:nth-child(2) {
+      background: #f0ecff;
+    }
+
+    .transcript-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+
+    .transcript-question {
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.35;
+      margin: 0 0 8px;
+    }
+
+    .transcript-answer {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+      margin: 0 0 10px;
+    }
+
+    .transcript-link {
+      color: var(--sportek-blue);
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .impact-grid div {
+      background: #f7f4ea;
+      border: 1px solid #ece9df;
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .impact-grid strong {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      min-height: 34px;
+    }
+
+    .impact-grid span {
+      display: block;
+      margin-top: 12px;
+      color: var(--sportek-blue);
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .recommendation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .recommendation-item {
+      border: 1px solid #ece9df;
+      border-radius: 18px;
+      padding: 15px;
+      background: #fffdf2;
+    }
+
+    .recommendation-item:nth-child(2) {
+      background: #ddf8ed;
+    }
+
+    .recommendation-item:nth-child(3) {
+      background: #f0ecff;
+    }
+
+    .recommendation-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .recommendation-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .recommendation-details {
+      margin-top: 12px;
+    }
+
+    .recommendation-details summary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 0;
+      background: var(--sportek-blue);
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      list-style: none;
+      box-shadow: 0 10px 20px rgba(0, 51, 160, 0.18);
+    }
+
+    .recommendation-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .recommendation-details[open] summary {
+      margin-bottom: 10px;
+    }
+
+    .recommendation-full {
+      border-top: 1px solid rgba(23, 32, 51, 0.1);
+      padding-top: 10px;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+
+    /* New palette override */
+    body {
+      background: #e9e2d3;
+      color: #19231f;
+    }
+
+    .shell,
+    .panel,
+    .analytics-content,
+    .alerts-panel,
+    .alerts-list,
+    .section-card,
+    .alert,
+    .panel-head {
+      background: #fffdf8;
+    }
+
+    header,
+    .composer-wrap,
+    .transcript-item,
+    .recommendation-item {
+      background: #fff8ec;
+    }
+
+    main {
+      background: #e9e2d3;
+    }
+
+    h1,
+    .panel-title,
+    .section-title-row h3,
+    .signout,
+    .alert-link,
+    .transcript-link,
+    .impact-grid span {
+      color: #0a4c3a;
+    }
+
+    .divider {
+      background: rgba(10, 76, 58, 0.18);
+    }
+
+    .tab {
+      background: #fff8ec;
+      color: #70561d;
+      border-color: rgba(112, 86, 29, 0.24);
+    }
+
+    .tab:nth-child(2),
+    .tab.active,
+    .filter-chip.active,
+    .recommendation-details summary,
+    .send {
+      background: #0a4c3a;
+      border-color: #0a4c3a;
+      color: #ffffff;
+      box-shadow: 0 12px 26px rgba(10, 76, 58, 0.22);
+    }
+
+    .tab:nth-child(3),
+    .test-head,
+    .filter-chip,
+    .impact-grid div {
+      background: #efe2c3;
+      color: #70561d;
+    }
+
+    .status-chip,
+    .small-pill,
+    .pill.low,
+    .recommendation-item:nth-child(2) {
+      background: #dce8d8;
+      border-color: rgba(10, 76, 58, 0.22);
+      color: #0a4c3a;
+    }
+
+    .pill.high {
+      background: #f4ddd4;
+      color: #8d3d26;
+    }
+
+    .pill.medium {
+      background: #efe2c3;
+      color: #70561d;
+    }
+
+    .pill.sync {
+      background: #efe2c3;
+      color: #70561d;
+    }
+
+    .recommendation-item:nth-child(3),
+    .transcript-item:nth-child(2) {
+      background: #f2f7ef;
+      color: #19231f;
+    }
+
+    .insight-list li span {
+      background: #efe2c3;
+      color: #70561d;
+    }
+
+    .section-card,
+    .panel,
+    .alert,
+    .test-table,
+    .test-row,
+    .transcript-item,
+    .recommendation-item,
+    .impact-grid div,
+    .composer,
+    .recommendation-full {
+      border-color: #ded5c5;
+    }
+
+    .muted,
+    .account,
+    .panel-subtitle,
+    .section-title-row p,
+    .test-row span,
+    .alert-meta,
+    .transcript-meta,
+    .transcript-answer,
+    .recommendation-item p,
+    .speaker,
+    .review-note,
+    .metric-label,
+    .metric-note,
+    .impact-grid strong {
+      color: #6b716c;
+    }
+
+    @media (max-width: 980px) {
+      .app {
+        padding: 14px;
+      }
+
+      .top-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+
+      .metric-grid,
+      .two-col,
+      .impact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .test-row {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        overflow: auto;
+        padding-bottom: 2px;
+      }
+    }
+  </style>
+
+
+</head>
+<body>
+  <div class="app">
+    <div class="shell">
+      <header>
+        <div class="top-row">
+          <div class="brand-wrap">
+            <img class="logo-img" src="https://cdnp.sanmar.com/medias/sys_master/images/images/hf9/h18/10401320009758/10401320009758.png" alt="Sport-Tek" />
+            <div class="divider"></div>
+            <h1>Sportek AI Dashboard</h1>
+          </div>
+          <div class="account"><strong>Alex C.</strong> <a class="signout" href="#">Sign out</a></div>
+        </div>
+
+        <nav aria-label="Dashboard tabs">
+          <a class="tab" href="internal-chatbot.html">Internal Chatbot</a>
+          <a class="tab active" href="analytics.html">Analytics</a>
+          <a class="tab" href="connected-sources.html">Connected Data Sources / Sync Status</a>
+        </nav>
+      </header>
+
+      <main>
+
+        <section class="panel analytics-panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">Analytics Dashboard</h2>
+              <p class="panel-subtitle">Performance across the customer-facing website assistant and internal chatbot.</p>
+            </div>
+            <div class="status-chip">Updated 3 min ago</div>
+          </div>
+
+          <div class="analytics-content">
+            <div class="section-card">
+              <div class="section-title-row">
+                <div>
+                  <h3>A/B Test: Customer-Facing Assistant Versions</h3>
+                  <p>Random site visitors see different chatbot experiences. This compares which version is helping most.</p>
+                </div>
+                <span class="small-pill">Active test</span>
+              </div>
+
+              <div class="test-table">
+                <div class="test-row test-head">
+                  <div>Version</div>
+                  <div>Started Conversations</div>
+                  <div>Resolved Without Support</div>
+                  <div>Convo Resulted in Add-to-Cart</div>
+                </div>
+                <div class="test-row">
+                  <div><strong>Search-triggered helper</strong><span>Opens after site search</span></div>
+                  <div>84</div>
+                  <div>72%</div>
+                  <div>18</div>
+                </div>
+                <div class="test-row">
+                  <div><strong>Product-page helper</strong><span>Opens after dwell time</span></div>
+                  <div>63</div>
+                  <div>64%</div>
+                  <div>11</div>
+                </div>
+                <div class="test-row">
+                  <div><strong>Passive bubble</strong><span>Only opens when clicked</span></div>
+                  <div>37</div>
+                  <div>58%</div>
+                  <div>5</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-card">
+              <div class="section-title-row compact">
+                <div>
+                  <h3>Top Customer Questions</h3>
+                  <p>What website visitors are asking most often.</p>
+                </div>
+              </div>
+              <div class="question-list">
+                <details class="question-item">
+                  <summary>
+                    <span class="question-number">1</span>
+                    <span class="question-text">Do you have this fabric by the yard?</span>
+                    <span class="question-action">See details</span>
+                  </summary>
+                  <div class="question-details">
+                    <strong>Why this matters</strong>
+                    This question shows demand for flexible ordering and clearer availability language. The AI should answer with yardage availability, minimum order quantity, and a direct product link.
+                  </div>
+                </details>
+
+                <details class="question-item">
+                  <summary>
+                    <span class="question-number">2</span>
+                    <span class="question-text">Which fabric is best for swimwear?</span>
+                    <span class="question-action">See details</span>
+                  </summary>
+                  <div class="question-details">
+                    <strong>Why this matters</strong>
+                    These users need buying guidance, not just search results. The AI should compare stretch, weight, opacity, chlorine resistance, and recommended use cases.
+                  </div>
+                </details>
+
+                <details class="question-item">
+                  <summary>
+                    <span class="question-number">3</span>
+                    <span class="question-text">Is this color available as a sample?</span>
+                    <span class="question-action">See details</span>
+                  </summary>
+                  <div class="question-details">
+                    <strong>Why this matters</strong>
+                    Sample-related questions are high-intent. The assistant should link directly to sample ordering, explain shipping timing, and suggest nearby color alternatives.
+                  </div>
+                </details>
+
+                <details class="question-item">
+                  <summary>
+                    <span class="question-number">4</span>
+                    <span class="question-text">How fast can this ship?</span>
+                    <span class="question-action">See details</span>
+                  </summary>
+                  <div class="question-details">
+                    <strong>Why this matters</strong>
+                    Shipping questions often happen near purchase. The AI should provide estimated timing, cutoff rules, and route edge cases to support if inventory is uncertain.
+                  </div>
+                </details>
+
+                <details class="question-item">
+                  <summary>
+                    <span class="question-number">5</span>
+                    <span class="question-text">What is similar to Royal Blue Stretch Velvet?</span>
+                    <span class="question-action">See details</span>
+                  </summary>
+                  <div class="question-details">
+                    <strong>Why this matters</strong>
+                    Similar-product questions are strong recommendation opportunities. The AI should return visually similar products, explain the tradeoffs, and link to each option.
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <div class="section-card">
+              <div class="section-title-row compact">
+                <div>
+                  <h3>AI Usage Transcripts</h3>
+                  <p>Read real chatbot conversations, filter by source, and review what users asked.</p>
+                </div>
+              </div>
+
+              <div class="transcript-toolbar">
+                <span class="filter-chip active">All</span>
+                <span class="filter-chip">Customer assistant</span>
+                <span class="filter-chip">Internal chatbot</span>
+              </div>
+
+              <div class="transcript-list">
+                <div class="transcript-item">
+                  <div class="transcript-meta"><span>Customer assistant</span><span>6 min ago</span></div>
+                  <p class="transcript-question"><strong>User:</strong> What fabric is closest to Royal Blue Stretch Velvet?</p>
+                  <p class="transcript-answer"><strong>AI:</strong> Suggested comparable royal blue stretch options and linked to 3 product pages.</p>
+                  <a class="transcript-link" href="#">Read full transcript</a>
+                </div>
+
+                <div class="transcript-item">
+                  <div class="transcript-meta"><span>Internal chatbot</span><span>19 min ago</span></div>
+                  <p class="transcript-question"><strong>User:</strong> Why did Mary Smith request another return?</p>
+                  <p class="transcript-answer"><strong>AI:</strong> Summarized recent orders, return history, and support notes for review.</p>
+                  <a class="transcript-link" href="#">Read full transcript</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-card">
+              <div class="section-title-row compact">
+                <div>
+                  <h3>Recommendations</h3>
+                  <p>Plain-language suggestions from the AI based on recent chatbot usage, A/B test results, and customer questions.</p>
+                </div>
+              </div>
+
+              <div class="recommendation-list">
+                <div class="recommendation-item">
+                  <strong>Prioritize the search-triggered assistant.</strong>
+                  <p>It is producing the strongest engagement, product clicks, and add-to-cart activity. Keep it live while testing small copy changes against it.</p>
+                  <details class="recommendation-details">
+                    <summary>See full details</summary>
+                    <div class="recommendation-full">This version starts more conversations and resolves a higher share without support. The next test should keep the same trigger, but experiment with a shorter opening message and clearer product recommendation language.</div>
+                  </details>
+                </div>
+
+                <div class="recommendation-item">
+                  <strong>Add better answers for fabric availability and comparisons.</strong>
+                  <p>Several top questions are about fabric-by-the-yard availability, swimwear suitability, samples, and similar products. These should become stronger prepared answers.</p>
+                  <details class="recommendation-details">
+                    <summary>See full details</summary>
+                    <div class="recommendation-full">The AI should have a stronger product comparison playbook that explains use case, stretch, fabric weight, care details, and closest alternatives. These answers should also link directly to samples when available.</div>
+                  </details>
+                </div>
+
+                <div class="recommendation-item">
+                  <strong>Review transcripts tied to returns and inventory questions.</strong>
+                  <p>These conversations are more operationally sensitive. The AI should summarize them clearly, but still route risky cases to a human when needed.</p>
+                  <details class="recommendation-details">
+                    <summary>See full details</summary>
+                    <div class="recommendation-full">Returns, delayed orders, and inventory uncertainty can affect customer trust. These transcripts should be reviewed weekly to improve handoff rules, inventory language, and exception handling.</div>
+                  </details>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+<aside class="panel alerts-panel">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">Live Alerts</h2>
+              <p class="panel-subtitle">Operational items that may need attention.</p>
+            </div>
+          </div>
+
+          <div class="alerts-list">
+            <div class="alert">
+              <div class="alert-top">
+                <span class="pill high">HIGH</span>
+                <span class="alert-title">Large order at risk</span>
+              </div>
+              <p class="alert-body">Order SO-1048921 is waiting on inventory confirmation. Customer has been waiting 2 days.</p>
+              <div class="alert-meta"><span>12 min ago</span><a class="alert-link" href="#">View order</a></div>
+            </div>
+
+            <div class="alert">
+              <div class="alert-top">
+                <span class="pill high">HIGH</span>
+                <span class="alert-title">Mary Smith return pattern</span>
+              </div>
+              <p class="alert-body">Mary Smith's latest return request is her 5th return request this month.</p>
+              <div class="alert-meta"><span>18 min ago</span><a class="alert-link" href="#">Review customer history</a></div>
+            </div>
+
+            <div class="alert">
+              <div class="alert-top">
+                <span class="pill medium">MEDIUM</span>
+                <span class="alert-title">Low inventory</span>
+              </div>
+              <p class="alert-body">Royal Blue Stretch Velvet is below the preferred reserve level.</p>
+              <div class="alert-meta"><span>24 min ago</span><a class="alert-link" href="#">View product</a></div>
+            </div>
+
+            <div class="alert">
+              <div class="alert-top">
+                <span class="pill medium">MEDIUM</span>
+                <span class="alert-title">Fast-moving product</span>
+              </div>
+              <p class="alert-body">Black PosiCharge Tee is selling faster than the current reorder pace.</p>
+              <div class="alert-meta"><span>34 min ago</span><a class="alert-link" href="#">Check inventory</a></div>
+            </div>
+
+            <div class="alert">
+              <div class="alert-top">
+                <span class="pill sync">SYNC</span>
+                <span class="alert-title">Order sync delayed</span>
+              </div>
+              <p class="alert-body">Order data has not synced in 42 minutes.</p>
+              <div class="alert-meta"><span>42 min ago</span><a class="alert-link" href="#">Check sync</a></div>
+            </div>
+
+            <div class="alert">
+              <div class="alert-top">
+                <span class="pill low">LOW</span>
+                <span class="alert-title">Product catalog synced</span>
+              </div>
+              <p class="alert-body">Product catalog synced successfully 3 minutes ago.</p>
+              <div class="alert-meta"><span>3 min ago</span><a class="alert-link" href="#">View sync status</a></div>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
