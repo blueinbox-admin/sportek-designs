@@ -161,16 +161,6 @@
       display: inline-block;
     }
 
-    .tab:nth-child(2) {
-      background: #e4f7ef;
-      color: #15735e;
-    }
-
-    .tab:nth-child(3) {
-      background: #fff0cf;
-      color: #855000;
-    }
-
     .tab.active {
       background: var(--sportek-blue);
       color: #fff;
@@ -370,17 +360,11 @@
       border-color: rgba(112, 86, 29, 0.24);
     }
 
-    .tab:nth-child(2),
     .tab.active {
       background: #0a4c3a;
       border-color: #0a4c3a;
       color: #ffffff;
       box-shadow: 0 12px 26px rgba(10, 76, 58, 0.22);
-    }
-
-    .tab:nth-child(3) {
-      background: #efe2c3;
-      color: #70561d;
     }
 
     .pill.low {
@@ -632,27 +616,50 @@
     }
 
     @media (max-width: 980px) {
-      .data-row {
-        grid-template-columns: 1fr;
-      }
-
-      .app {
-        padding: 14px;
-      }
-
-      .top-row {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      main {
-        grid-template-columns: 1fr;
-      }
-
+      .app { padding: 14px; }
+      .top-row { align-items: flex-start; flex-direction: column; }
+      main { grid-template-columns: 1fr; padding: 18px; gap: 16px; }
+      .data-row { grid-template-columns: 1fr; }
       nav {
-        overflow: auto;
-        padding-bottom: 2px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
       }
+      .tab { white-space: nowrap; flex: 0 0 auto; }
+    }
+
+    @media (max-width: 640px) {
+      .app { padding: 10px; }
+      .shell { border-radius: 22px; }
+      header { padding: 18px 18px 14px; }
+      .brand-wrap { gap: 12px; }
+      .logo-img { height: 18px; }
+      .divider { height: 24px; }
+      h1 { font-size: 22px; letter-spacing: -0.03em; }
+      .account { font-size: 14px; }
+      nav { margin-top: 16px; gap: 8px; }
+      .tab { padding: 9px 14px; font-size: 13px; }
+      main { padding: 14px; gap: 14px; }
+      .panel { border-radius: 20px; }
+      .data-panel, .alerts-panel { min-height: 0; }
+      .panel-head { padding: 16px 18px; gap: 12px; }
+      .panel-title { font-size: 18px; }
+      .panel-subtitle { font-size: 13px; }
+      .data-content { padding: 14px; gap: 14px; }
+      .section-card { padding: 14px; border-radius: 18px; }
+      .section-title-row { gap: 12px; margin-bottom: 12px; flex-direction: column; }
+      .section-title-row h3 { font-size: 17px; }
+      .section-title-row p { font-size: 13px; }
+      .connected-sources-card { min-height: 0; }
+      .connected-sources-table .data-head { display: none; }
+      .connected-sources-table .data-row:not(.data-head):not(.future-divider) { min-height: 0; padding: 14px; gap: 8px; }
+      .connected-sources-table .data-row > div:last-child { justify-content: flex-start; }
+      .connected-sources-table .trend-cell a.trend-details-link { white-space: normal; }
+      .alerts-list { padding: 14px; gap: 10px; }
+      .alert { padding: 14px; border-radius: 16px; }
+      .alert-title { font-size: 15px; }
+      .alert-body { font-size: 14px; }
     }
   </style>
 </head>
