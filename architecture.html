@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sportek AI — Architecture</title>
+
+  <style>
+    :root {
+      --forest: #0a4c3a;
+      --forest-dark: #06382a;
+      --bronze: #70561d;
+      --bronze-soft: #efe2c3;
+      --sage-soft: #f2f7ef;
+      --sage: #dce8d8;
+      --paper: #fffaf1;
+      --ink: #19231f;
+      --muted: #6b716c;
+      --line: #ded5c5;
+      --card: #fffdf8;
+      --cream: #fff8ec;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      margin: 0 auto;
+      padding: 32px 24px 40px;
+      min-width: max-content;
+    }
+
+    .header { margin-bottom: 24px; }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--forest);
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 720px;
+    }
+
+    .card-wrap {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 1px 2px rgba(25, 35, 31, 0.04);
+    }
+
+    /* ---- Diagram (HTML layout + SVG arrow overlay) ---- */
+    .diagram {
+      position: relative;
+      width: 100%;
+    }
+
+    .arrows {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(560px, 1.4fr) minmax(300px, 0.9fr) minmax(720px, 2fr);
+      gap: 56px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      min-height: 640px;
+    }
+
+    .col { display: flex; flex-direction: column; gap: 24px; }
+
+    /* ---- Source rows: [scope] ........ [text] [icon] ---- */
+    .source-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 4px 0;
+    }
+    .source-row .info {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 18px;
+      flex: 0 0 auto;
+    }
+    .source-row .icon {
+      width: 78px;
+      height: auto;
+      flex: 0 0 auto;
+      display: block;
+    }
+    .source-row .text {
+      text-align: right;
+    }
+    .source-row .title {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .source-row .meta {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .source-row .scope-note {
+      flex: 0 1 auto;
+      max-width: 300px;
+      margin-top: 0;
+      text-align: left;
+    }
+
+    /* ---- Consumer cards: shared split layout (left | divider | right) ---- */
+    .box {
+      display: flex;
+      align-items: stretch;
+      background: #ffffff;
+      border: 1.5px solid var(--forest);
+      border-radius: 14px;
+      padding: 20px 22px;
+      gap: 22px;
+      text-align: left;
+    }
+    .box .box-left {
+      flex: 0 0 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .box .box-right {
+      flex: 1;
+      border-left: 1px solid rgba(10, 76, 58, 0.25);
+      padding-left: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .box .right-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .box .right-body {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.55;
+      max-width: 360px;
+    }
+
+    /* ---- "Scope" annotation ---- */
+    .scope-note {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #ffffff;
+      border: 3px solid #ffde90;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #4d3b14;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .scope-note .scope-label {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: var(--bronze-dark);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .box .box-left .title {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .box .box-left .meta {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .box .box-left .tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .box .tabs {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .box .tabs li {
+      font-size: 14px;
+      color: var(--ink);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .box .tabs li::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--forest);
+    }
+    .box .tabs a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .box .tabs a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    /* ---- Data Center (no rectangle — just stack + text below) ---- */
+    .dc {
+      background: transparent;
+      border: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .dc .dc-title {
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--forest);
+      letter-spacing: 0.01em;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .dc .icon-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .dc .icon-wrap img {
+      width: 170px;
+      height: auto;
+      display: block;
+    }
+    .dc .divider {
+      display: none;
+    }
+    .dc .layers {
+      list-style: none;
+      margin: 0;
+      padding: 0 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+    .dc .layers li {
+      font-size: 15px;
+      color: var(--ink);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dc .layers li::before {
+      content: "";
+      flex: 0 0 auto;
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--forest);
+    }
+    .dc .dc-foot {
+      margin-top: 18px;
+      /* Indent so it lines up with the bullet TEXT above (ul padding 36 + bullet 6 + gap 10) */
+      padding-left: 52px;
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+      text-align: left;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card-wrap">
+      <div class="diagram" id="diagram">
+        <svg class="arrows" id="arrows" aria-hidden="true">
+          <defs>
+            <marker id="arrowhead" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+              <path d="M 0 0 L 12 6 L 0 12 z" fill="#000000"/>
+            </marker>
+          </defs>
+        </svg>
+
+        <div class="grid">
+          <!-- Sources -->
+          <div class="col">
+            <div class="source-row" data-arrow="source">
+              <div class="scope-note">
+                <span class="scope-label">Scope</span>
+                Existing tools already exist to organize Shopify's data for AI, so we will not build that from scratch. Rather, we will choose the best tool available to organize Shopify data, then forward the data to our data center.
+              </div>
+              <div class="info">
+                <img class="icon" src="images/database2.png?v=2" alt="" />
+                <div class="text">
+                  <div class="title">Shopify</div>
+                  <div class="meta">products, inventory,<br/>customers, orders</div>
+                </div>
+              </div>
+            </div>
+            <div class="source-row" data-arrow="source">
+              <div class="scope-note">
+                <span class="scope-label">Scope</span>
+                Not part of this project, but we're building out the foundation so we can add data like this in the future.
+              </div>
+              <div class="info">
+                <img class="icon" src="images/database4.png?v=2" alt="" />
+                <div class="text">
+                  <div class="title">Accounting Data</div>
+                  <div class="meta">invoices, payments,<br/>ledger entries</div>
+                </div>
+              </div>
+            </div>
+            <div class="source-row" data-arrow="source">
+              <div class="scope-note">
+                <span class="scope-label">Scope</span>
+                Not part of this project, but we're building out the foundation so we can add this data in the future.
+              </div>
+              <div class="info">
+                <img class="icon" src="images/database5.png?v=2" alt="" />
+                <div class="text">
+                  <div class="title">Vendor Data</div>
+                  <div class="meta">suppliers, POs,<br/>lead times</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Center -->
+          <div class="col">
+            <div class="dc" id="dc">
+              <div class="dc-title">Our Data Center</div>
+              <div class="icon-wrap">
+                <img src="images/database3.png?v=2" alt="data stack icon" />
+              </div>
+              <div class="divider"></div>
+              <div class="layers-block">
+                <ul class="layers">
+                  <li>AI / Retrieval Layer</li>
+                  <li>Permissions<br/>&amp; Role-Based Access</li>
+                  <li>Unified Storage</li>
+                  <li>Ingestion / Sync</li>
+                </ul>
+                <div class="dc-foot">secure backend · role-based access</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consumers -->
+          <div class="col">
+            <div class="box dashboard" data-arrow="consumer">
+              <div class="box-left">
+                <div class="title">Sportek AI Dashboard</div>
+                <div class="meta">Admin AI Website</div>
+                <div class="tag">internal · staff only</div>
+                <div class="scope-note">
+                  <span class="scope-label">Scope</span>
+                  We build this entirely by hand.
+                </div>
+              </div>
+              <div class="box-right">
+                <div class="right-label">Website with 3 Tabs</div>
+                <ul class="tabs">
+                  <li><a href="https://blueinbox-admin.github.io/sportek-designs/internal-chatbot.html" target="_blank" rel="noopener">Internal Chatbot</a></li>
+                  <li><a href="https://blueinbox-admin.github.io/sportek-designs/analytics.html" target="_blank" rel="noopener">Analytics</a></li>
+                  <li><a href="https://blueinbox-admin.github.io/sportek-designs/connected-sources.html" target="_blank" rel="noopener">Connected Data Sources</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="box consumer" data-arrow="consumer">
+              <div class="box-left">
+                <div class="title">Sportek.com</div>
+                <div class="tag">consumer site</div>
+                <div class="scope-note">
+                  <span class="scope-label">Scope</span>
+                  We're building a chatbot connected to the data center, not a new website.
+                </div>
+              </div>
+              <div class="box-right">
+                <div class="right-label">Chatbot</div>
+                <div class="right-body">
+                  Helps shoppers find the right product, check stock, and get quick answers. We'll ship multiple versions and use the Dashboard's analytics to pick the winner.
+                </div>
+              </div>
+            </div>
+            <div class="box consumer" data-arrow="consumer">
+              <div class="box-left">
+                <div class="title">Spandexbyyard.com</div>
+                <div class="tag">consumer site</div>
+                <div class="scope-note">
+                  <span class="scope-label">Scope</span>
+                  We're building a chatbot connected to the data center, not a new website.
+                </div>
+              </div>
+              <div class="box-right">
+                <div class="right-label">Chatbot</div>
+                <div class="right-body">
+                  Helps shoppers find the right product, check stock, and get quick answers. We'll ship multiple versions and use the Dashboard's analytics to pick the winner.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function drawArrows() {
+      const svg = document.getElementById("arrows");
+      const diagram = document.getElementById("diagram");
+      const dc = document.getElementById("dc");
+      if (!svg || !diagram || !dc) return;
+
+      Array.from(svg.querySelectorAll("path.arrow")).forEach(p => p.remove());
+
+      const dRect = diagram.getBoundingClientRect();
+      svg.setAttribute("viewBox", `0 0 ${dRect.width} ${dRect.height}`);
+      svg.setAttribute("width", dRect.width);
+      svg.setAttribute("height", dRect.height);
+
+      // Anchor arrows to the actual stack icon, not the surrounding column
+      const dcAnchor = dc.querySelector(".icon-wrap img") || dc;
+      const dcRect = dcAnchor.getBoundingClientRect();
+      const dcLeft  = { x: dcRect.left  - dRect.left, y: dcRect.top - dRect.top + dcRect.height / 2 };
+      const dcRight = { x: dcRect.right - dRect.left, y: dcRect.top - dRect.top + dcRect.height / 2 };
+
+      const sources = document.querySelectorAll('[data-arrow="source"]');
+      const consumers = document.querySelectorAll('[data-arrow="consumer"]');
+
+      sources.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const start = { x: r.right - dRect.left + 6, y: r.top - dRect.top + r.height / 2 };
+        const end   = { x: dcLeft.x - 6,             y: dcLeft.y + (start.y - dcLeft.y) * 0.25 };
+        addPath(svg, start, end);
+      });
+
+      consumers.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const end   = { x: r.left  - dRect.left - 6, y: r.top - dRect.top + r.height / 2 };
+        const start = { x: dcRight.x + 6,            y: dcRight.y + (end.y - dcRight.y) * 0.25 };
+        addPath(svg, start, end);
+      });
+    }
+
+    function addPath(svg, a, b) {
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const cx1 = a.x + (b.x - a.x) * 0.45;
+      const cx2 = a.x + (b.x - a.x) * 0.55;
+      const d = `M ${a.x} ${a.y} C ${cx1} ${a.y}, ${cx2} ${b.y}, ${b.x} ${b.y}`;
+      path.setAttribute("d", d);
+      path.setAttribute("class", "arrow");
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "#000000");
+      path.setAttribute("stroke-width", "2.25");
+      path.setAttribute("marker-start", "url(#arrowhead)");
+      path.setAttribute("marker-end", "url(#arrowhead)");
+      svg.appendChild(path);
+    }
+
+    window.addEventListener("load", drawArrows);
+    window.addEventListener("resize", drawArrows);
+    setTimeout(drawArrows, 200);
+  </script>
+</body>
+</html>
