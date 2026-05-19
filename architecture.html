@@ -99,12 +99,11 @@
 
     .col { display: flex; flex-direction: column; gap: 24px; }
 
-    /* ---- Source rows: [scope] ........ [text] [icon] ---- */
+    /* ---- Source rows: [scope] [text] [icon] — clustered right ---- */
     .source-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+      justify-content: flex-end;
       padding: 4px 0;
     }
     .source-row .info {
@@ -112,7 +111,7 @@
       flex-direction: row-reverse;
       align-items: center;
       gap: 18px;
-      flex: 0 0 auto;
+      flex: 0 0 260px;
     }
     .source-row .icon {
       width: 78px;
@@ -135,8 +134,7 @@
       line-height: 1.5;
     }
     .source-row .scope-note {
-      flex: 0 1 auto;
-      max-width: 300px;
+      flex: 0 0 300px;
       margin-top: 0;
       text-align: left;
     }
@@ -340,7 +338,7 @@
             <div class="source-row" data-arrow="source">
               <div class="scope-note">
                 <span class="scope-label">Scope</span>
-                There are existing tools that organize Shopify's data for AI, so we will not build that from scratch. Rather, we will choose the best tool available to organize Shopify data, then forward the data to our data center.
+                There are already existing tools that organize Shopify's data for AI, so we will not build that from scratch. Rather, we will choose the best tool available, then forward the data to our data center.
               </div>
               <div class="info">
                 <img class="icon" src="images/database2.png?v=2" alt="" />
@@ -431,7 +429,7 @@
               <div class="box-right">
                 <div class="right-label">Chatbot</div>
                 <div class="right-body">
-                  Helps shoppers find the right product, check stock, and get quick answers. We'll ship multiple versions and use the Dashboard's analytics to pick the winner.
+                  Helps shoppers find the right product, check stock, and get quick answers. We'll ship multiple versions and analyze performance to pick the winner.
                 </div>
               </div>
             </div>
@@ -447,7 +445,7 @@
               <div class="box-right">
                 <div class="right-label">Chatbot</div>
                 <div class="right-body">
-                  Helps shoppers find the right product, check stock, and get quick answers. We'll ship multiple versions and use the Dashboard's analytics to pick the winner.
+                  Helps shoppers find the right product, check stock, and get quick answers. We'll ship multiple versions and analyze performance to pick the winner.
                 </div>
               </div>
             </div>
