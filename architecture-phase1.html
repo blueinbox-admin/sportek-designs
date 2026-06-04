@@ -21,9 +21,10 @@
       --card: #fffdf8;
       --cream: #fff8ec;
 
-      --shopify: #5a8a3c;
-      --quickbooks: #2ca01c;
-      --hubspot: #c9622f;
+      /* bucket accents — matched to the cylinder icon colors */
+      --shopify: #3e8e82;
+      --quickbooks: #4254a3;
+      --hubspot: #8a8a1e;
     }
 
     * { box-sizing: border-box; }
@@ -40,7 +41,7 @@
     .page {
       margin: 0 auto;
       padding: 32px 24px 40px;
-      max-width: 1360px;
+      max-width: 1300px;
     }
 
     .header { margin-bottom: 24px; }
@@ -91,20 +92,18 @@
 
     .cols {
       display: grid;
-      grid-template-columns: 330px 80px 290px 80px minmax(360px, 1fr);
+      grid-template-columns: 320px 180px minmax(440px, 1fr);
       align-items: start;
       position: relative;
       z-index: 1;
     }
 
-    /* spacer columns hold the arrows */
     .spacer { align-self: stretch; }
 
     .col-head {
-      height: 58px;
+      height: 46px;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
     }
     .col-head .kicker {
       font-size: 11px;
@@ -113,110 +112,76 @@
       color: var(--bronze);
       font-weight: 700;
     }
-    .col-head .kicker-sub {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
 
+    /* ---- Source buckets (icon + label) ---- */
     .lane {
-      height: 116px;
-      margin-bottom: 28px;
+      height: 132px;
+      margin-bottom: 26px;
       display: flex;
       align-items: center;
     }
     .lane:last-child { margin-bottom: 0; }
 
-    /* ---- Source node ---- */
-    .source {
+    .bucket {
       width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
       background: #ffffff;
       border: 1px solid var(--line);
       border-left: 4px solid var(--src, var(--forest));
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 16px 18px;
     }
-    .source .title {
-      font-weight: 700;
-      font-size: 17px;
-      color: var(--ink);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .source .dot {
-      width: 9px; height: 9px; border-radius: 50%;
-      background: var(--src, var(--forest));
+    .bucket .cyl {
+      width: 60px;
+      height: auto;
       flex: 0 0 auto;
+      display: block;
     }
-    .source .meta {
+    .bucket .title {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--ink);
+    }
+    .bucket .meta {
       font-size: 13px;
       color: var(--muted);
       line-height: 1.5;
-      margin-top: 6px;
+      margin-top: 5px;
     }
 
-    /* ---- Engine node (your app / Claude + MCP) ---- */
-    .engine {
-      width: 100%;
-      background: var(--sage-soft);
-      border: 1px solid rgba(10, 76, 58, 0.22);
-      border-radius: 12px;
-      padding: 14px 14px;
-      text-align: center;
-    }
-    .engine .e-title {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--forest);
-    }
-    .engine .e-sub {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 1px;
-    }
-    .engine .mcp {
-      margin-top: 9px;
-      display: inline-block;
-      background: #ffffff;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 9px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--bronze-dark);
-      white-space: nowrap;
-    }
-
-    /* ---- Dashboard frame (the product) ---- */
-    .dash-frame {
-      grid-column: 5;
-      grid-row: 1 / span 5;
+    /* ---- Internal site (the product) ---- */
+    .site-frame {
+      grid-column: 3;
+      grid-row: 1 / span 4;
       border: 1.5px solid var(--forest);
       border-radius: 16px;
       padding: 0 18px 18px;
       background: #ffffff;
+      align-self: stretch;
     }
-    .dash-head {
-      height: 58px;
+    .site-head {
+      height: 30px;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      margin: 14px 0 4px;
     }
-    .dash-head .d-title {
+    .site-head .s-title {
       font-weight: 700;
-      font-size: 18px;
+      font-size: 19px;
       color: var(--forest);
     }
-    .dash-head .d-sub {
+    .site-head .s-sub {
       font-size: 12px;
       color: var(--muted);
-      margin-top: 2px;
+      margin-left: 10px;
+      align-self: center;
     }
 
     .tab {
-      height: 116px;
-      margin-bottom: 28px;
+      height: 132px;
+      margin-bottom: 26px;
       background: var(--cream);
       border: 1px solid var(--line);
       border-left: 4px solid var(--src, var(--forest));
@@ -245,11 +210,17 @@
       border-radius: 999px;
       padding: 2px 7px;
     }
+    .tab .conn {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--bronze-dark);
+      font-weight: 600;
+    }
     .tab .t-meta {
       font-size: 13px;
       color: var(--muted);
       line-height: 1.45;
-      margin-top: 6px;
+      margin-top: 5px;
     }
     .tab.must {
       background: #fffaf0;
@@ -257,8 +228,8 @@
       border-left-color: var(--quickbooks);
     }
     .tab .must-line {
-      margin-top: 7px;
-      font-size: 12px;
+      margin-top: 6px;
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--bronze-dark);
       display: flex;
@@ -269,7 +240,7 @@
 
     /* ---- Scope / definition callout ---- */
     .scope-note {
-      margin-top: 12px;
+      margin-top: 14px;
       padding: 10px 14px;
       background: #ffffff;
       border: 3px solid #ffde90;
@@ -290,7 +261,7 @@
 
     /* ---- Footnotes / legend ---- */
     .legend {
-      margin-top: 26px;
+      margin-top: 24px;
       padding-top: 20px;
       border-top: 1px dashed var(--line);
       display: grid;
@@ -316,10 +287,10 @@
       <div class="eyebrow">Phase 1 · Internal Team Tool</div>
       <h1>Sportek AI Dashboard — Architecture</h1>
       <p class="subtitle">
-        One branded internal website behind a staff login, with three side-by-side chatbots.
-        Each bot is a Claude assistant wired to a <strong>single source</strong> through its own MCP connection —
-        Shopify, QuickBooks, and HubSpot. The bots never share or combine data, which removes the
-        riskiest part of these builds while still delivering the must-have: sales by rep, style, and invoice.
+        Three data sources, each feeding one chatbot inside a single branded internal website behind a staff login.
+        Every bot is a Claude assistant wired to <strong>one source only</strong> through its own MCP connection.
+        The bots never share or combine data, which removes the riskiest part of these builds while still delivering
+        the must-have: sales by rep, style, and invoice.
       </p>
     </div>
 
@@ -334,68 +305,60 @@
         </svg>
 
         <div class="cols">
-          <!-- column heads -->
-          <div class="col-head"><span class="kicker">Data Sources</span><span class="kicker-sub">queried live · no warehouse</span></div>
-          <div class="spacer"></div>
-          <div class="col-head"><span class="kicker">Your Application</span><span class="kicker-sub">what you build &amp; own</span></div>
+          <!-- heads -->
+          <div class="col-head"><span class="kicker">Data Sources</span></div>
           <div class="spacer"></div>
 
-          <!-- dashboard frame spans all rows in the last column -->
-          <div class="dash-frame">
-            <div class="dash-head">
-              <span class="d-title">Sportek AI Dashboard</span>
-              <span class="d-sub">internal · staff login · three tabs</span>
+          <!-- internal site frame spans all rows in the last column -->
+          <div class="site-frame">
+            <div class="site-head">
+              <span class="s-title">Sportek AI Dashboard</span>
+              <span class="s-sub">internal · staff login · three tabs</span>
             </div>
-            <div class="tab" data-lane="0" id="tab0" style="--src: var(--shopify);">
+            <div class="tab" id="tab0" style="--src: var(--shopify);">
               <div class="t-title"><span class="chip">Tab 1</span> Shopify bot</div>
-              <div class="t-meta">Products, inventory, orders, customers — answers Shopify questions only.</div>
+              <div class="conn">Claude · Shopify Admin MCP</div>
+              <div class="t-meta">Answers questions on products, inventory, orders, and customers — Shopify only.</div>
             </div>
-            <div class="tab must" data-lane="1" id="tab1" style="--src: var(--quickbooks);">
+            <div class="tab must" id="tab1" style="--src: var(--quickbooks);">
               <div class="t-title"><span class="chip">Tab 2</span> QuickBooks bot</div>
+              <div class="conn">Claude · QuickBooks Online MCP</div>
               <div class="must-line"><span class="star">★</span> Must-have: sales by rep · style · invoice</div>
             </div>
-            <div class="tab" data-lane="2" id="tab2" style="--src: var(--hubspot);">
+            <div class="tab" id="tab2" style="--src: var(--hubspot);">
               <div class="t-title"><span class="chip">Tab 3</span> HubSpot bot</div>
+              <div class="conn">Claude · HubSpot MCP</div>
               <div class="t-meta">CRM contacts, deals, pipeline — pending confirmation it holds real data.</div>
             </div>
           </div>
 
-          <!-- Lane 0 : Shopify -->
-          <div class="lane"><div class="source" data-lane="0" id="src0" style="--src: var(--shopify);">
-            <div class="title"><span class="dot"></span> Shopify</div>
-            <div class="meta">products, inventory,<br/>orders, customers</div>
-          </div></div>
-          <div class="spacer"></div>
-          <div class="lane"><div class="engine" data-lane="0" id="eng0">
-            <div class="e-title">Claude</div>
-            <div class="e-sub">Anthropic API</div>
-            <span class="mcp">⇄ Shopify Admin MCP</span>
+          <!-- Bucket: Shopify -->
+          <div class="lane"><div class="bucket" id="buck0" style="--src: var(--shopify);">
+            <img class="cyl" src="images/database4.png" alt="" />
+            <div>
+              <div class="title">Shopify</div>
+              <div class="meta">products, inventory,<br/>orders, customers</div>
+            </div>
           </div></div>
           <div class="spacer"></div>
 
-          <!-- Lane 1 : QuickBooks -->
-          <div class="lane"><div class="source" data-lane="1" id="src1" style="--src: var(--quickbooks);">
-            <div class="title"><span class="dot"></span> QuickBooks</div>
-            <div class="meta">invoices, sales,<br/>salesperson, returns</div>
-          </div></div>
-          <div class="spacer"></div>
-          <div class="lane"><div class="engine" data-lane="1" id="eng1">
-            <div class="e-title">Claude</div>
-            <div class="e-sub">Anthropic API</div>
-            <span class="mcp">⇄ QuickBooks Online MCP</span>
+          <!-- Bucket: QuickBooks -->
+          <div class="lane"><div class="bucket" id="buck1" style="--src: var(--quickbooks);">
+            <img class="cyl" src="images/database2.png" alt="" />
+            <div>
+              <div class="title">QuickBooks</div>
+              <div class="meta">invoices, sales,<br/>salesperson, returns</div>
+            </div>
           </div></div>
           <div class="spacer"></div>
 
-          <!-- Lane 2 : HubSpot -->
-          <div class="lane"><div class="source" data-lane="2" id="src2" style="--src: var(--hubspot);">
-            <div class="title"><span class="dot"></span> HubSpot</div>
-            <div class="meta">contacts, deals,<br/>pipeline (CRM)</div>
-          </div></div>
-          <div class="spacer"></div>
-          <div class="lane"><div class="engine" data-lane="2" id="eng2">
-            <div class="e-title">Claude</div>
-            <div class="e-sub">Anthropic API</div>
-            <span class="mcp">⇄ HubSpot MCP</span>
+          <!-- Bucket: HubSpot -->
+          <div class="lane"><div class="bucket" id="buck2" style="--src: var(--hubspot);">
+            <img class="cyl" src="images/database5.png" alt="" />
+            <div>
+              <div class="title">HubSpot</div>
+              <div class="meta">contacts, deals,<br/>pipeline (CRM)</div>
+            </div>
           </div></div>
           <div class="spacer"></div>
         </div>
@@ -438,33 +401,23 @@
       const rightX = (el) => el.getBoundingClientRect().right - dRect.left;
 
       for (let i = 0; i < 3; i++) {
-        const src = document.getElementById("src" + i);
-        const eng = document.getElementById("eng" + i);
-        const tab = document.getElementById("tab" + i);
-        if (!src || !eng || !tab) continue;
-
-        // source <-> engine
+        const buck = document.getElementById("buck" + i);
+        const tab  = document.getElementById("tab" + i);
+        if (!buck || !tab) continue;
         addPath(svg,
-          { x: rightX(src) + 6, y: midY(src) },
-          { x: leftX(eng) - 6,  y: midY(eng) });
-        // engine <-> tab
-        addPath(svg,
-          { x: rightX(eng) + 6, y: midY(eng) },
-          { x: leftX(tab) - 6,  y: midY(tab) });
+          { x: rightX(buck) + 6, y: midY(buck) },
+          { x: leftX(tab) - 6,   y: midY(tab) });
       }
     }
 
     function addPath(svg, a, b) {
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      const cx1 = a.x + (b.x - a.x) * 0.45;
-      const cx2 = a.x + (b.x - a.x) * 0.55;
-      const d = `M ${a.x} ${a.y} C ${cx1} ${a.y}, ${cx2} ${b.y}, ${b.x} ${b.y}`;
+      const d = `M ${a.x} ${a.y} L ${b.x} ${b.y}`;
       path.setAttribute("d", d);
       path.setAttribute("class", "arrow");
       path.setAttribute("fill", "none");
       path.setAttribute("stroke", "#1a1a1a");
       path.setAttribute("stroke-width", "2");
-      path.setAttribute("marker-start", "url(#arrowhead)");
       path.setAttribute("marker-end", "url(#arrowhead)");
       svg.appendChild(path);
     }
