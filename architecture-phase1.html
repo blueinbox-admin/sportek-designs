@@ -311,7 +311,7 @@
           <div></div>
 
           <!-- internal site -->
-          <div class="site-frame">
+          <div class="site-frame" id="siteFrame">
             <div class="site-head">
               <span class="s-title">Sportek AI Dashboard</span>
               <span class="s-sub">internal · staff login · three tabs</span>
@@ -371,13 +371,17 @@
       const leftX  = (el) => el.getBoundingClientRect().left  - dRect.left;
       const rightX = (el) => el.getBoundingClientRect().right - dRect.left;
 
+      const frame = document.getElementById("siteFrame");
+      const frameX = frame ? leftX(frame) : null;
       for (let i = 0; i < 3; i++) {
         const src = document.getElementById("src" + i);
         const tab = document.getElementById("tab" + i);
         if (!src || !tab) continue;
+        // End just OUTSIDE the dashboard frame so the arrowhead stays visible
+        const endX = (frameX !== null ? frameX : leftX(tab)) - 10;
         addPath(svg,
           { x: rightX(src) + 8, y: midY(src) },
-          { x: leftX(tab) - 8,  y: midY(tab) });
+          { x: endX,            y: midY(tab) });
       }
     }
 
