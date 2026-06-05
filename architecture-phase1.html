@@ -76,9 +76,9 @@
       max-width: 760px;
       margin: 18px auto 0;
       padding: 12px 18px;
-      border: 1px solid var(--line);
+      border: 1px solid #f0c6cd;
       border-radius: 12px;
-      background: var(--sage-soft);
+      background: #fdeef1;
       font-size: 13.5px;
       color: var(--ink);
       line-height: 1.5;
@@ -90,9 +90,10 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       font-weight: 700;
-      color: var(--bronze);
+      color: #b1384e;
       margin-bottom: 4px;
     }
+    .wont .wont-eg { font-style: italic; }
 
     .card-wrap {
       background: #ffffff;
@@ -360,8 +361,9 @@
       </p>
       <div class="wont">
         <span class="wont-label">What it won't do</span>
-        Combine or map data across the three sources. Each bot only sees its own system, so it can't, for example, tie a
-        Shopify order to the rep who's credited for it in QuickBooks. Cross-source questions like that are Phase 2.
+        Combine or map data across the three sources. Each bot only sees its own system, so a question that needs two of
+        them can't be answered. For example, <span class="wont-eg">"How many of yesterday's online orders were
+        Maria's?"</span> needs Shopify orders linked to QuickBooks salespeople, so it's Phase 2.
       </div>
     </div>
 
