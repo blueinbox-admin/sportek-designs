@@ -94,6 +94,28 @@
       margin-bottom: 4px;
     }
     .wont .wont-eg { font-style: italic; }
+    .wont .wont-list {
+      text-align: left;
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 9px;
+    }
+    .wont .wont-list li {
+      position: relative;
+      padding-left: 18px;
+    }
+    .wont .wont-list li::before {
+      content: "\2715";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #b1384e;
+    }
+    .wont .wont-lead { font-weight: 700; }
 
     .card-wrap {
       background: #ffffff;
@@ -361,9 +383,22 @@
       </p>
       <div class="wont">
         <span class="wont-label">What it won't do</span>
-        Combine or map data across the three sources. Each bot only sees its own system, so a question that needs two of
-        them can't be answered. For example, <span class="wont-eg">"How many of yesterday's online orders were
-        Maria's?"</span> needs Shopify orders linked to QuickBooks salespeople, so it's Phase 2.
+        <ul class="wont-list">
+          <li><span class="wont-lead">Combine or map data across the three sources.</span> Each bot only sees its own
+            system, so a question that needs two of them can't be answered. For example,
+            <span class="wont-eg">"How many of yesterday's online orders were Maria's?"</span> needs Shopify orders
+            linked to QuickBooks salespeople, so it's Phase 2.</li>
+          <li><span class="wont-lead">Change anything, it's read-only.</span> It answers questions but never creates,
+            edits, deletes, refunds, or fulfills. That's by design.</li>
+          <li><span class="wont-lead">Know anything outside the connected system.</span> If it lives in a spreadsheet,
+            an email, a text thread, or someone's head, the bot can't see it.</li>
+          <li><span class="wont-lead">Fill in missing data or guess.</span> Answers are only as good as what's entered.
+            If the rep isn't recorded on a sale, it says so instead of inventing one.</li>
+          <li><span class="wont-lead">Act on the knowledge you teach it, yet.</span> The "remember this" notes are
+            stored now and start shaping answers in Phase 2; for now they're just banked.</li>
+          <li><span class="wont-lead">Watch the data or alert you.</span> It answers when asked. No "ping me when stock
+            runs low," it's a question box, not a monitor.</li>
+        </ul>
       </div>
     </div>
 
