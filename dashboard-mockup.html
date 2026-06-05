@@ -471,28 +471,9 @@ Total $1,560, paid in full.</div>
     if (location.hash) activateTab(location.hash.slice(1));
     window.addEventListener("hashchange", () => activateTab(location.hash.slice(1)));
 
-    // Echo a placeholder reply so the input feels real in the mockup
+    // Mockup only: the Send button does nothing (just prevent the page reload).
     document.querySelectorAll(".composer").forEach(form => {
-      form.addEventListener("submit", e => {
-        e.preventDefault();
-        const input = form.querySelector("input");
-        const text = input.value.trim();
-        if (!text) return;
-        const chat = form.parentElement.querySelector(".chat");
-
-        const user = document.createElement("div");
-        user.className = "msg user";
-        user.textContent = text;
-        chat.appendChild(user);
-
-        const bot = document.createElement("div");
-        bot.className = "msg bot";
-        bot.textContent = "(This is a mockup. In the real dashboard the bot would answer from your live data.)";
-        chat.appendChild(bot);
-
-        input.value = "";
-        chat.scrollTop = chat.scrollHeight;
-      });
+      form.addEventListener("submit", e => e.preventDefault());
     });
   </script>
 </body>
