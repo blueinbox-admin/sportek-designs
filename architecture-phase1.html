@@ -44,7 +44,7 @@
       max-width: 1300px;
     }
 
-    .header { margin-bottom: 24px; }
+    .header { margin-bottom: 24px; text-align: center; }
 
     .eyebrow {
       font-size: 12px;
@@ -68,7 +68,9 @@
       font-size: 15px;
       line-height: 1.5;
       max-width: 760px;
+      margin: 0 auto;
     }
+    .subtitle + .subtitle { margin-top: 12px; }
 
     .card-wrap {
       background: #ffffff;
@@ -324,16 +326,14 @@
       <div class="eyebrow">Phase 1 · Internal Team Tool</div>
       <h1>Sportek AI Internal Dashboard: Architecture</h1>
       <p class="subtitle">
-        Sportek's internal tool is one branded website, behind a staff login, with three AI assistants side by side:
-        one for Shopify, one for QuickBooks, and one for HubSpot. Each one connects to a single source and only answers
-        questions about that source. They never combine data, which keeps the tool simple and safe while still
-        delivering the must-have: sales broken down by salesperson, style, and invoice.
+        One branded website behind a staff login, with three AI assistants side by side: Shopify, QuickBooks, and
+        HubSpot. Each connects to a single source and only answers about that source. They never combine data, which
+        keeps it simple and safe while still delivering the must-have: sales by salesperson, style, and invoice.
       </p>
       <p class="subtitle">
-        Connecting the sources is the easy part, and mostly off the shelf. The real work, and what David owns, is
-        everything after: learning how Sportek's data is actually organized, teaching each bot the company's own terms
-        and how they count things, and testing it against the real questions the team asks until the answers are
-        trustworthy. Most of that effort goes into the QuickBooks bot, because "sales by rep," counted after returns,
+        Connecting the sources is the easy part. The real work, and what David owns, is everything after: learning how
+        Sportek's data is organized, teaching each bot its terms and how they count things, and testing until the
+        answers are trustworthy. Most of that goes into the QuickBooks bot, where "sales by rep," net of returns,
         credits, and discounts, is a definition no tool provides on its own.
       </p>
     </div>
