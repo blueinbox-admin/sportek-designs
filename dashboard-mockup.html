@@ -91,11 +91,18 @@
 
     .chat {
       flex: 1;
-      padding: 24px 24px 44px;
+      padding: 24px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 16px;
+    }
+    /* Real spacer element so the breathing room renders in every browser,
+       even where bottom padding on a scroll container is ignored. */
+    .chat::after {
+      content: "";
+      flex: 0 0 auto;
+      height: 44px;
     }
 
     .intro {
