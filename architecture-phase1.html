@@ -55,7 +55,7 @@
       .brand-logo { width: 70px; top: 18px; right: 16px; }
     }
 
-    .header { margin-bottom: 24px; text-align: center; }
+    .header { margin-bottom: 40px; text-align: center; }
 
     .eyebrow {
       font-size: 12px;
@@ -138,7 +138,7 @@
     /* ---- Will / Won't, side by side ---- */
     .scope-cols {
       max-width: 1000px;
-      margin: 18px auto 0;
+      margin: 40px auto 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
@@ -267,6 +267,24 @@
       width: 148px;
       height: auto;
       flex: 0 0 auto;
+      display: block;
+    }
+    /* Brand-logo badge that replaces the generic cylinder icon */
+    .source-row .brand-badge {
+      width: 112px;
+      height: 112px;
+      flex: 0 0 auto;
+      border-radius: 24px;
+      background: var(--badge-bg, #f3f1ea);
+      border: 1px solid var(--badge-bd, var(--line));
+      box-shadow: 0 1px 2px rgba(25, 35, 31, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .source-row .brand-badge img {
+      width: 50%;
+      height: auto;
       display: block;
     }
 
@@ -462,14 +480,15 @@
       <h1>Sportek AI Internal Dashboard: Architecture</h1>
       <p class="subtitle">
         <a href="dashboard-mockup.html" target="_blank" rel="noopener">One branded website</a> behind a staff login, with three AI assistants side by side: Shopify, QuickBooks, and
-        HubSpot. Each connects to a single source and only answers about that source. They never combine data, which
-        keeps it simple and safe while still delivering the must-have: sales by salesperson, style, and invoice.
+        HubSpot. Each is wired to one source and only answers about that source. Keeping them separate, never mixing
+        data, is what makes it simple and safe, and it still delivers the must-have: sales by salesperson, style, and
+        invoice.
       </p>
       <p class="subtitle">
-        Connecting the sources is mostly off the shelf. In Phase 1 each bot answers from its own source, and David
-        starts capturing Sportek's rules and terms into a knowledge base as the team uses it. Feeding that knowledge
-        back so every answer comes out in Sportek's terms, like "sales by rep" net of returns, credits, and discounts,
-        and testing until the numbers are trustworthy, is Phase 2.
+        Connecting the sources is mostly off the shelf; the real work comes after. In Phase 1, each bot answers from
+        its own source while David starts writing Sportek's rules and terms into a knowledge base as the team uses it.
+        The next phase feeds that knowledge back, so every answer comes out in Sportek's terms, like "sales by rep" net
+        of returns, credits, and discounts, and tests the numbers until the team trusts them.
       </p>
       <div class="scope-cols">
       <div class="will">
@@ -533,21 +552,21 @@
                 <div class="title">Shopify</div>
                 <div class="meta">products, variants, and stock,<br/>orders and fulfillment, customers,<br/>refunds and discounts</div>
               </div>
-              <img class="cyl" id="src0" src="images/database4.png" alt="" />
+              <span class="brand-badge" id="src0" style="--badge-bg:#ecf5f3; --badge-bd:#cfe6e1;"><img src="images/brand-shopify.svg" alt="Shopify" /></span>
             </div>
             <div class="source-row">
               <div class="text">
                 <div class="title">QuickBooks</div>
                 <div class="meta">invoices and sales receipts, line items,<br/>customers and payments,<br/>returns, credit memos, salesperson</div>
               </div>
-              <img class="cyl" id="src1" src="images/database2.png" alt="" />
+              <span class="brand-badge" id="src1" style="--badge-bg:#eceef7; --badge-bd:#cdd4ee;"><img src="images/brand-quickbooks.svg" alt="QuickBooks" /></span>
             </div>
             <div class="source-row">
               <div class="text">
                 <div class="title">HubSpot</div>
                 <div class="meta">contacts and companies, deals,<br/>pipeline, tasks, notes, tickets</div>
               </div>
-              <img class="cyl" id="src2" src="images/database5.png" alt="" />
+              <span class="brand-badge" id="src2" style="--badge-bg:#f4f4e3; --badge-bd:#e2e2bd;"><img src="images/brand-hubspot.svg" alt="HubSpot" /></span>
             </div>
           </div>
 
