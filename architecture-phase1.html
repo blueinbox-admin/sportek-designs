@@ -72,6 +72,28 @@
     }
     .subtitle + .subtitle { margin-top: 12px; }
 
+    .wont {
+      max-width: 760px;
+      margin: 18px auto 0;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--sage-soft);
+      font-size: 13.5px;
+      color: var(--ink);
+      line-height: 1.5;
+      text-align: center;
+    }
+    .wont .wont-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--bronze);
+      margin-bottom: 4px;
+    }
+
     .card-wrap {
       background: #ffffff;
       border-radius: 16px;
@@ -336,6 +358,11 @@
         answers are trustworthy. Most of that goes into the QuickBooks bot, where "sales by rep," net of returns,
         credits, and discounts, is a definition no tool provides on its own.
       </p>
+      <div class="wont">
+        <span class="wont-label">What it won't do</span>
+        Combine or map data across the three sources. Each bot only sees its own system, so it can't, for example, tie a
+        Shopify order to the rep who's credited for it in QuickBooks. Cross-source questions like that are Phase 2.
+      </div>
     </div>
 
     <div class="card-wrap">
