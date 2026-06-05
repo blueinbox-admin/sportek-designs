@@ -164,6 +164,74 @@
       cursor: pointer;
     }
     .composer button:hover { background: #08402f; }
+
+    /* ---- AI-suggested fact card (teach the bot) ---- */
+    .fact-card {
+      margin: 0 24px 14px;
+      border: 1px solid var(--forest);
+      border-radius: 12px;
+      background: #f1f7f2;
+      padding: 12px 14px;
+      box-shadow: 0 2px 10px rgba(10, 76, 58, 0.1);
+    }
+    .fact-card .fc-head {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--forest);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+    .fact-card .fc-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--forest);
+      flex: 0 0 auto;
+    }
+    .fact-card textarea {
+      width: 100%;
+      resize: vertical;
+      min-height: 42px;
+      font: inherit;
+      font-size: 14px;
+      line-height: 1.4;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      outline: none;
+    }
+    .fact-card textarea:focus { border-color: var(--forest); }
+    .fact-card .fc-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .fact-card .fc-actions button {
+      font: inherit;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 8px;
+      padding: 7px 15px;
+      cursor: pointer;
+      border: 1px solid var(--line);
+    }
+    .fact-card .fc-cancel { background: #fff; color: var(--muted); }
+    .fact-card .fc-cancel:hover { color: var(--ink); }
+    .fact-card .fc-save { background: var(--forest); color: #fff; border-color: var(--forest); }
+    .fact-card .fc-save:hover { background: #08402f; }
+    .fact-card .fc-saved {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--forest);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
   </style>
 </head>
 <body>
@@ -198,6 +266,14 @@
         <div class="msg user">Any orders still unfulfilled from last week?</div>
         <div class="msg bot">7 orders from last week are still unfulfilled: 4 are awaiting stock on the Court Short (L), and 3 are flagged for address issues.</div>
       </div>
+      <div class="fact-card">
+        <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+        <textarea rows="1">Low stock means fewer than 10 units in inventory.</textarea>
+        <div class="fc-actions">
+          <button class="fc-cancel" type="button">Cancel</button>
+          <button class="fc-save" type="button">Save fact</button>
+        </div>
+      </div>
       <form class="composer" data-form="shopify">
         <input type="text" placeholder="Ask the Shopify bot…" />
         <button type="submit">Send</button>
@@ -226,6 +302,14 @@ Top style: Pro Trail Jacket, $9,180.</div>
 • 12× Flex Tee (XL): $480
 Total $1,560, paid in full.</div>
       </div>
+      <div class="fact-card">
+        <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+        <textarea rows="1">When we say sales, we mean net sales, after returns and credit memos.</textarea>
+        <div class="fc-actions">
+          <button class="fc-cancel" type="button">Cancel</button>
+          <button class="fc-save" type="button">Save fact</button>
+        </div>
+      </div>
       <form class="composer" data-form="quickbooks">
         <input type="text" placeholder="Ask the QuickBooks bot…" />
         <button type="submit">Send</button>
@@ -251,6 +335,14 @@ Total $1,560, paid in full.</div>
 • Trailhead Outfitters: $18,000 (last touch 41 days ago)
 • Cedar Sports: $9,500 (38 days)
 • North Ridge Co-op: $12,000 (33 days)</div>
+      </div>
+      <div class="fact-card">
+        <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+        <textarea rows="1">A deal has gone quiet after 30 or more days with no activity.</textarea>
+        <div class="fc-actions">
+          <button class="fc-cancel" type="button">Cancel</button>
+          <button class="fc-save" type="button">Save fact</button>
+        </div>
       </div>
       <form class="composer" data-form="hubspot">
         <input type="text" placeholder="Ask the HubSpot bot…" />
@@ -304,6 +396,16 @@ Total $1,560, paid in full.</div>
 
         input.value = "";
         chat.scrollTop = chat.scrollHeight;
+      });
+    });
+
+    // Fact card (teach the bot): Save shows a confirmation, Cancel dismisses it
+    document.querySelectorAll(".fact-card").forEach(card => {
+      card.querySelector(".fc-cancel").addEventListener("click", () => {
+        card.style.display = "none";
+      });
+      card.querySelector(".fc-save").addEventListener("click", () => {
+        card.innerHTML = '<div class="fc-saved"><span class="fc-dot"></span> Saved. The bot will use this from now on.</div>';
       });
     });
   </script>
