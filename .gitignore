@@ -1,3 +1,4 @@
 dzernik-proposal.docx
 *.docx
 .gstack/
+.DS_Store
