@@ -228,6 +228,40 @@
     }
     .tab .star { color: #c79a2b; }
 
+    /* ---- Sample questions the bot fields ---- */
+    .t-asks {
+      margin-top: 11px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+    }
+    .t-asks .asks-label {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--bronze);
+      margin-bottom: 6px;
+    }
+    .t-asks .q {
+      font-size: 12.5px;
+      color: var(--ink);
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 5px;
+      padding-left: 15px;
+      position: relative;
+    }
+    .t-asks .q:last-child { margin-bottom: 0; }
+    .t-asks .q::before {
+      content: "\201C";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      color: var(--src, var(--forest));
+      font-weight: 700;
+      font-style: normal;
+    }
+
     /* ---- Scope / definition callout ---- */
     .scope-note {
       margin-top: 14px;
@@ -277,10 +311,17 @@
       <div class="eyebrow">Phase 1 · Internal Team Tool</div>
       <h1>Sportek AI Internal Dashboard: Architecture</h1>
       <p class="subtitle">
-        Three data sources, each feeding one chatbot inside a single branded internal website behind a staff login.
-        Every bot is an AI assistant connected to <strong>one source only</strong>.
-        The bots never share or combine data, which removes the riskiest part of these builds while still delivering
-        the must-have: sales by rep, style, and invoice.
+        Sportek's internal tool is one branded website, behind a staff login, with three AI assistants side by side:
+        one for Shopify, one for QuickBooks, and one for HubSpot. Each one connects to a single source and only answers
+        questions about that source. They never combine data, which keeps the tool simple and safe while still
+        delivering the must-have: sales broken down by salesperson, style, and invoice.
+      </p>
+      <p class="subtitle">
+        Connecting the sources is the easy part, and mostly off the shelf. The real work, and what David owns, is
+        everything after: learning how Sportek's data is actually organized, teaching each bot the company's own terms
+        and how they count things, and testing it against the real questions the team asks until the answers are
+        trustworthy. Most of that effort goes into the QuickBooks bot, because "sales by rep," counted after returns,
+        credits, and discounts, is a definition no tool provides on its own.
       </p>
     </div>
 
@@ -301,21 +342,21 @@
             <div class="source-row">
               <div class="text">
                 <div class="title">Shopify</div>
-                <div class="meta">products, inventory,<br/>orders, customers</div>
+                <div class="meta">products, variants, inventory,<br/>orders, customers, fulfillments,<br/>refunds, discounts</div>
               </div>
               <img class="cyl" id="src0" src="images/database4.png" alt="" />
             </div>
             <div class="source-row">
               <div class="text">
                 <div class="title">QuickBooks</div>
-                <div class="meta">invoices, sales,<br/>salesperson, returns</div>
+                <div class="meta">invoices, sales receipts, items,<br/>customers, payments, returns,<br/>credit memos, salesperson</div>
               </div>
               <img class="cyl" id="src1" src="images/database2.png" alt="" />
             </div>
             <div class="source-row">
               <div class="text">
                 <div class="title">HubSpot</div>
-                <div class="meta">contacts, deals,<br/>pipeline (CRM)</div>
+                <div class="meta">contacts, companies, deals,<br/>pipeline, tasks, notes, tickets</div>
               </div>
               <img class="cyl" id="src2" src="images/database5.png" alt="" />
             </div>
@@ -334,58 +375,78 @@
               <div class="t-title"><span class="chip">Tab 1</span> Shopify bot</div>
               <ul class="t-list">
                 <li>Answers the team's everyday questions about the online store: products, inventory, orders, and customers.</li>
+                <li>Answers can be sliced by date range or product, so the team can compare periods or drill into one item.</li>
+                <li>Shows its work: it can point to the orders or products behind an answer, so the team can check it.</li>
                 <li>Connect it securely, behind a staff login, with control over what each person can see.</li>
-                <li>Confirm which storefront or storefronts it should cover.</li>
-                <li>Talk to the team to learn how their store is set up and the questions they ask most.</li>
-                <li>Make sure the bot understands how their data is structured, plus Sportek's own product names, terms, and workflows, so it reads everything the way the team does.</li>
-                <li>Agree on what a good answer looks like (for example, what counts as low stock or a fulfilled order).</li>
+                <li>David will confirm which storefront or storefronts it should cover.</li>
+                <li>David will talk to the team to learn how their store is set up and the questions they ask most.</li>
+                <li>David will make sure the bot understands how their data is structured, plus Sportek's own product names, terms, and workflows, so it reads everything the way the team does.</li>
+                <li>David will agree with the team on what a good answer looks like (for example, what counts as low stock or a fulfilled order).</li>
                 <li>Keep it read-only and in its lane: it only reads and answers, never changes data, and says when it doesn't know instead of guessing.</li>
                 <li>Train the bot on those questions, then test against real ones and refine until every answer is accurate and never made up.</li>
+                <li>If an answer looks off, staff can flag it for David to review and fix, so the bot keeps improving.</li>
                 <li>The team signs off before go-live, and the bot is kept current as products and the store change.</li>
               </ul>
+              <div class="t-asks">
+                <div class="asks-label">Asks like</div>
+                <div class="q">How many units of the Coastal Hoodie are in stock right now?</div>
+                <div class="q">What sold the most online last month?</div>
+                <div class="q">What's the status of order #10482?</div>
+                <div class="q">Who are our top online customers this quarter?</div>
+              </div>
             </div>
             <div class="tab must" id="tab1" style="--src: var(--quickbooks);">
               <div class="t-title"><span class="chip">Tab 2</span> QuickBooks bot</div>
               <ul class="t-list">
                 <li>Answers the sales team's questions about sales, broken down by salesperson, style, and invoice.</li>
+                <li>Answers can be sliced by date range, rep, style, or customer (for example, sales by rep this quarter versus last).</li>
+                <li>Shows its work: it can point to the invoices and credit memos behind a number, so the team can verify it.</li>
                 <li>Connect it securely to the accounting data, behind the same staff login.</li>
+                <li>Sportek's financial data stays private and is never used to train outside models.</li>
                 <li>Works with QuickBooks Online; if Sportek is on the Desktop version, that changes the approach, so it's worth confirming first.</li>
-                <li>A one-time conversation with the reps and accounting to learn how sales are recorded today.</li>
-                <li>Make sure the bot understands how their books are structured, plus Sportek's style codes, internal shorthand, and the way the team talks about sales.</li>
-                <li>Confirm the salesperson is actually captured on each sale, since the whole thing depends on it.</li>
-                <li>Pin down exactly how Sportek counts a sale, after returns, credits, and discounts, and check the totals against their existing reports.</li>
+                <li>David will have a one-time conversation with the reps and accounting to learn how sales are recorded today.</li>
+                <li>David will make sure the bot understands how their books are structured, plus Sportek's style codes, internal shorthand, and the way the team talks about sales.</li>
+                <li>David will confirm the salesperson is actually captured on each sale, since the whole thing depends on it.</li>
+                <li>David will pin down exactly how Sportek counts a sale, after returns, credits, and discounts, and check the totals against their existing reports.</li>
                 <li>Keep it read-only and in its lane: it only reads and answers, never changes the books, and says when it doesn't know instead of guessing.</li>
                 <li>Train and test this one the hardest, since these are the numbers the team will rely on day to day.</li>
+                <li>If an answer looks off, staff can flag it for David to review and fix, so the bot keeps improving.</li>
                 <li>The team signs off on the numbers before go-live, and the bot is kept current as reps and records change.</li>
               </ul>
+              <div class="t-asks">
+                <div class="asks-label">Asks like</div>
+                <div class="q">What were Maria's net sales last month, after returns and credit memos?</div>
+                <div class="q">How much did style 4471 sell across all reps this quarter?</div>
+                <div class="q">Pull up invoice #5530 — what's on it and was anything credited back?</div>
+                <div class="q">Which rep had the highest net sales this season?</div>
+              </div>
             </div>
             <div class="tab" id="tab2" style="--src: var(--hubspot);">
               <div class="t-title"><span class="chip">Tab 3</span> HubSpot bot</div>
               <ul class="t-list">
                 <li>Answers the team's questions about the CRM: contacts, deals, and pipeline.</li>
+                <li>Answers can be sliced by date range, deal owner, or stage.</li>
+                <li>Shows its work: it can point to the contacts or deals behind an answer, so the team can check it.</li>
                 <li>Connect it securely to the CRM, behind the same staff login.</li>
-                <li>If HubSpot isn't populated or used much yet, this bot can move to a later phase.</li>
-                <li>Confirm what data is actually in there and being kept up to date.</li>
-                <li>Map how their records are organized with whoever owns HubSpot, and the questions that matter.</li>
-                <li>Make sure the bot understands their data structure plus the team's own labels and workflow terms, so it reads the CRM the way they do.</li>
+                <li>David will confirm what data is actually in there and being kept up to date.</li>
+                <li>David will map how their records are organized with whoever owns HubSpot, and the questions that matter.</li>
+                <li>David will make sure the bot understands their data structure plus the team's own labels and workflow terms, so it reads the CRM the way they do.</li>
                 <li>Keep it read-only and in its lane: it only reads and answers, never changes records, and says when it doesn't know instead of guessing.</li>
                 <li>Train the bot on those questions, then test and refine until the answers hold up.</li>
+                <li>If an answer looks off, staff can flag it for David to review and fix, so the bot keeps improving.</li>
                 <li>The team signs off before go-live, and the bot is kept current as the CRM changes.</li>
               </ul>
+              <div class="t-asks">
+                <div class="asks-label">Asks like</div>
+                <div class="q">What deals are open for the Dick's account?</div>
+                <div class="q">Which deals are set to close this month?</div>
+                <div class="q">Who's our contact at Scheels?</div>
+                <div class="q">What's the total value of the open pipeline right now?</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="scope-note">
-        <span class="scope-label">Where the real work is</span>
-        Connecting the data is largely off-the-shelf now: each source plugs in with little custom work. The real work
-        is everything after the connection: learning how each team's data is organized and how they ask questions,
-        encoding that, and testing against real questions until the answers are trustworthy. The <strong>QuickBooks
-        bot</strong> carries the most of it, since the must-have (sales by rep, after returns, credits, and discounts)
-        is a definition no tool makes for you.
-      </div>
-
      </div>
     </div>
   </div>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sportek AI Dashboard (Mockup)</title>
+
+  <style>
+    :root {
+      --forest: #0a4c3a;
+      --ink: #1a201d;
+      --muted: #6b716c;
+      --line: #e3e0d8;
+      --bg: #f6f5f1;
+      --bot-bubble: #eef2ee;
+      --user-bubble: #0a4c3a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      max-width: 860px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    /* ---- Header ---- */
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header .brand {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--forest);
+    }
+    header .user {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ---- Tabs ---- */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--line);
+      padding: 0 12px;
+    }
+    .tab-btn {
+      appearance: none;
+      background: none;
+      border: none;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 14px 16px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active {
+      color: var(--forest);
+      border-bottom-color: var(--forest);
+    }
+
+    /* ---- Chat panel ---- */
+    .panel {
+      flex: 1;
+      display: none;
+      flex-direction: column;
+    }
+    .panel.active { display: flex; }
+
+    .chat {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .intro {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      padding: 8px 0 4px;
+    }
+
+    .msg {
+      max-width: 78%;
+      padding: 11px 15px;
+      border-radius: 14px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .msg.bot {
+      align-self: flex-start;
+      background: var(--bot-bubble);
+      color: var(--ink);
+      border-bottom-left-radius: 4px;
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--user-bubble);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    /* ---- Input bar ---- */
+    .composer {
+      display: flex;
+      gap: 10px;
+      padding: 14px 24px 20px;
+      border-top: 1px solid var(--line);
+    }
+    .composer input {
+      flex: 1;
+      font: inherit;
+      font-size: 14.5px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      outline: none;
+    }
+    .composer input:focus { border-color: var(--forest); }
+    .composer button {
+      font: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      color: #fff;
+      background: var(--forest);
+      border: none;
+      border-radius: 10px;
+      padding: 0 20px;
+      cursor: pointer;
+    }
+    .composer button:hover { background: #08402f; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <span class="brand">Sportek AI Dashboard</span>
+      <span class="user">Staff · signed in</span>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="shopify">Shopify</button>
+      <button class="tab-btn" data-tab="quickbooks">QuickBooks</button>
+      <button class="tab-btn" data-tab="hubspot">HubSpot</button>
+    </nav>
+
+    <!-- Shopify -->
+    <section class="panel active" data-panel="shopify">
+      <div class="chat">
+        <div class="intro">Ask about products, inventory, orders, and customers.</div>
+        <div class="msg bot">Hi — I'm connected to your Shopify store. Ask me anything about products, stock, orders, or customers.</div>
+        <div class="msg user">Which products are low on stock right now?</div>
+        <div class="msg bot">5 products are below 10 units:
+• Pro Trail Jacket (M) — 4 left
+• Court Short (L) — 6 left
+• Summit Hoodie (S) — 7 left
+• Flex Tee (XL) — 8 left
+• Trail Cap (One Size) — 9 left</div>
+      </div>
+      <form class="composer" data-form="shopify">
+        <input type="text" placeholder="Ask the Shopify bot…" />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <!-- QuickBooks -->
+    <section class="panel" data-panel="quickbooks">
+      <div class="chat">
+        <div class="intro">Ask about sales by salesperson, style, and invoice.</div>
+        <div class="msg bot">Hi — I'm connected to your QuickBooks data. Ask me about sales by rep, by style, or by invoice.</div>
+        <div class="msg user">How much did Maria sell last month, after returns?</div>
+        <div class="msg bot">Maria's net sales for May 2026: $48,210
+(gross $52,640 − $4,430 returns & credits) across 37 invoices.
+Top style: Pro Trail Jacket — $9,180.</div>
+      </div>
+      <form class="composer" data-form="quickbooks">
+        <input type="text" placeholder="Ask the QuickBooks bot…" />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <!-- HubSpot -->
+    <section class="panel" data-panel="hubspot">
+      <div class="chat">
+        <div class="intro">Ask about contacts, deals, and pipeline.</div>
+        <div class="msg bot">Hi — I'm connected to your HubSpot CRM. Ask me about contacts, deals, or the pipeline.</div>
+        <div class="msg user">What deals are closing this month?</div>
+        <div class="msg bot">8 deals are set to close in June 2026, worth $112,400 total:
+• Westside Sports — $34,000 (Proposal sent)
+• Summit Outfitters — $21,500 (Negotiation)
+• 6 more under $15k each.</div>
+      </div>
+      <form class="composer" data-form="hubspot">
+        <input type="text" placeholder="Ask the HubSpot bot…" />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    // Tab switching
+    const tabBtns = document.querySelectorAll(".tab-btn");
+    const panels = document.querySelectorAll(".panel");
+    tabBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tab = btn.dataset.tab;
+        tabBtns.forEach(b => b.classList.toggle("active", b === btn));
+        panels.forEach(p => p.classList.toggle("active", p.dataset.panel === tab));
+      });
+    });
+
+    // Echo a placeholder reply so the input feels real in the mockup
+    document.querySelectorAll(".composer").forEach(form => {
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        const input = form.querySelector("input");
+        const text = input.value.trim();
+        if (!text) return;
+        const chat = form.parentElement.querySelector(".chat");
+
+        const user = document.createElement("div");
+        user.className = "msg user";
+        user.textContent = text;
+        chat.appendChild(user);
+
+        const bot = document.createElement("div");
+        bot.className = "msg bot";
+        bot.textContent = "(This is a mockup — in the real dashboard the bot would answer from your live data.)";
+        chat.appendChild(bot);
+
+        input.value = "";
+        chat.scrollTop = chat.scrollHeight;
+      });
+    });
+  </script>
+</body>
+</html>
