@@ -82,6 +82,13 @@
       margin: 0 auto;
     }
     .subtitle + .subtitle { margin-top: 12px; }
+    .subtitle a {
+      color: var(--forest);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 2px;
+    }
 
     .wont {
       max-width: 760px;
@@ -188,6 +195,16 @@
       color: var(--forest);
     }
     .will .will-lead { font-weight: 700; }
+
+    .will .will-lead a,
+    .wont .wont-lead a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 2px;
+    }
+    .will .will-lead a:hover { text-decoration-color: var(--forest); }
+    .wont .wont-lead a:hover { text-decoration-color: #b1384e; }
 
     .card-wrap {
       background: #ffffff;
@@ -444,7 +461,7 @@
       <div class="eyebrow">Phase 1 · Internal Team Tool</div>
       <h1>Sportek AI Internal Dashboard: Architecture</h1>
       <p class="subtitle">
-        One branded website behind a staff login, with three AI assistants side by side: Shopify, QuickBooks, and
+        <a href="dashboard-mockup.html" target="_blank" rel="noopener">One branded website</a> behind a staff login, with three AI assistants side by side: Shopify, QuickBooks, and
         HubSpot. Each connects to a single source and only answers about that source. They never combine data, which
         keeps it simple and safe while still delivering the must-have: sales by salesperson, style, and invoice.
       </p>
@@ -458,14 +475,13 @@
       <div class="will">
         <span class="will-label">What it will do</span>
         <ul class="will-list">
-          <li><span class="will-lead">Answer everyday questions in plain English.</span> Ask the way you'd ask a
+          <li><span class="will-lead"><a href="dashboard-mockup.html" target="_blank" rel="noopener">Answer everyday questions in plain English.</a></span> Ask the way you'd ask a
             coworker, with no reports or filters to build. For example,
             <span class="will-eg">"Which products are low on stock?"</span> or
             <span class="will-eg">"How much did Maria sell last month?"</span></li>
-          <li><span class="will-lead">Break sales down by salesperson, style, and invoice.</span> The must-have,
-            straight from QuickBooks.</li>
           <li><span class="will-lead">Cover each system's day-to-day.</span> Shopify stock, orders, and customers;
-            QuickBooks sales, invoices, and returns; HubSpot contacts, deals, and pipeline.</li>
+            QuickBooks sales broken down by salesperson, style, and invoice (the must-have); HubSpot contacts, deals,
+            and pipeline.</li>
           <li><span class="will-lead">Speak Sportek's language, at a basic level.</span> At the start David programs in
             the key terms and definitions (style codes, what a sale means) so it reads the data the team's way. It
             doesn't learn new ones on its own as it goes; those notes are just stored for later.</li>
@@ -478,7 +494,7 @@
       <div class="wont">
         <span class="wont-label">What it won't do</span>
         <ul class="wont-list">
-          <li><span class="wont-lead">Combine or map data across the three sources.</span> Each bot only sees its own
+          <li><span class="wont-lead"><a href="dashboard-mockup.html" target="_blank" rel="noopener">Combine or map data across the three sources.</a></span> Each bot only sees its own
             system, so a question that needs two of them can't be answered. For example,
             <span class="wont-eg">"How many of yesterday's online orders were Maria's?"</span> needs Shopify orders
             linked to QuickBooks salespeople, which takes real data modeling across systems and gets complex fast, so
