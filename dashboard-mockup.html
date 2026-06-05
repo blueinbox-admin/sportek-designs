@@ -174,14 +174,20 @@
     <section class="panel active" data-panel="shopify">
       <div class="chat">
         <div class="intro">Ask about products, inventory, orders, and customers.</div>
-        <div class="msg bot">Hi — I'm connected to your Shopify store. Ask me anything about products, stock, orders, or customers.</div>
+        <div class="msg bot">Hi, I'm connected to your Shopify store. Ask me anything about products, stock, orders, or customers.</div>
         <div class="msg user">Which products are low on stock right now?</div>
         <div class="msg bot">5 products are below 10 units:
-• Pro Trail Jacket (M) — 4 left
-• Court Short (L) — 6 left
-• Summit Hoodie (S) — 7 left
-• Flex Tee (XL) — 8 left
-• Trail Cap (One Size) — 9 left</div>
+• Pro Trail Jacket (M): 4 left
+• Court Short (L): 6 left
+• Summit Hoodie (S): 7 left
+• Flex Tee (XL): 8 left
+• Trail Cap (One Size): 9 left</div>
+        <div class="msg user">How many orders came in yesterday?</div>
+        <div class="msg bot">142 orders yesterday, totaling $18,640, up 11% from the day before. Average order value was $131.</div>
+        <div class="msg user">What's our best-selling product this month?</div>
+        <div class="msg bot">The Pro Trail Jacket is #1 this month: 318 units sold across all sizes, $41,300 in revenue. The Summit Hoodie is second at 274 units.</div>
+        <div class="msg user">Any orders still unfulfilled from last week?</div>
+        <div class="msg bot">7 orders from last week are still unfulfilled: 4 are awaiting stock on the Court Short (L), and 3 are flagged for address issues.</div>
       </div>
       <form class="composer" data-form="shopify">
         <input type="text" placeholder="Ask the Shopify bot…" />
@@ -193,11 +199,23 @@
     <section class="panel" data-panel="quickbooks">
       <div class="chat">
         <div class="intro">Ask about sales by salesperson, style, and invoice.</div>
-        <div class="msg bot">Hi — I'm connected to your QuickBooks data. Ask me about sales by rep, by style, or by invoice.</div>
+        <div class="msg bot">Hi, I'm connected to your QuickBooks data. Ask me about sales by rep, by style, or by invoice.</div>
         <div class="msg user">How much did Maria sell last month, after returns?</div>
         <div class="msg bot">Maria's net sales for May 2026: $48,210
-(gross $52,640 − $4,430 returns & credits) across 37 invoices.
-Top style: Pro Trail Jacket — $9,180.</div>
+(gross $52,640 less $4,430 returns & credits) across 37 invoices.
+Top style: Pro Trail Jacket, $9,180.</div>
+        <div class="msg user">Who were the top 3 reps last month?</div>
+        <div class="msg bot">Top reps by net sales, May 2026:
+1. James T.: $61,440
+2. Maria G.: $48,210
+3. Devin R.: $39,870</div>
+        <div class="msg user">How much did style ELT-200 sell?</div>
+        <div class="msg bot">ELT-200 (Elite Trail Jacket) sold $27,540 net last month: 209 units across 18 invoices, after 11 returns.</div>
+        <div class="msg user">What's on invoice #10472?</div>
+        <div class="msg bot">Invoice #10472, Westside Sports, dated May 19, rep Devin R.:
+• 24× Court Short (L): $1,080
+• 12× Flex Tee (XL): $480
+Total $1,560, paid in full.</div>
       </div>
       <form class="composer" data-form="quickbooks">
         <input type="text" placeholder="Ask the QuickBooks bot…" />
@@ -215,6 +233,15 @@ Top style: Pro Trail Jacket — $9,180.</div>
 • Westside Sports — $34,000 (Proposal sent)
 • Summit Outfitters — $21,500 (Negotiation)
 • 6 more under $15k each.</div>
+        <div class="msg user">Who's our contact at Scheels?</div>
+        <div class="msg bot">Your primary contact at Scheels is Andrea Polk (Buyer, andrea.polk@scheels.com). Last activity: a call logged 4 days ago by James T.</div>
+        <div class="msg user">What's the total value of the open pipeline?</div>
+        <div class="msg bot">The open pipeline is $486,000 across 31 deals. Weighted by stage, the forecast is about $214,000.</div>
+        <div class="msg user">Any deals that have gone quiet?</div>
+        <div class="msg bot">3 deals have had no activity in 30+ days:
+• Trailhead Outfitters — $18,000 (last touch 41 days ago)
+• Cedar Sports — $9,500 (38 days)
+• North Ridge Co-op — $12,000 (33 days)</div>
       </div>
       <form class="composer" data-form="hubspot">
         <input type="text" placeholder="Ask the HubSpot bot…" />

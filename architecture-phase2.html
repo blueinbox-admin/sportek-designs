@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sportek AI Architecture (Phase 2)</title>
+
+  <style>
+    :root {
+      --forest: #0a4c3a;
+      --forest-dark: #06382a;
+      --bronze: #70561d;
+      --bronze-dark: #4d3b14;
+      --bronze-soft: #efe2c3;
+      --sage-soft: #f2f7ef;
+      --sage: #dce8d8;
+      --paper: #fffaf1;
+      --ink: #19231f;
+      --muted: #6b716c;
+      --line: #ded5c5;
+      --card: #fffdf8;
+      --cream: #fff8ec;
+
+      --shopify: #3e8e82;
+      --quickbooks: #4254a3;
+      --hubspot: #8a8a1e;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      margin: 0 auto;
+      padding: 32px 24px 40px;
+      max-width: 1300px;
+    }
+
+    .header { margin-bottom: 24px; }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--forest);
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 820px;
+    }
+
+    .card-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 28px 32px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .card-canvas { min-width: 1000px; }
+
+    /* ---- Phase 2 main flow: sources -> context layer -> one assistant ---- */
+    .p2-flow {
+      display: grid;
+      grid-template-columns: 230px 52px 250px 52px minmax(0, 1fr);
+      align-items: center;
+    }
+
+    .p2-sources { display: flex; flex-direction: column; gap: 26px; }
+    .p2-source {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      text-align: right;
+    }
+    .p2-source .s-name { font-weight: 700; font-size: 16px; color: var(--ink); }
+    .p2-source .s-meta { font-size: 11.5px; color: var(--muted); line-height: 1.4; margin-top: 3px; }
+    .p2-source img { width: 56px; height: auto; display: block; flex: 0 0 auto; }
+
+    .p2-arrow {
+      text-align: center;
+      font-size: 26px;
+      line-height: 1;
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+    .p2-arrow .lbl {
+      display: block;
+      font-size: 9.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .p2-context {
+      border: 2px solid var(--quickbooks);
+      border-radius: 14px;
+      background: var(--sage-soft);
+      padding: 16px 16px 14px;
+    }
+    .p2-context .c-title { font-weight: 700; font-size: 15px; color: var(--forest); }
+    .p2-context .c-body { font-size: 12px; color: var(--ink); line-height: 1.5; margin-top: 6px; }
+
+    .p2-assistant {
+      border: 1.5px solid var(--forest);
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 18px 18px 16px;
+    }
+    .p2-assistant .a-title { font-weight: 700; font-size: 18px; color: var(--forest); }
+    .p2-assistant .a-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .p2-assistant .a-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    .p2-assistant .a-list li { margin-bottom: 4px; }
+
+    .p2-asks { margin-top: 13px; padding-top: 11px; border-top: 1px dashed var(--line); }
+    .p2-asks .asks-label {
+      font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+      font-weight: 700; color: var(--bronze); margin-bottom: 6px;
+    }
+    .p2-asks .q {
+      font-size: 12.5px; color: var(--ink); font-style: italic; line-height: 1.4;
+      margin-bottom: 5px; padding-left: 15px; position: relative;
+    }
+    .p2-asks .q:last-child { margin-bottom: 0; }
+    .p2-asks .q::before {
+      content: "\201C"; position: absolute; left: 0; top: 1px;
+      color: var(--forest); font-weight: 700; font-style: normal;
+    }
+
+    /* ---- Company context layer (the engine that makes combining trustworthy) ---- */
+    .context-layer {
+      margin-top: 22px;
+      background: var(--sage-soft);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 32px;
+    }
+    .cl-eyebrow {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--bronze); font-weight: 700; margin-bottom: 6px;
+    }
+    .cl-title { margin: 0 0 8px; font-size: 21px; font-weight: 700; color: var(--forest); }
+    .cl-sub { margin: 0 0 22px; font-size: 14px; color: var(--muted); line-height: 1.55; max-width: 820px; }
+    .cl-flow { display: flex; align-items: stretch; flex-wrap: wrap; gap: 10px; }
+    .cl-node {
+      flex: 1 1 0; min-width: 150px; background: #ffffff;
+      border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px;
+    }
+    .cl-node.store { border-color: var(--quickbooks); border-width: 1.5px; }
+    .cl-node .n-title { font-weight: 700; font-size: 14px; color: var(--ink); }
+    .cl-node .n-meta { font-size: 12px; color: var(--muted); line-height: 1.45; margin-top: 4px; }
+    .cl-arrow { display: flex; align-items: center; font-size: 12px; font-weight: 700; color: var(--bronze-dark); white-space: nowrap; }
+    .cl-into { margin-top: 18px; }
+    .cl-into-arrow { font-size: 12.5px; font-weight: 700; color: var(--bronze-dark); margin-bottom: 10px; }
+    .cl-into-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cl-into-card {
+      background: #ffffff; border: 1px solid var(--line); border-radius: 10px;
+      padding: 13px 15px; font-size: 12.5px; color: var(--ink); line-height: 1.5;
+    }
+    .cl-into-card .c-h { font-weight: 700; color: var(--forest); margin-bottom: 3px; font-size: 13px; }
+    .cl-foot { margin-top: 16px; font-size: 12.5px; color: var(--bronze-dark); line-height: 1.55; }
+
+    /* ---- Track B: customer-facing assistant ---- */
+    .cust-layer {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 32px;
+      background: #ffffff;
+    }
+    .cust-eyebrow {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--bronze); font-weight: 700; margin-bottom: 6px;
+    }
+    .cust-title { margin: 0 0 8px; font-size: 21px; font-weight: 700; color: var(--forest); }
+    .cust-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; align-items: start; }
+    .cust-list { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink); line-height: 1.5; }
+    .cust-list li { margin-bottom: 5px; }
+    .cust-asks .asks-label {
+      font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+      font-weight: 700; color: var(--bronze); margin-bottom: 6px;
+    }
+    .cust-asks .q {
+      font-size: 12.5px; color: var(--ink); font-style: italic; line-height: 1.4;
+      margin-bottom: 5px; padding-left: 15px; position: relative;
+    }
+    .cust-asks .q::before {
+      content: "\201C"; position: absolute; left: 0; top: 1px;
+      color: var(--shopify); font-weight: 700; font-style: normal;
+    }
+
+    /* ---- How the build runs ---- */
+    .run-note { margin-top: 22px; font-size: 13px; color: var(--ink); line-height: 1.6; max-width: 980px; }
+    .run-note .run-label {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--bronze); font-weight: 700; margin-bottom: 6px;
+    }
+
+    @media (max-width: 700px) {
+      .cl-into-cards { grid-template-columns: 1fr; }
+      .cust-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="eyebrow">Phase 2 · Combined Intelligence and Customer Assistant</div>
+      <h1>Sportek AI: Phase 2 Architecture</h1>
+      <p class="subtitle">
+        Phase 1 gave the team three reliable single-source bots, each answering about one system. Phase 2 builds on that
+        foundation to do the two things a single source can't: answer blended questions that cross Shopify, QuickBooks,
+        and HubSpot, and put a customer-facing assistant on the storefront.
+      </p>
+      <p class="subtitle" style="margin-top:14px;">
+        What makes combined answers trustworthy is the company context layer: a small store Sportek owns that holds its
+        language and rules, what a style code means, which rep nickname is whom, and how a sale is counted. With that in
+        place, one assistant can reason across all three sources in Sportek's own terms instead of guessing.
+      </p>
+    </div>
+
+    <!-- Phase 2 main flow -->
+    <div class="card-wrap">
+      <div class="card-canvas">
+        <div class="p2-flow">
+          <div class="p2-sources">
+            <div class="p2-source">
+              <div>
+                <div class="s-name">Shopify</div>
+                <div class="s-meta">orders, products, customers</div>
+              </div>
+              <img src="images/database4.png" alt="" />
+            </div>
+            <div class="p2-source">
+              <div>
+                <div class="s-name">QuickBooks</div>
+                <div class="s-meta">invoices, sales, salesperson</div>
+              </div>
+              <img src="images/database2.png" alt="" />
+            </div>
+            <div class="p2-source">
+              <div>
+                <div class="s-name">HubSpot</div>
+                <div class="s-meta">contacts, deals, pipeline</div>
+              </div>
+              <img src="images/database5.png" alt="" />
+            </div>
+          </div>
+
+          <div class="p2-arrow"><span class="lbl">through</span>&rarr;</div>
+
+          <div class="p2-context">
+            <div class="c-title">Company context layer</div>
+            <div class="c-body">
+              Sportek's language, rules, and the mapping that links the same customer and style across systems. This is
+              the piece that lets the three sources be read together safely.
+            </div>
+          </div>
+
+          <div class="p2-arrow"><span class="lbl">powers</span>&rarr;</div>
+
+          <div class="p2-assistant">
+            <div class="a-title">Sportek AI assistant</div>
+            <div class="a-sub">internal · staff login · one combined view</div>
+            <ul class="a-list">
+              <li>Answers blended questions that no single source can, by reasoning across Shopify, QuickBooks, and HubSpot at once.</li>
+              <li>Still read-only and still shows its work: it points to the records behind every answer.</li>
+              <li>Built on the Phase 1 bots, which keep working on their own for single-source questions.</li>
+            </ul>
+            <div class="p2-asks">
+              <div class="asks-label">Asks like</div>
+              <div class="q">Which HubSpot campaign drove the most QuickBooks sales of style 4471?</div>
+              <div class="q">What did our top online customers also buy wholesale this year?</div>
+              <div class="q">Which reps have open deals but falling net sales this quarter?</div>
+              <div class="q">How did the spring email push affect store revenue and invoices?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Company context layer detail -->
+    <div class="context-layer">
+      <div class="cl-eyebrow">The part Sportek builds and owns</div>
+      <h2 class="cl-title">Company context layer</h2>
+      <p class="cl-sub">
+        The connectors know the data. They don't know Sportek's language or rules: what a style code means, which rep
+        nickname is whom, or that a "sale" is counted after returns and credits. That knowledge is different at every
+        company, so no tool ships it for you. It lives here, in a small store Sportek owns and keeps current, and it is
+        what turns three separate sources into one trustworthy combined answer.
+      </p>
+
+      <div class="cl-flow">
+        <div class="cl-node">
+          <div class="n-title">Staff</div>
+          <div class="n-meta">reps, accounting, ops</div>
+        </div>
+        <div class="cl-arrow">edit&nbsp;&rarr;</div>
+        <div class="cl-node">
+          <div class="n-title">"Teach the bot" widget</div>
+          <div class="n-meta">add jargon, definitions, and rules, scoped to each bot, with a history of who changed what</div>
+        </div>
+        <div class="cl-arrow">saves&nbsp;to&nbsp;&rarr;</div>
+        <div class="cl-node store">
+          <div class="n-title">Context store</div>
+          <div class="n-meta">a Sportek-owned database:<br/>glossary · metric definitions · field mappings</div>
+        </div>
+      </div>
+
+      <div class="cl-into">
+        <div class="cl-into-arrow">The assistant reads from the store and uses it two ways, on every question&nbsp;&darr;</div>
+        <div class="cl-into-cards">
+          <div class="cl-into-card">
+            <div class="c-h">Into the prompt</div>
+            Short, always-true rules (for example, "a sale is the invoice after returns and credits") ride along on
+            every question, so the assistant answers in Sportek's terms by default.
+          </div>
+          <div class="cl-into-card">
+            <div class="c-h">As a lookup it can pull</div>
+            Big reference tables (style codes, rep aliases, customer matches) are fetched only when a question needs
+            them, instead of carrying the whole list every time.
+          </div>
+        </div>
+      </div>
+
+      <div class="cl-foot">
+        This store is separate from the source connectors: those carry the <strong>facts</strong>, this carries the
+        <strong>meaning</strong>, and the assistant brings them together on each question. It's the small piece Sportek
+        builds and owns, and the reason a combined answer can be trusted.
+      </div>
+    </div>
+
+    <!-- Track B: customer-facing assistant -->
+    <div class="cust-layer">
+      <div class="cust-eyebrow">Track B · Public</div>
+      <h2 class="cust-title">Customer-facing store assistant</h2>
+      <div class="cust-grid">
+        <div>
+          <ul class="cust-list">
+            <li>A separate assistant embedded in the Shopify storefront, for shoppers rather than staff.</li>
+            <li>Connected only to the shopper's own data, behind their store login, so each shopper sees just their orders.</li>
+            <li>Answers product questions, order status, and returns, and hands off to a human when it should.</li>
+            <li>Because it is public, it gets heavier guardrails and more testing than the internal bots: it stays on brand, stays in scope, and never makes up an answer.</li>
+            <li>Lighter on data than the internal tool (Shopify only), heavier on polish and quality assurance, which is why it sits in a later phase.</li>
+          </ul>
+        </div>
+        <div class="cust-asks">
+          <div class="asks-label">Asks like</div>
+          <div class="q">Where's my order?</div>
+          <div class="q">Does this jacket run small?</div>
+          <div class="q">How do I start a return?</div>
+          <div class="q">Is the Coastal Hoodie back in stock in navy?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="run-note">
+      <div class="run-label">How the build runs</div>
+      David starts by building a starter set of the team's most common questions, with answers the team approves, and
+      that set is what the assistant is trained on and judged against. It goes live once it answers that set reliably,
+      and an ongoing retainer keeps it accurate as the business changes, adds new questions, and updates how its data is
+      organized.
+    </div>
+  </div>
+</body>
+</html>
