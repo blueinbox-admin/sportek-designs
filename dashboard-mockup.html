@@ -29,7 +29,7 @@
     body { padding-bottom: 48px; }
 
     .app {
-      max-width: 860px;
+      max-width: 1160px;
       margin: 0 auto;
       min-height: calc(100vh - 48px);
       display: flex;
@@ -83,13 +83,37 @@
       border-bottom-color: var(--forest);
     }
 
-    /* ---- Chat panel ---- */
+    /* ---- Chat panel + capture side panel ---- */
     .panel {
       flex: 1;
       display: none;
-      flex-direction: column;
+      min-height: 0;
     }
     .panel.active { display: flex; }
+    .panel-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* ---- Capture side panel (teach the bot) ---- */
+    .knowledge {
+      flex: 0 0 300px;
+      border-left: 1px solid var(--line);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      padding: 20px 18px;
+    }
+    .knowledge .k-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.35;
+    }
 
     .chat {
       flex: 1;
@@ -167,7 +191,7 @@
 
     /* ---- AI-suggested fact card (teach the bot) ---- */
     .fact-card {
-      margin: 0 24px 14px;
+      margin: 0;
       border: 1px solid var(--forest);
       border-radius: 12px;
       background: #f1f7f2;
@@ -193,7 +217,7 @@
     .fact-card textarea {
       width: 100%;
       resize: vertical;
-      min-height: 42px;
+      min-height: 68px;
       font: inherit;
       font-size: 14px;
       line-height: 1.4;
@@ -232,6 +256,15 @@
       align-items: center;
       gap: 7px;
     }
+
+    @media (max-width: 860px) {
+      .panel.active { flex-direction: column; }
+      .knowledge {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
+    }
   </style>
 </head>
 <body>
@@ -249,6 +282,7 @@
 
     <!-- Shopify -->
     <section class="panel active" data-panel="shopify">
+      <div class="panel-main">
       <div class="chat">
         <div class="intro">Ask about products, inventory, orders, and customers.</div>
         <div class="msg bot">Hi, I'm connected to your Shopify store. Ask me anything about products, stock, orders, or customers.</div>
@@ -266,22 +300,43 @@
         <div class="msg user">Any orders still unfulfilled from last week?</div>
         <div class="msg bot">7 orders from last week are still unfulfilled: 4 are awaiting stock on the Court Short (L), and 3 are flagged for address issues.</div>
       </div>
-      <div class="fact-card">
-        <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
-        <textarea rows="1">Low stock means fewer than 10 units in inventory.</textarea>
-        <div class="fc-actions">
-          <button class="fc-cancel" type="button">Cancel</button>
-          <button class="fc-save" type="button">Save fact</button>
-        </div>
-      </div>
       <form class="composer" data-form="shopify">
         <input type="text" placeholder="Ask the Shopify bot…" />
         <button type="submit">Send</button>
       </form>
+      </div>
+      <aside class="knowledge">
+        <div class="k-title">Save company knowledge so the AI can learn</div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">"Low stock" means under 10 units, the reorder threshold the team watches.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">A customer with 5+ orders is a "VIP" and gets free shipping.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">Orders tagged "trade" are wholesale and stay out of retail sales totals.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+      </aside>
     </section>
 
     <!-- QuickBooks -->
     <section class="panel" data-panel="quickbooks">
+      <div class="panel-main">
       <div class="chat">
         <div class="intro">Ask about sales by salesperson, style, and invoice.</div>
         <div class="msg bot">Hi, I'm connected to your QuickBooks data. Ask me about sales by rep, by style, or by invoice.</div>
@@ -302,22 +357,43 @@ Top style: Pro Trail Jacket, $9,180.</div>
 • 12× Flex Tee (XL): $480
 Total $1,560, paid in full.</div>
       </div>
-      <div class="fact-card">
-        <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
-        <textarea rows="1">When we say sales, we mean net sales, after returns and credit memos.</textarea>
-        <div class="fc-actions">
-          <button class="fc-cancel" type="button">Cancel</button>
-          <button class="fc-save" type="button">Save fact</button>
-        </div>
-      </div>
       <form class="composer" data-form="quickbooks">
         <input type="text" placeholder="Ask the QuickBooks bot…" />
         <button type="submit">Send</button>
       </form>
+      </div>
+      <aside class="knowledge">
+        <div class="k-title">Save company knowledge so the AI can learn</div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">When the team says "this season," they mean roughly February through July.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">A rep is credited on the invoice date, even when the customer pays later.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">Style codes that start with ELT are the Elite Trail premium line.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+      </aside>
     </section>
 
     <!-- HubSpot -->
     <section class="panel" data-panel="hubspot">
+      <div class="panel-main">
       <div class="chat">
         <div class="intro">Ask about contacts, deals, and pipeline.</div>
         <div class="msg bot">Hi, I'm connected to your HubSpot CRM. Ask me about contacts, deals, or the pipeline.</div>
@@ -336,18 +412,38 @@ Total $1,560, paid in full.</div>
 • Cedar Sports: $9,500 (38 days)
 • North Ridge Co-op: $12,000 (33 days)</div>
       </div>
-      <div class="fact-card">
-        <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
-        <textarea rows="1">A deal has gone quiet after 30 or more days with no activity.</textarea>
-        <div class="fc-actions">
-          <button class="fc-cancel" type="button">Cancel</button>
-          <button class="fc-save" type="button">Save fact</button>
-        </div>
-      </div>
       <form class="composer" data-form="hubspot">
         <input type="text" placeholder="Ask the HubSpot bot…" />
         <button type="submit">Send</button>
       </form>
+      </div>
+      <aside class="knowledge">
+        <div class="k-title">Save company knowledge so the AI can learn</div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">When the team calls a deal "stalled," they mean 30+ days with no activity.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">Deals over $50k need VP sign-off before they're marked closed-won.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">"The big three" are Sportek's largest accounts: Dick's, Scheels, and Academy.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+      </aside>
     </section>
   </div>
 
@@ -396,16 +492,6 @@ Total $1,560, paid in full.</div>
 
         input.value = "";
         chat.scrollTop = chat.scrollHeight;
-      });
-    });
-
-    // Fact card (teach the bot): Save shows a confirmation, Cancel dismisses it
-    document.querySelectorAll(".fact-card").forEach(card => {
-      card.querySelector(".fc-cancel").addEventListener("click", () => {
-        card.style.display = "none";
-      });
-      card.querySelector(".fc-save").addEventListener("click", () => {
-        card.innerHTML = '<div class="fc-saved"><span class="fc-dot"></span> Saved. The bot will use this from now on.</div>';
       });
     });
   </script>
