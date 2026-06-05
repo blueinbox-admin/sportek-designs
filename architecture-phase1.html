@@ -265,7 +265,7 @@
       <h1>Sportek AI Dashboard — Architecture</h1>
       <p class="subtitle">
         Three data sources, each feeding one chatbot inside a single branded internal website behind a staff login.
-        Every bot is a Claude assistant wired to <strong>one source only</strong> through its own MCP connection.
+        Every bot is an AI assistant connected to <strong>one source only</strong>.
         The bots never share or combine data, which removes the riskiest part of these builds while still delivering
         the must-have: sales by rep, style, and invoice.
       </p>
@@ -318,17 +318,14 @@
             </div>
             <div class="tab" id="tab0" style="--src: var(--shopify);">
               <div class="t-title"><span class="chip">Tab 1</span> Shopify bot</div>
-              <div class="conn">Claude · Shopify Admin MCP</div>
               <div class="t-meta">Answers questions on products, inventory, orders, and customers — Shopify only.</div>
             </div>
             <div class="tab must" id="tab1" style="--src: var(--quickbooks);">
               <div class="t-title"><span class="chip">Tab 2</span> QuickBooks bot</div>
-              <div class="conn">Claude · QuickBooks Online MCP</div>
               <div class="must-line"><span class="star">★</span> Must-have: sales by rep · style · invoice</div>
             </div>
             <div class="tab" id="tab2" style="--src: var(--hubspot);">
               <div class="t-title"><span class="chip">Tab 3</span> HubSpot bot</div>
-              <div class="conn">Claude · HubSpot MCP</div>
               <div class="t-meta">CRM contacts, deals, pipeline — pending confirmation it holds real data.</div>
             </div>
           </div>
@@ -345,8 +342,8 @@
 
       <div class="legend">
         <div class="item"><span class="h">Single-source by design</span>Each bot answers only about its own system. We deliberately don't combine data across Shopify, QuickBooks, and HubSpot — the part that makes these projects fail.</div>
-        <div class="item"><span class="h">No data center</span>There's no shared warehouse or sync layer. Every bot connects live to its source through that source's MCP, then reasons over the result with Claude.</div>
-        <div class="item"><span class="h">Internal only this phase</span>Phase 1 is the staff dashboard. The customer-facing store assistant (Shopify Storefront + Customer accounts MCPs) is a later phase.</div>
+        <div class="item"><span class="h">No data center</span>There's no shared warehouse or sync layer. Every bot connects live to its own source and reasons over just that data.</div>
+        <div class="item"><span class="h">Internal only this phase</span>Phase 1 is the staff dashboard. The customer-facing store assistant is a later phase.</div>
       </div>
     </div>
   </div>
