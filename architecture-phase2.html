@@ -188,35 +188,6 @@
     .cl-into-card .c-h { font-weight: 700; color: var(--forest); margin-bottom: 3px; font-size: 13px; }
     .cl-foot { margin-top: 16px; font-size: 12.5px; color: var(--bronze-dark); line-height: 1.55; }
 
-    /* ---- Track B: customer-facing assistant ---- */
-    .cust-layer {
-      margin-top: 22px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 28px 32px;
-      background: #ffffff;
-    }
-    .cust-eyebrow {
-      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--bronze); font-weight: 700; margin-bottom: 6px;
-    }
-    .cust-title { margin: 0 0 8px; font-size: 21px; font-weight: 700; color: var(--forest); }
-    .cust-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; align-items: start; }
-    .cust-list { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink); line-height: 1.5; }
-    .cust-list li { margin-bottom: 5px; }
-    .cust-asks .asks-label {
-      font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-      font-weight: 700; color: var(--bronze); margin-bottom: 6px;
-    }
-    .cust-asks .q {
-      font-size: 12.5px; color: var(--ink); font-style: italic; line-height: 1.4;
-      margin-bottom: 5px; padding-left: 15px; position: relative;
-    }
-    .cust-asks .q::before {
-      content: "\201C"; position: absolute; left: 0; top: 1px;
-      color: var(--shopify); font-weight: 700; font-style: normal;
-    }
-
     /* ---- How the build runs ---- */
     .run-note { margin-top: 22px; font-size: 13px; color: var(--ink); line-height: 1.6; max-width: 980px; }
     .run-note .run-label {
@@ -226,19 +197,18 @@
 
     @media (max-width: 700px) {
       .cl-into-cards { grid-template-columns: 1fr; }
-      .cust-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="page">
     <div class="header">
-      <div class="eyebrow">Phase 2 · Combined Intelligence and Customer Assistant</div>
+      <div class="eyebrow">Phase 2 · Combined Intelligence</div>
       <h1>Sportek AI: Phase 2 Architecture</h1>
       <p class="subtitle">
         Phase 1 gave the team three reliable single-source bots, each answering about one system. Phase 2 builds on that
-        foundation to do the two things a single source can't: answer blended questions that cross Shopify, QuickBooks,
-        and HubSpot, and put a customer-facing assistant on the storefront.
+        foundation to do the thing a single source can't: answer blended questions that cross Shopify, QuickBooks,
+        and HubSpot.
       </p>
       <p class="subtitle" style="margin-top:14px;">
         What makes combined answers trustworthy is the company context layer: a small store Sportek owns that holds its
@@ -355,30 +325,6 @@
         This store is separate from the source connectors: those carry the <strong>facts</strong>, this carries the
         <strong>meaning</strong>, and the assistant brings them together on each question. It's the small piece Sportek
         builds and owns, and the reason a combined answer can be trusted.
-      </div>
-    </div>
-
-    <!-- Track B: customer-facing assistant -->
-    <div class="cust-layer">
-      <div class="cust-eyebrow">Track B · Public</div>
-      <h2 class="cust-title">Customer-facing store assistant</h2>
-      <div class="cust-grid">
-        <div>
-          <ul class="cust-list">
-            <li>A separate assistant embedded in the Shopify storefront, for shoppers rather than staff.</li>
-            <li>Connected only to the shopper's own data, behind their store login, so each shopper sees just their orders.</li>
-            <li>Answers product questions, order status, and returns, and hands off to a human when it should.</li>
-            <li>Because it is public, it gets heavier guardrails and more testing than the internal bots: it stays on brand, stays in scope, and never makes up an answer.</li>
-            <li>Lighter on data than the internal tool (Shopify only), heavier on polish and quality assurance, which is why it sits in a later phase.</li>
-          </ul>
-        </div>
-        <div class="cust-asks">
-          <div class="asks-label">Asks like</div>
-          <div class="q">Where's my order?</div>
-          <div class="q">Does this jacket run small?</div>
-          <div class="q">How do I start a return?</div>
-          <div class="q">Is the Coastal Hoodie back in stock in navy?</div>
-        </div>
       </div>
     </div>
 

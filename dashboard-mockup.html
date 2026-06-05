@@ -29,13 +29,14 @@
 
     .app {
       max-width: 860px;
-      margin: 0 auto;
-      min-height: 100vh;
+      margin: 0 auto 48px;
+      min-height: calc(100vh - 48px);
       display: flex;
       flex-direction: column;
       background: #fff;
-      border-left: 1px solid var(--line);
-      border-right: 1px solid var(--line);
+      border: 1px solid var(--line);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
     }
 
     /* ---- Header ---- */
