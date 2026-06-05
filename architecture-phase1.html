@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sportek AI — Architecture (Phase 1)</title>
+  <title>Sportek AI Architecture (Phase 1)</title>
 
   <style>
     :root {
@@ -21,7 +21,7 @@
       --card: #fffdf8;
       --cream: #fff8ec;
 
-      /* bucket accents — matched to the cylinder icon colors */
+      /* bucket accents, matched to the cylinder icon colors */
       --shopify: #3e8e82;
       --quickbooks: #4254a3;
       --hubspot: #8a8a1e;
@@ -203,6 +203,15 @@
       line-height: 1.45;
       margin-top: 5px;
     }
+    .tab .t-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    .tab .t-list li { margin-bottom: 4px; }
+    .tab .t-list li:last-child { margin-bottom: 0; }
     .tab.must {
       background: #ffffff;
       border-color: #e9c97a;
@@ -266,7 +275,7 @@
   <div class="page">
     <div class="header">
       <div class="eyebrow">Phase 1 · Internal Team Tool</div>
-      <h1>Sportek AI Internal Dashboard — Architecture</h1>
+      <h1>Sportek AI Internal Dashboard: Architecture</h1>
       <p class="subtitle">
         Three data sources, each feeding one chatbot inside a single branded internal website behind a staff login.
         Every bot is an AI assistant connected to <strong>one source only</strong>.
@@ -323,16 +332,46 @@
             </div>
             <div class="tab" id="tab0" style="--src: var(--shopify);">
               <div class="t-title"><span class="chip">Tab 1</span> Shopify bot</div>
-              <div class="t-meta">Answers the internal team's questions about the online store — products, inventory, orders, and customers. Getting this right means sitting with the team to learn how their Shopify data is organized and the questions they actually ask, then training the bot on those and testing it thoroughly against those real questions so it answers accurately, never making one up.</div>
+              <ul class="t-list">
+                <li>Answers the team's everyday questions about the online store: products, inventory, orders, and customers.</li>
+                <li>Connect it securely, behind a staff login, with control over what each person can see.</li>
+                <li>Confirm which storefront or storefronts it should cover.</li>
+                <li>Talk to the team to learn how their store is set up and the questions they ask most.</li>
+                <li>Make sure the bot understands how their data is structured, plus Sportek's own product names, terms, and workflows, so it reads everything the way the team does.</li>
+                <li>Agree on what a good answer looks like (for example, what counts as low stock or a fulfilled order).</li>
+                <li>Keep it read-only and in its lane: it only reads and answers, never changes data, and says when it doesn't know instead of guessing.</li>
+                <li>Train the bot on those questions, then test against real ones and refine until every answer is accurate and never made up.</li>
+                <li>The team signs off before go-live, and the bot is kept current as products and the store change.</li>
+              </ul>
             </div>
             <div class="tab must" id="tab1" style="--src: var(--quickbooks);">
               <div class="t-title"><span class="chip">Tab 2</span> QuickBooks bot</div>
-              <div class="must-line"><span class="star">★</span> Must-have: sales by rep · style · invoice</div>
-              <div class="t-meta">Answers the sales team's questions about sales, broken down by salesperson, style, and invoice. This is the core of the build: it takes working with the reps and accounting to map how their QuickBooks data is organized and pin down exactly how Sportek counts a sale, then training and thoroughly testing the bot against the real questions until the numbers are reliable and it never gives a made-up answer.</div>
+              <ul class="t-list">
+                <li>Answers the sales team's questions about sales, broken down by salesperson, style, and invoice.</li>
+                <li>Connect it securely to the accounting data, behind the same staff login.</li>
+                <li>Works with QuickBooks Online; if Sportek is on the Desktop version, that changes the approach, so it's worth confirming first.</li>
+                <li>A one-time conversation with the reps and accounting to learn how sales are recorded today.</li>
+                <li>Make sure the bot understands how their books are structured, plus Sportek's style codes, internal shorthand, and the way the team talks about sales.</li>
+                <li>Confirm the salesperson is actually captured on each sale, since the whole thing depends on it.</li>
+                <li>Pin down exactly how Sportek counts a sale, after returns, credits, and discounts, and check the totals against their existing reports.</li>
+                <li>Keep it read-only and in its lane: it only reads and answers, never changes the books, and says when it doesn't know instead of guessing.</li>
+                <li>Train and test this one the hardest, since these are the numbers the team will rely on day to day.</li>
+                <li>The team signs off on the numbers before go-live, and the bot is kept current as reps and records change.</li>
+              </ul>
             </div>
             <div class="tab" id="tab2" style="--src: var(--hubspot);">
               <div class="t-title"><span class="chip">Tab 3</span> HubSpot bot</div>
-              <div class="t-meta">Answers the team's questions about the CRM — contacts, deals, and pipeline. As with the others, we map how the HubSpot data is organized and the common questions with whoever owns it, then train and thoroughly test the bot against those questions so it answers accurately, with no made-up answers.</div>
+              <ul class="t-list">
+                <li>Answers the team's questions about the CRM: contacts, deals, and pipeline.</li>
+                <li>Connect it securely to the CRM, behind the same staff login.</li>
+                <li>If HubSpot isn't populated or used much yet, this bot can move to a later phase.</li>
+                <li>Confirm what data is actually in there and being kept up to date.</li>
+                <li>Map how their records are organized with whoever owns HubSpot, and the questions that matter.</li>
+                <li>Make sure the bot understands their data structure plus the team's own labels and workflow terms, so it reads the CRM the way they do.</li>
+                <li>Keep it read-only and in its lane: it only reads and answers, never changes records, and says when it doesn't know instead of guessing.</li>
+                <li>Train the bot on those questions, then test and refine until the answers hold up.</li>
+                <li>The team signs off before go-live, and the bot is kept current as the CRM changes.</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -340,18 +379,13 @@
 
       <div class="scope-note">
         <span class="scope-label">Where the real work is</span>
-        Connecting the data is largely off-the-shelf now — each platform has an MCP, QuickBooks included. The real work
+        Connecting the data is largely off-the-shelf now: each source plugs in with little custom work. The real work
         is everything after the connection: learning how each team's data is organized and how they ask questions,
         encoding that, and testing against real questions until the answers are trustworthy. The <strong>QuickBooks
-        bot</strong> carries the most of it, since the must-have — sales by rep, net of returns, credit memos, and
-        discounts — is a definition no tool makes for you.
+        bot</strong> carries the most of it, since the must-have (sales by rep, after returns, credits, and discounts)
+        is a definition no tool makes for you.
       </div>
 
-      <div class="legend">
-        <div class="item"><span class="h">Single-source by design</span>Each bot answers only about its own system. We deliberately don't combine data across Shopify, QuickBooks, and HubSpot — the part that makes these projects fail.</div>
-        <div class="item"><span class="h">No data center</span>There's no shared warehouse or sync layer. Every bot connects live to its own source and reasons over just that data.</div>
-        <div class="item"><span class="h">Internal only this phase</span>Phase 1 is the staff dashboard. The customer-facing store assistant is a later phase.</div>
-      </div>
      </div>
     </div>
   </div>
@@ -405,9 +439,35 @@
       svg.appendChild(path);
     }
 
-    window.addEventListener("load", drawArrows);
-    window.addEventListener("resize", drawArrows);
-    setTimeout(drawArrows, 200);
+    // Nudge each source row to line up vertically with its tab's center, so the
+    // arrows stay roughly horizontal even when the tabs grow taller than the
+    // sources column. Measures live, so it adapts if the copy changes.
+    function alignSources() {
+      const rows = [];
+      for (let i = 0; i < 3; i++) {
+        const src = document.getElementById("src" + i);
+        const row = src ? src.closest(".source-row") : null;
+        const tab = document.getElementById("tab" + i);
+        if (!row || !tab) continue;
+        row.style.transform = "none";
+        rows.push({ row, tab });
+      }
+      rows.forEach(({ row, tab }) => {
+        const rc = row.getBoundingClientRect();
+        const tc = tab.getBoundingClientRect();
+        const delta = (tc.top + tc.height / 2) - (rc.top + rc.height / 2);
+        row.style.transform = `translateY(${delta}px)`;
+      });
+    }
+
+    function refresh() {
+      alignSources();
+      drawArrows();
+    }
+
+    window.addEventListener("load", refresh);
+    window.addEventListener("resize", refresh);
+    setTimeout(refresh, 200);
   </script>
 </body>
 </html>
