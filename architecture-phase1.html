@@ -92,80 +92,57 @@
 
     .cols {
       display: grid;
-      grid-template-columns: 320px 180px minmax(440px, 1fr);
-      align-items: start;
+      grid-template-columns: 300px 240px minmax(440px, 1fr);
+      align-items: center;
       position: relative;
       z-index: 1;
+      min-height: 560px;
     }
 
-    .spacer { align-self: stretch; }
-
-    .col-head {
-      height: 46px;
+    /* ---- Source rows: text + icon, clustered toward the arrows (no box) ---- */
+    .sources {
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+    .source-row {
       display: flex;
       align-items: center;
-    }
-    .col-head .kicker {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--bronze);
-      font-weight: 700;
-    }
-
-    /* ---- Source buckets (icon + label) ---- */
-    .lane {
-      height: 132px;
-      margin-bottom: 26px;
-      display: flex;
-      align-items: center;
-    }
-    .lane:last-child { margin-bottom: 0; }
-
-    .bucket {
-      width: 100%;
-      display: flex;
-      align-items: center;
+      justify-content: flex-end;
       gap: 16px;
-      background: #ffffff;
-      border: 1px solid var(--line);
-      border-left: 4px solid var(--src, var(--forest));
-      border-radius: 14px;
-      padding: 16px 18px;
     }
-    .bucket .cyl {
-      width: 60px;
-      height: auto;
-      flex: 0 0 auto;
-      display: block;
-    }
-    .bucket .title {
+    .source-row .text { text-align: right; }
+    .source-row .title {
       font-weight: 700;
       font-size: 18px;
       color: var(--ink);
     }
-    .bucket .meta {
+    .source-row .meta {
       font-size: 13px;
       color: var(--muted);
       line-height: 1.5;
       margin-top: 5px;
     }
+    .source-row .cyl {
+      width: 74px;
+      height: auto;
+      flex: 0 0 auto;
+      display: block;
+    }
 
     /* ---- Internal site (the product) ---- */
     .site-frame {
       grid-column: 3;
-      grid-row: 1 / span 4;
       border: 1.5px solid var(--forest);
       border-radius: 16px;
       padding: 0 18px 18px;
       background: #ffffff;
-      align-self: stretch;
     }
     .site-head {
       height: 30px;
       display: flex;
       align-items: center;
-      margin: 14px 0 4px;
+      margin: 16px 0 4px;
     }
     .site-head .s-title {
       font-weight: 700;
@@ -305,11 +282,35 @@
         </svg>
 
         <div class="cols">
-          <!-- heads -->
-          <div class="col-head"><span class="kicker">Data Sources</span></div>
-          <div class="spacer"></div>
+          <!-- Sources (unboxed: text + cylinder icon) -->
+          <div class="sources">
+            <div class="source-row">
+              <div class="text">
+                <div class="title">Shopify</div>
+                <div class="meta">products, inventory,<br/>orders, customers</div>
+              </div>
+              <img class="cyl" id="src0" src="images/database4.png" alt="" />
+            </div>
+            <div class="source-row">
+              <div class="text">
+                <div class="title">QuickBooks</div>
+                <div class="meta">invoices, sales,<br/>salesperson, returns</div>
+              </div>
+              <img class="cyl" id="src1" src="images/database2.png" alt="" />
+            </div>
+            <div class="source-row">
+              <div class="text">
+                <div class="title">HubSpot</div>
+                <div class="meta">contacts, deals,<br/>pipeline (CRM)</div>
+              </div>
+              <img class="cyl" id="src2" src="images/database5.png" alt="" />
+            </div>
+          </div>
 
-          <!-- internal site frame spans all rows in the last column -->
+          <!-- gap column holds the arrows -->
+          <div></div>
+
+          <!-- internal site -->
           <div class="site-frame">
             <div class="site-head">
               <span class="s-title">Sportek AI Dashboard</span>
@@ -331,36 +332,6 @@
               <div class="t-meta">CRM contacts, deals, pipeline — pending confirmation it holds real data.</div>
             </div>
           </div>
-
-          <!-- Bucket: Shopify -->
-          <div class="lane"><div class="bucket" id="buck0" style="--src: var(--shopify);">
-            <img class="cyl" src="images/database4.png" alt="" />
-            <div>
-              <div class="title">Shopify</div>
-              <div class="meta">products, inventory,<br/>orders, customers</div>
-            </div>
-          </div></div>
-          <div class="spacer"></div>
-
-          <!-- Bucket: QuickBooks -->
-          <div class="lane"><div class="bucket" id="buck1" style="--src: var(--quickbooks);">
-            <img class="cyl" src="images/database2.png" alt="" />
-            <div>
-              <div class="title">QuickBooks</div>
-              <div class="meta">invoices, sales,<br/>salesperson, returns</div>
-            </div>
-          </div></div>
-          <div class="spacer"></div>
-
-          <!-- Bucket: HubSpot -->
-          <div class="lane"><div class="bucket" id="buck2" style="--src: var(--hubspot);">
-            <img class="cyl" src="images/database5.png" alt="" />
-            <div>
-              <div class="title">HubSpot</div>
-              <div class="meta">contacts, deals,<br/>pipeline (CRM)</div>
-            </div>
-          </div></div>
-          <div class="spacer"></div>
         </div>
       </div>
 
@@ -401,23 +372,26 @@
       const rightX = (el) => el.getBoundingClientRect().right - dRect.left;
 
       for (let i = 0; i < 3; i++) {
-        const buck = document.getElementById("buck" + i);
-        const tab  = document.getElementById("tab" + i);
-        if (!buck || !tab) continue;
+        const src = document.getElementById("src" + i);
+        const tab = document.getElementById("tab" + i);
+        if (!src || !tab) continue;
         addPath(svg,
-          { x: rightX(buck) + 6, y: midY(buck) },
-          { x: leftX(tab) - 6,   y: midY(tab) });
+          { x: rightX(src) + 8, y: midY(src) },
+          { x: leftX(tab) - 8,  y: midY(tab) });
       }
     }
 
     function addPath(svg, a, b) {
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      const d = `M ${a.x} ${a.y} L ${b.x} ${b.y}`;
+      const cx1 = a.x + (b.x - a.x) * 0.45;
+      const cx2 = a.x + (b.x - a.x) * 0.55;
+      const d = `M ${a.x} ${a.y} C ${cx1} ${a.y}, ${cx2} ${b.y}, ${b.x} ${b.y}`;
       path.setAttribute("d", d);
       path.setAttribute("class", "arrow");
       path.setAttribute("fill", "none");
       path.setAttribute("stroke", "#1a1a1a");
-      path.setAttribute("stroke-width", "2");
+      path.setAttribute("stroke-width", "2.25");
+      path.setAttribute("marker-start", "url(#arrowhead)");
       path.setAttribute("marker-end", "url(#arrowhead)");
       svg.appendChild(path);
     }
