@@ -8,12 +8,17 @@
   <style>
     :root {
       --forest: #0a4c3a;
+      --forest-dark: #08402f;
       --ink: #1a201d;
-      --muted: #6b716c;
-      --line: #e3e0d8;
-      --bg: #f6f5f1;
-      --bot-bubble: #eef2ee;
-      --user-bubble: #0a4c3a;
+      --muted: #727a73;
+      --line: #e7e4dc;
+      --bg: #ecefe8;
+      --panel-bg: #faf9f5;
+
+      /* per-source accents, shared with the architecture page */
+      --shopify: #3e8e82;
+      --quickbooks: #4254a3;
+      --hubspot: #8a8a1e;
     }
 
     * { box-sizing: border-box; }
@@ -21,92 +26,159 @@
     html, body {
       margin: 0;
       min-height: 100vh;
-      background: var(--bg);
+      background:
+        radial-gradient(1200px 480px at 50% -8%, #f3f6ef 0%, rgba(243, 246, 239, 0) 70%),
+        var(--bg);
       color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
-    body { padding-bottom: 48px; }
+    body { padding: 28px 20px 52px; }
+
+    /* shared inline-icon style */
+    .ic {
+      width: 1em;
+      height: 1em;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
 
     .app {
-      max-width: 1160px;
+      max-width: 1180px;
       margin: 0 auto;
-      min-height: calc(100vh - 48px);
+      min-height: calc(100vh - 80px);
       display: flex;
       flex-direction: column;
       background: #fff;
       border: 1px solid var(--line);
-      border-top: none;
-      border-radius: 0 0 14px 14px;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px -28px rgba(10, 44, 32, 0.30),
+                  0 2px 6px rgba(10, 44, 32, 0.05);
+      overflow: hidden;
     }
 
     /* ---- Header ---- */
     header {
-      padding: 16px 24px;
+      padding: 16px 22px;
       border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: linear-gradient(180deg, #ffffff, #fcfbf8);
     }
     header .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-weight: 700;
-      font-size: 17px;
+      font-size: 16.5px;
       color: var(--forest);
+      letter-spacing: -0.01em;
     }
-    header .user {
-      font-size: 13px;
-      color: var(--muted);
+    header .brand .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #36b37e;
+      box-shadow: 0 0 0 3px rgba(54, 179, 126, 0.18);
     }
     header .head-right {
       display: flex;
       align-items: center;
       gap: 14px;
     }
+    header .user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    header .avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     header .brand-logo {
-      width: 74px;
+      width: 70px;
       height: auto;
       display: block;
     }
 
-    /* ---- Tabs ---- */
+    /* ---- Tabs (modern, logo + colored underline) ---- */
     .tabs {
       display: flex;
-      gap: 8px;
+      gap: 4px;
+      padding: 4px 16px 0;
       border-bottom: 1px solid var(--line);
-      padding: 12px 16px 0;
+      background: #fcfbf8;
     }
     .tab-btn {
       appearance: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 9px;
       font: inherit;
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 14.5px;
+      font-weight: 650;
       color: var(--muted);
-      background: #f4f2ec;
-      border: 1px solid var(--line);
-      border-bottom: none;
-      border-radius: 10px 10px 0 0;
-      padding: 12px 22px;
+      background: none;
+      border: none;
+      padding: 14px 18px 15px;
       cursor: pointer;
-      margin-bottom: -1px;
-      transition: background 0.12s, color 0.12s;
+      transition: color 0.14s;
     }
-    .tab-btn:hover {
-      color: var(--ink);
-      background: #ebe8e0;
+    .tab-btn[data-tab="shopify"]    { --accent: var(--shopify); }
+    .tab-btn[data-tab="quickbooks"] { --accent: var(--quickbooks); }
+    .tab-btn[data-tab="hubspot"]    { --accent: var(--hubspot); }
+    .tab-btn img {
+      width: 18px;
+      height: 18px;
+      filter: grayscale(1);
+      opacity: 0.5;
+      transition: filter 0.14s, opacity 0.14s;
     }
-    .tab-btn.active {
-      color: #ffffff;
-      background: var(--forest);
-      border-color: var(--forest);
+    .tab-btn::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: -1px;
+      height: 2.5px;
+      border-radius: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.16s ease;
     }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn:hover img { filter: none; opacity: 1; }
+    .tab-btn.active { color: var(--accent); }
+    .tab-btn.active img { filter: none; opacity: 1; }
+    .tab-btn.active::after { transform: scaleX(1); }
 
-    /* ---- Chat panel + capture side panel ---- */
+    /* ---- Panels ---- */
     .panel {
       flex: 1;
       display: none;
       min-height: 0;
     }
     .panel.active { display: flex; }
+    .panel[data-panel="shopify"]    { --accent: var(--shopify);    --accent-soft: #ecf5f3; --accent-line: #cfe6e1; --logo: url("images/brand-shopify.svg"); }
+    .panel[data-panel="quickbooks"] { --accent: var(--quickbooks); --accent-soft: #eceef7; --accent-line: #cdd4ee; --logo: url("images/brand-quickbooks.svg"); }
+    .panel[data-panel="hubspot"]    { --accent: var(--hubspot);    --accent-soft: #f4f4e3; --accent-line: #e2e2bd; --logo: url("images/brand-hubspot.svg"); }
+
     .panel-main {
       flex: 1;
       display: flex;
@@ -114,11 +186,105 @@
       min-width: 0;
     }
 
-    /* ---- Capture side panel (teach the bot) ---- */
+    /* ---- Chat ---- */
+    .chat {
+      flex: 1;
+      padding: 26px 26px 26px 68px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .chat::after { content: ""; flex: 0 0 auto; height: 36px; }
+
+    .msg {
+      position: relative;
+      max-width: 74%;
+      padding: 11px 15px;
+      border-radius: 16px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .msg.bot {
+      align-self: flex-start;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 1px 2px rgba(10, 44, 32, 0.05);
+    }
+    /* bot avatar = the source's brand logo in a tinted circle */
+    .msg.bot::before {
+      content: "";
+      position: absolute;
+      left: -44px;
+      top: 0;
+      width: 33px;
+      height: 33px;
+      border-radius: 50%;
+      background:
+        var(--logo) center / 16px 16px no-repeat,
+        var(--accent-soft);
+      border: 1px solid var(--accent-line);
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: #fff;
+      border-bottom-right-radius: 5px;
+      box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--accent) 55%, transparent);
+    }
+
+    /* ---- Composer ---- */
+    .composer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px 22px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+    .composer input {
+      flex: 1;
+      font: inherit;
+      font-size: 14.5px;
+      padding: 13px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #faf9f6;
+      outline: none;
+      transition: border-color 0.14s, box-shadow 0.14s, background 0.14s;
+    }
+    .composer input:focus {
+      border-color: var(--accent);
+      background: #fff;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+    }
+    .composer button {
+      flex: 0 0 auto;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+      background: var(--accent);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px -3px color-mix(in srgb, var(--accent) 60%, transparent);
+      transition: filter 0.14s, transform 0.06s;
+    }
+    .composer button:hover { filter: brightness(1.06); }
+    .composer button:active { transform: scale(0.94); }
+
+    /* ---- Knowledge side panel ---- */
     .knowledge {
-      flex: 0 0 300px;
+      flex: 0 0 312px;
       border-left: 1px solid var(--line);
-      background: var(--bg);
+      background: var(--panel-bg);
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -126,153 +292,77 @@
       padding: 20px 18px;
     }
     .knowledge .k-title {
-      font-size: 13.5px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--forest);
-      line-height: 1.35;
+      line-height: 1.4;
+    }
+    .knowledge .k-title .ic {
+      font-size: 16px;
+      color: var(--accent);
+      margin-top: 1px;
     }
 
-    .chat {
-      flex: 1;
-      padding: 24px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    /* Real spacer element so the breathing room renders in every browser,
-       even where bottom padding on a scroll container is ignored. */
-    .chat::after {
-      content: "";
-      flex: 0 0 auto;
-      height: 44px;
-    }
-
-    .intro {
-      font-size: 13px;
-      color: var(--muted);
-      text-align: center;
-      padding: 8px 0 4px;
-    }
-
-    .msg {
-      max-width: 78%;
-      padding: 11px 15px;
-      border-radius: 14px;
-      font-size: 14.5px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-    .msg.bot {
-      align-self: flex-start;
-      background: var(--bot-bubble);
-      color: var(--ink);
-      border-bottom-left-radius: 4px;
-    }
-    .msg.user {
-      align-self: flex-end;
-      background: var(--user-bubble);
-      color: #fff;
-      border-bottom-right-radius: 4px;
-    }
-
-    /* ---- Input bar ---- */
-    .composer {
-      display: flex;
-      gap: 10px;
-      padding: 14px 24px 20px;
-      border-top: 1px solid var(--line);
-    }
-    .composer input {
-      flex: 1;
-      font: inherit;
-      font-size: 14.5px;
-      padding: 11px 14px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      outline: none;
-    }
-    .composer input:focus { border-color: var(--forest); }
-    .composer button {
-      font: inherit;
-      font-weight: 600;
-      font-size: 14px;
-      color: #fff;
-      background: var(--forest);
-      border: none;
-      border-radius: 10px;
-      padding: 0 20px;
-      cursor: pointer;
-    }
-    .composer button:hover { background: #08402f; }
-
-    /* ---- AI-suggested fact card (teach the bot) ---- */
     .fact-card {
-      margin: 0;
-      border: 1px solid var(--forest);
-      border-radius: 12px;
-      background: #f1f7f2;
-      padding: 12px 14px;
-      box-shadow: 0 2px 10px rgba(10, 76, 58, 0.1);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 13px 14px;
+      box-shadow: 0 1px 3px rgba(10, 44, 32, 0.05);
     }
     .fact-card .fc-head {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
-      color: var(--forest);
+      color: var(--accent);
       display: flex;
       align-items: center;
-      gap: 7px;
-      margin-bottom: 8px;
+      gap: 6px;
+      margin-bottom: 9px;
     }
-    .fact-card .fc-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--forest);
-      flex: 0 0 auto;
-    }
+    .fact-card .fc-head .ic { font-size: 14px; }
     .fact-card textarea {
       width: 100%;
       resize: vertical;
-      min-height: 92px;
+      min-height: 80px;
       font: inherit;
-      font-size: 14px;
-      line-height: 1.4;
+      font-size: 13.5px;
+      line-height: 1.45;
       color: var(--ink);
-      background: #fff;
+      background: #faf9f6;
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 8px 10px;
+      border-radius: 9px;
+      padding: 9px 11px;
       outline: none;
+      transition: border-color 0.14s, background 0.14s;
     }
-    .fact-card textarea:focus { border-color: var(--forest); }
+    .fact-card textarea:focus { border-color: var(--accent); background: #fff; }
     .fact-card .fc-actions {
       display: flex;
       justify-content: flex-end;
       gap: 8px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
     .fact-card .fc-actions button {
       font: inherit;
       font-weight: 600;
-      font-size: 13px;
+      font-size: 12.5px;
       border-radius: 8px;
       padding: 7px 15px;
       cursor: pointer;
       border: 1px solid var(--line);
+      transition: filter 0.14s, color 0.14s, background 0.14s;
     }
     .fact-card .fc-cancel { background: #fff; color: var(--muted); }
-    .fact-card .fc-cancel:hover { color: var(--ink); }
-    .fact-card .fc-save { background: var(--forest); color: #fff; border-color: var(--forest); }
-    .fact-card .fc-save:hover { background: #08402f; }
-    .fact-card .fc-saved {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--forest);
-      display: flex;
-      align-items: center;
-      gap: 7px;
+    .fact-card .fc-cancel:hover { color: var(--ink); background: #f5f4ef; }
+    .fact-card .fc-save {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
     }
+    .fact-card .fc-save:hover { filter: brightness(1.06); }
 
     @media (max-width: 860px) {
       .panel.active { flex-direction: column; }
@@ -281,20 +371,36 @@
         border-left: none;
         border-top: 1px solid var(--line);
       }
+      .chat { padding-left: 60px; }
     }
   </style>
 </head>
 <body>
+  <!-- icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-sparkles" viewBox="0 0 24 24">
+      <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/>
+      <path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>
+    </symbol>
+    <symbol id="i-send" viewBox="0 0 24 24">
+      <path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"/>
+      <path d="M6 12h16"/>
+    </symbol>
+  </svg>
+
   <div class="app">
     <header>
-      <span class="brand">Sportek AI Dashboard</span>
-      <span class="head-right"><span class="user">Staff · signed in</span><img class="brand-logo" src="images/sportek-logo.svg" alt="Sportek" /></span>
+      <span class="brand"><span class="dot"></span> Sportek AI Dashboard</span>
+      <span class="head-right">
+        <span class="user"><span class="avatar">S</span> Staff · signed in</span>
+        <img class="brand-logo" src="images/sportek-logo.svg" alt="Sportek" />
+      </span>
     </header>
 
     <nav class="tabs">
-      <button class="tab-btn active" data-tab="shopify">Shopify</button>
-      <button class="tab-btn" data-tab="quickbooks">QuickBooks</button>
-      <button class="tab-btn" data-tab="hubspot">HubSpot</button>
+      <button class="tab-btn active" data-tab="shopify"><img src="images/brand-shopify.svg" alt="" />Shopify</button>
+      <button class="tab-btn" data-tab="quickbooks"><img src="images/brand-quickbooks.svg" alt="" />QuickBooks</button>
+      <button class="tab-btn" data-tab="hubspot"><img src="images/brand-hubspot.svg" alt="" />HubSpot</button>
     </nav>
 
     <!-- Shopify -->
@@ -318,13 +424,13 @@
       </div>
       <form class="composer" data-form="shopify">
         <input type="text" placeholder="Ask the Shopify bot…" />
-        <button type="submit">Send</button>
+        <button type="submit" aria-label="Send"><svg class="ic"><use href="#i-send"/></svg></button>
       </form>
       </div>
       <aside class="knowledge">
-        <div class="k-title">Save company knowledge so the AI can learn</div>
+        <div class="k-title"><svg class="ic"><use href="#i-sparkles"/></svg> Save company knowledge so the AI can learn</div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">"Low stock" means under 10 units, the reorder threshold the team watches.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
@@ -332,7 +438,7 @@
           </div>
         </div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">A customer with 5+ orders is a "VIP" and gets free shipping.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
@@ -340,7 +446,7 @@
           </div>
         </div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">Orders tagged "trade" are wholesale and stay out of retail sales totals.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
@@ -374,13 +480,13 @@ Total $1,560, paid in full.</div>
       </div>
       <form class="composer" data-form="quickbooks">
         <input type="text" placeholder="Ask the QuickBooks bot…" />
-        <button type="submit">Send</button>
+        <button type="submit" aria-label="Send"><svg class="ic"><use href="#i-send"/></svg></button>
       </form>
       </div>
       <aside class="knowledge">
-        <div class="k-title">Save company knowledge so the AI can learn</div>
+        <div class="k-title"><svg class="ic"><use href="#i-sparkles"/></svg> Save company knowledge so the AI can learn</div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">When the team says "this season," they mean roughly February through July.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
@@ -388,7 +494,7 @@ Total $1,560, paid in full.</div>
           </div>
         </div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">A rep is credited on the invoice date, even when the customer pays later.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
@@ -396,7 +502,7 @@ Total $1,560, paid in full.</div>
           </div>
         </div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">Style codes that start with ELT are the Elite Trail premium line.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
@@ -428,13 +534,13 @@ Total $1,560, paid in full.</div>
       </div>
       <form class="composer" data-form="hubspot">
         <input type="text" placeholder="Ask the HubSpot bot…" />
-        <button type="submit">Send</button>
+        <button type="submit" aria-label="Send"><svg class="ic"><use href="#i-send"/></svg></button>
       </form>
       </div>
       <aside class="knowledge">
-        <div class="k-title">Save company knowledge so the AI can learn</div>
+        <div class="k-title"><svg class="ic"><use href="#i-sparkles"/></svg> Save company knowledge so the AI can learn</div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">When the team calls a deal "stalled," they mean 30+ days with no activity.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
@@ -442,7 +548,7 @@ Total $1,560, paid in full.</div>
           </div>
         </div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">Deals over $50k need VP sign-off before they're marked closed-won.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
@@ -450,7 +556,7 @@ Total $1,560, paid in full.</div>
           </div>
         </div>
         <div class="fact-card">
-          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <div class="fc-head"><svg class="ic"><use href="#i-sparkles"/></svg> Want me to remember this?</div>
           <textarea rows="2">"The big three" are Sportek's largest accounts: Dick's, Scheels, and Academy.</textarea>
           <div class="fc-actions">
             <button class="fc-cancel" type="button">Dismiss</button>
