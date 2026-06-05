@@ -42,6 +42,17 @@
       margin: 0 auto;
       padding: 32px 24px 40px;
       max-width: 1300px;
+      position: relative;
+    }
+    .brand-logo {
+      position: absolute;
+      top: 26px;
+      right: 24px;
+      width: 94px;
+      height: auto;
+    }
+    @media (max-width: 700px) {
+      .brand-logo { width: 70px; top: 18px; right: 16px; }
     }
 
     .header { margin-bottom: 24px; text-align: center; }
@@ -116,6 +127,67 @@
       color: #b1384e;
     }
     .wont .wont-lead { font-weight: 700; }
+
+    /* ---- Will / Won't, side by side ---- */
+    .scope-cols {
+      max-width: 1000px;
+      margin: 18px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .scope-cols .will,
+    .scope-cols .wont {
+      max-width: none;
+      margin: 0;
+    }
+    @media (max-width: 760px) {
+      .scope-cols { grid-template-columns: 1fr; }
+    }
+
+    .will {
+      padding: 12px 18px;
+      border: 1px solid #c4ddc8;
+      border-radius: 12px;
+      background: #edf6ee;
+      font-size: 13.5px;
+      color: var(--ink);
+      line-height: 1.5;
+      text-align: center;
+    }
+    .will .will-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 4px;
+    }
+    .will .will-eg { font-style: italic; }
+    .will .will-list {
+      text-align: left;
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 9px;
+    }
+    .will .will-list li {
+      position: relative;
+      padding-left: 18px;
+    }
+    .will .will-list li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--forest);
+    }
+    .will .will-lead { font-weight: 700; }
 
     .card-wrap {
       background: #ffffff;
@@ -367,6 +439,7 @@
 </head>
 <body>
   <div class="page">
+    <img class="brand-logo" src="images/sportek-logo.svg" alt="Sportek" />
     <div class="header">
       <div class="eyebrow">Phase 1 · Internal Team Tool</div>
       <h1>Sportek AI Internal Dashboard: Architecture</h1>
@@ -381,13 +454,34 @@
         back so every answer comes out in Sportek's terms, like "sales by rep" net of returns, credits, and discounts,
         and testing until the numbers are trustworthy, is Phase 2.
       </p>
+      <div class="scope-cols">
+      <div class="will">
+        <span class="will-label">What it will do</span>
+        <ul class="will-list">
+          <li><span class="will-lead">Answer everyday questions in plain English.</span> Ask the way you'd ask a
+            coworker, with no reports or filters to build. For example,
+            <span class="will-eg">"Which products are low on stock?"</span> or
+            <span class="will-eg">"How much did Maria sell last month?"</span></li>
+          <li><span class="will-lead">Break sales down by salesperson, style, and invoice.</span> The must-have,
+            straight from QuickBooks.</li>
+          <li><span class="will-lead">Cover each system's day-to-day.</span> Shopify stock, orders, and customers;
+            QuickBooks sales, invoices, and returns; HubSpot contacts, deals, and pipeline.</li>
+          <li><span class="will-lead">Speak Sportek's language.</span> Once taught the team's terms and how it counts
+            things (style codes, what a sale means), it reads the data the way the team does.</li>
+          <li><span class="will-lead">Stay accurate and honest.</span> It's read-only and says when it doesn't know
+            instead of guessing.</li>
+          <li><span class="will-lead">Sit behind a staff login.</span> Secure, with control over what each person can
+            see.</li>
+        </ul>
+      </div>
       <div class="wont">
         <span class="wont-label">What it won't do</span>
         <ul class="wont-list">
           <li><span class="wont-lead">Combine or map data across the three sources.</span> Each bot only sees its own
             system, so a question that needs two of them can't be answered. For example,
             <span class="wont-eg">"How many of yesterday's online orders were Maria's?"</span> needs Shopify orders
-            linked to QuickBooks salespeople, so it's Phase 2.</li>
+            linked to QuickBooks salespeople, which takes real data modeling across systems and gets complex fast, so
+            it's not in scope right now.</li>
           <li><span class="wont-lead">Change anything, it's read-only.</span> It answers questions but never creates,
             edits, deletes, refunds, or fulfills. That's by design.</li>
           <li><span class="wont-lead">Know anything outside the connected system.</span> If it lives in a spreadsheet,
@@ -399,6 +493,7 @@
           <li><span class="wont-lead">Watch the data or alert you.</span> It answers when asked. No "ping me when stock
             runs low," it's a question box, not a monitor.</li>
         </ul>
+      </div>
       </div>
     </div>
 

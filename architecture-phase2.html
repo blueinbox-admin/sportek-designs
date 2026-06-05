@@ -41,6 +41,17 @@
       margin: 0 auto;
       padding: 32px 24px 40px;
       max-width: 1300px;
+      position: relative;
+    }
+    .brand-logo {
+      position: absolute;
+      top: 26px;
+      right: 24px;
+      width: 94px;
+      height: auto;
+    }
+    @media (max-width: 700px) {
+      .brand-logo { width: 70px; top: 18px; right: 16px; }
     }
 
     .header { margin-bottom: 24px; }
@@ -202,6 +213,7 @@
 </head>
 <body>
   <div class="page">
+    <img class="brand-logo" src="images/sportek-logo.svg" alt="Sportek" />
     <div class="header">
       <div class="eyebrow">Phase 2 · Combined Intelligence</div>
       <h1>Sportek AI: Phase 2 Architecture</h1>

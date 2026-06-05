@@ -57,6 +57,16 @@
       font-size: 13px;
       color: var(--muted);
     }
+    header .head-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    header .brand-logo {
+      width: 74px;
+      height: auto;
+      display: block;
+    }
 
     /* ---- Tabs ---- */
     .tabs {
@@ -271,7 +281,7 @@
   <div class="app">
     <header>
       <span class="brand">Sportek AI Dashboard</span>
-      <span class="user">Staff · signed in</span>
+      <span class="head-right"><span class="user">Staff · signed in</span><img class="brand-logo" src="images/sportek-logo.svg" alt="Sportek" /></span>
     </header>
 
     <nav class="tabs">
