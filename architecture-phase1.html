@@ -511,16 +511,16 @@
       <h1>Sportek AI Internal Dashboard: Architecture</h1>
       <p class="subtitle">
         <a href="dashboard-mockup.html" target="_blank" rel="noopener">One branded website</a> behind a staff login, with three AI assistants side by side: Shopify, QuickBooks, and
-        HubSpot. Each is wired to one source and only answers about that source. Keeping them separate, never mixing
-        data, is what makes it simple and safe, and it still delivers the must-have: sales by salesperson, style, and
-        invoice.
+        HubSpot. Each is wired to one source and only answers about that source. Keeping them separate keeps it simple
+        and safe, and still delivers the must-have: how much each rep sold, broken down by style, traceable back to the
+        invoices behind it.
       </p>
       <p class="subtitle">
-        Connecting the sources is mostly off the shelf; the real work comes after. In Phase 1, each bot answers from
-        its own source, and the team can teach it Sportek's words and rules right in the tool, like what counts as a
-        sale or what a style code means. David reviews those notes weekly, and the ones he approves start improving
-        answers right away. The harder job waits for Phase 2: linking the same customer, order, or style across all
-        three systems so the bots can answer combined questions.
+        Connecting the sources is just the start; the real work is making the answers trustworthy. In Phase 1, each bot
+        answers from its own source, and the team can teach it Sportek's words and rules right in the tool, like what
+        counts as a sale or what a style code means. New notes take effect right away, with a weekly review to keep them
+        on track. The harder job waits for Phase 2: linking the same customer, order, or style across all three systems
+        for combined answers.
       </p>
       <div class="scope-cols">
       <div class="will">
@@ -535,10 +535,14 @@
             and pipeline.</li>
           <li><span class="will-lead">Learn Sportek's language, two ways.</span> First David interviews the team and
             programs in the starting rules (style codes, what a sale means). Then, as people use it, they add new words
-            and rules with "remember this"; David reviews those weekly and the approved ones start shaping answers right
-            away.</li>
-          <li><span class="will-lead">Stay accurate and honest.</span> It's read-only and says when it doesn't know
-            instead of guessing.</li>
+            and rules with "remember this" that take effect right away; David reviews them in a weekly pass to make sure
+            they're working as intended.</li>
+          <li><span class="will-lead">Stay read-only and show its work.</span> It never changes data, and it can point
+            to the records behind an answer so the team can check the numbers themselves.</li>
+          <li><span class="will-lead">Work anywhere, for the whole team.</span> Just a browser and the staff login,
+            nothing to install, so everyone who should have access can use it from any device.</li>
+          <li><span class="will-lead">Get sharper over time.</span> When an answer looks off, staff flag it and David
+            tunes the bot, so it gets more reliable the more the team uses it.</li>
           <li><span class="will-lead">Sit behind a staff login.</span> Secure, with control over what each person can
             see.</li>
         </ul>
@@ -558,9 +562,9 @@
           <li><span class="wont-lead">Fill in missing data.</span> Answers are only as good as what's entered. It's
             built and tested to flag a gap rather than guess, so if the rep isn't recorded on a sale, it's set up to say
             so instead of inventing one.</li>
-          <li><span class="wont-lead">Apply what you teach it without review.</span> Notes the team adds don't change
-            answers until David approves them in his weekly pass. That keeps a wrong note from quietly skewing the
-            numbers, and the big cross-system lookups still wait for Phase 2.</li>
+          <li><span class="wont-lead">Teach itself.</span> New words and rules come from the team's notes, not the bot
+            inventing them on its own. David's weekly review keeps what's been added accurate, and the big cross-system
+            lookups still wait for Phase 2.</li>
           <li><span class="wont-lead">Watch the data or alert you.</span> It answers when asked. No "ping me when stock
             runs low," it's a question box, not a monitor.</li>
         </ul>
@@ -620,7 +624,7 @@
                 <li>Answers everyday questions about the online store: products, inventory, orders, and customers. Sliceable by date or product, and it can show the orders behind an answer.</li>
                 <li>Connected securely behind the staff login, with control over who sees what.</li>
                 <li>David confirms which storefronts it covers and talks to the team to learn how the store is set up. Capturing their product names and terms stays basic in Phase 1.</li>
-                <li>Read-only and in its lane: it only reads, never changes data, and says when it doesn't know instead of guessing.</li>
+                <li>Read-only and in its lane: it only reads, never changes data, and is built to flag what it doesn't know rather than guess.</li>
                 <li>Trained and tested against the team's real questions until answers are accurate; staff can flag anything off for David to fix.</li>
               </ul>
               <div class="t-asks">
@@ -637,8 +641,8 @@
                 <li>Answers the sales team's questions about sales, broken down by salesperson, style, and invoice. Sliceable by date, rep, style, or customer, and it can show the invoices behind a number.</li>
                 <li>Connected securely behind the staff login; Sportek's financial data stays private and is never used to train outside models.</li>
                 <li>Works with QuickBooks Online; if Sportek is on Desktop, that changes the approach, so confirm first.</li>
-                <li>The core work, and where David spends the most time: learning how sales are recorded, confirming the salesperson is captured on each sale, and pinning down exactly how Sportek counts a sale (net of returns, credits, and discounts), checked against their existing reports.</li>
-                <li>Read-only and in its lane: it only reads, never changes the books, and says when it doesn't know instead of guessing.</li>
+                <li>The core of the build: learning how sales are recorded, confirming the salesperson is captured on each sale, and pinning down exactly how Sportek counts a sale (net of returns, credits, and discounts), checked against their existing reports.</li>
+                <li>Read-only and in its lane: it only reads, never changes the books, and is built to flag what it doesn't know rather than guess.</li>
                 <li>Tested the hardest, since the team relies on these numbers; staff can flag anything off for David to fix.</li>
               </ul>
               <div class="t-asks">
@@ -655,7 +659,7 @@
                 <li>Answers the team's questions about the CRM: contacts, deals, and pipeline. Sliceable by date, deal owner, or stage, and it can show the deals behind an answer.</li>
                 <li>Connected securely behind the staff login.</li>
                 <li>David confirms what's actually in HubSpot and maps how the records and the team's own labels are organized.</li>
-                <li>Read-only and in its lane: it only reads, never changes records, and says when it doesn't know instead of guessing.</li>
+                <li>Read-only and in its lane: it only reads, never changes records, and is built to flag what it doesn't know rather than guess.</li>
                 <li>Trained and tested against the questions that matter; staff can flag anything off for David to fix.</li>
               </ul>
               <div class="t-asks">
