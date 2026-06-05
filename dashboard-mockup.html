@@ -254,13 +254,25 @@ Total $1,560, paid in full.</div>
     // Tab switching
     const tabBtns = document.querySelectorAll(".tab-btn");
     const panels = document.querySelectorAll(".panel");
+
+    function activateTab(tab) {
+      if (!tab) return;
+      const known = Array.from(tabBtns).some(b => b.dataset.tab === tab);
+      if (!known) return;
+      tabBtns.forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+      panels.forEach(p => p.classList.toggle("active", p.dataset.panel === tab));
+    }
+
     tabBtns.forEach(btn => {
       btn.addEventListener("click", () => {
-        const tab = btn.dataset.tab;
-        tabBtns.forEach(b => b.classList.toggle("active", b === btn));
-        panels.forEach(p => p.classList.toggle("active", p.dataset.panel === tab));
+        activateTab(btn.dataset.tab);
+        history.replaceState(null, "", "#" + btn.dataset.tab);
       });
     });
+
+    // Open the tab named in the URL hash (e.g. dashboard-mockup.html#quickbooks)
+    if (location.hash) activateTab(location.hash.slice(1));
+    window.addEventListener("hashchange", () => activateTab(location.hash.slice(1)));
 
     // Echo a placeholder reply so the input feels real in the mockup
     document.querySelectorAll(".composer").forEach(form => {
@@ -278,7 +290,7 @@ Total $1,560, paid in full.</div>
 
         const bot = document.createElement("div");
         bot.className = "msg bot";
-        bot.textContent = "(This is a mockup — in the real dashboard the bot would answer from your live data.)";
+        bot.textContent = "(This is a mockup. In the real dashboard the bot would answer from your live data.)";
         chat.appendChild(bot);
 
         input.value = "";
