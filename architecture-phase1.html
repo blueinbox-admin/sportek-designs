@@ -184,11 +184,16 @@
     .tab .t-title a {
       color: inherit;
       text-decoration: underline;
-      text-decoration-color: var(--src, var(--forest));
+      text-decoration-color: currentColor;
       text-decoration-thickness: 1.5px;
       text-underline-offset: 3px;
     }
     .tab .t-title a:hover { color: var(--forest); }
+    .tab .t-title .hint {
+      font-weight: 400;
+      font-size: 11px;
+      color: var(--muted);
+    }
     .tab .chip {
       font-size: 10px;
       letter-spacing: 0.06em;
@@ -380,7 +385,7 @@
               <span class="s-sub">internal · staff login · three tabs</span>
             </div>
             <div class="tab" id="tab0" style="--src: var(--shopify);">
-              <div class="t-title"><span class="chip">Tab 1</span> <a href="dashboard-mockup.html#shopify" target="_blank" rel="noopener">Shopify bot</a></div>
+              <div class="t-title"><span class="chip">Tab 1</span> <a href="dashboard-mockup.html#shopify" target="_blank" rel="noopener">Shopify bot</a> <span class="hint">(click to see simple mockup)</span></div>
               <ul class="t-list">
                 <li>Answers the team's everyday questions about the online store: products, inventory, orders, and customers.</li>
                 <li>Answers can be sliced by date range or product, so the team can compare periods or drill into one item.</li>
@@ -404,7 +409,7 @@
               </div>
             </div>
             <div class="tab must" id="tab1" style="--src: var(--quickbooks);">
-              <div class="t-title"><span class="chip">Tab 2</span> <a href="dashboard-mockup.html#quickbooks" target="_blank" rel="noopener">QuickBooks bot</a></div>
+              <div class="t-title"><span class="chip">Tab 2</span> <a href="dashboard-mockup.html#quickbooks" target="_blank" rel="noopener">QuickBooks bot</a> <span class="hint">(click to see simple mockup)</span></div>
               <ul class="t-list">
                 <li>Answers the sales team's questions about sales, broken down by salesperson, style, and invoice.</li>
                 <li>Answers can be sliced by date range, rep, style, or customer (for example, sales by rep this quarter versus last).</li>
@@ -430,7 +435,7 @@
               </div>
             </div>
             <div class="tab" id="tab2" style="--src: var(--hubspot);">
-              <div class="t-title"><span class="chip">Tab 3</span> <a href="dashboard-mockup.html#hubspot" target="_blank" rel="noopener">HubSpot bot</a></div>
+              <div class="t-title"><span class="chip">Tab 3</span> <a href="dashboard-mockup.html#hubspot" target="_blank" rel="noopener">HubSpot bot</a> <span class="hint">(click to see simple mockup)</span></div>
               <ul class="t-list">
                 <li>Answers the team's questions about the CRM: contacts, deals, and pipeline.</li>
                 <li>Answers can be sliced by date range, deal owner, or stage.</li>
