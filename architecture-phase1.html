@@ -41,7 +41,7 @@
     .page {
       margin: 0 auto;
       padding: 32px 24px 40px;
-      max-width: 1300px;
+      max-width: 1980px;
       position: relative;
     }
     .brand-logo {
@@ -246,7 +246,7 @@
 
     /* Keep the full desktop layout on every screen; scroll horizontally when it
        doesn't fit (e.g. phones) rather than reflowing the diagram. */
-    .card-canvas { min-width: 1000px; }
+    .card-canvas { min-width: 1820px; }
 
     /* ---- Diagram (HTML layout + SVG arrow overlay) ---- */
     .diagram { position: relative; width: 100%; }
@@ -262,11 +262,12 @@
 
     .cols {
       display: grid;
-      grid-template-columns: 300px 240px minmax(440px, 1fr);
+      grid-template-columns: 300px 360px minmax(540px, 1fr);
+      column-gap: 160px;
       align-items: center;
       position: relative;
       z-index: 1;
-      min-height: 560px;
+      min-height: 640px;
     }
 
     /* ---- Source rows: text + icon, clustered toward the arrows (no box) ---- */
@@ -316,6 +317,57 @@
       width: 50%;
       height: auto;
       display: block;
+    }
+
+    /* ---- Company Knowledge Base / Data Center (center funnel) ---- */
+    .dc {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .dc .dc-title {
+      font-weight: 700;
+      font-size: 19px;
+      color: var(--forest);
+      line-height: 1.25;
+      margin-bottom: 16px;
+      max-width: 220px;
+    }
+    .dc .icon-wrap { margin-bottom: 18px; }
+    .dc .icon-wrap img { width: 150px; height: auto; display: block; }
+    .dc .dc-steps {
+      display: grid;
+      gap: 11px;
+      text-align: left;
+      max-width: 300px;
+      border: 1.5px solid #1a1a1a;
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: #ffffff;
+      position: relative;
+      z-index: 2;
+    }
+    .dc .dc-step {
+      display: flex;
+      gap: 10px;
+      font-size: 12.5px;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .dc .dc-step .dc-num {
+      flex: 0 0 auto;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
     }
 
     /* ---- Internal site (the product) ---- */
@@ -516,11 +568,10 @@
         invoices behind it.
       </p>
       <p class="subtitle">
-        Connecting the sources is just the start; the real work is making the answers trustworthy. In Phase 1, each bot
-        answers from its own source, and the team can teach it Sportek's words and rules right in the tool, like what
-        counts as a sale or what a style code means. New notes take effect right away, with a weekly review to keep them
-        on track. The harder job waits for Phase 2: linking the same customer, order, or style across all three systems
-        for combined answers.
+        Phase 1 is about getting each source right on its own. Every bot answers from a single system, and the team
+        teaches it Sportek's words and rules right in the tool, like what counts as a sale or what a style code means.
+        New notes take effect right away, with a weekly review to keep them accurate. Phase 2 takes on the harder job:
+        linking the same customer, order, or style across all three systems for combined answers.
       </p>
       <div class="scope-cols">
       <div class="will">
@@ -578,7 +629,7 @@
         <svg class="arrows" id="arrows" aria-hidden="true">
           <defs>
             <marker id="arrowhead" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
-              <path d="M 0 0 L 12 6 L 0 12 z" fill="#1a1a1a"/>
+              <path d="M 0 0 L 12 6 L 0 12 z" fill="context-stroke"/>
             </marker>
           </defs>
         </svg>
@@ -609,8 +660,15 @@
             </div>
           </div>
 
-          <!-- gap column holds the arrows -->
-          <div></div>
+          <!-- Company Knowledge Base / Data Center -->
+          <div class="dc" id="dc">
+            <div class="dc-title">Company Knowledge Base</div>
+            <div class="icon-wrap"><img src="images/database3.png" alt="company knowledge base" /></div>
+            <div class="dc-steps">
+              <div class="dc-step"><span class="dc-num">1</span><span><strong>Upfront:</strong> we first train the AI on rules from staff and team interviews. For example, the sales team tells us &ldquo;a sale doesn&rsquo;t count until returns and credits are taken out.&rdquo;</span></div>
+              <div class="dc-step"><span class="dc-num">2</span><span><strong>Ongoing:</strong> staff add new words and rules with the &ldquo;Want me to remember this?&rdquo; button, and they take effect right away. For example, &ldquo;this season&rdquo; means February through July.</span></div>
+            </div>
+          </div>
 
           <!-- internal site -->
           <div class="site-frame" id="siteFrame">
@@ -623,7 +681,7 @@
               <ul class="t-list">
                 <li>Answers everyday questions about the online store: products, inventory, orders, and customers. Sliceable by date or product, and it can show the orders behind an answer.</li>
                 <li>Connected securely behind the staff login, with control over who sees what.</li>
-                <li>David confirms which storefronts it covers and talks to the team to learn how the store is set up. Capturing their product names and terms stays basic in Phase 1.</li>
+                <li>Covers both of Sportek's storefronts in one place, so the team can ask about either site without switching tools.</li>
                 <li>Read-only and in its lane: it only reads, never changes data, and is built to flag what it doesn't know rather than guess.</li>
                 <li>Trained and tested against the team's real questions until answers are accurate; staff can flag anything off for David to fix.</li>
               </ul>
@@ -699,56 +757,64 @@
 
       const frame = document.getElementById("siteFrame");
       const frameX = frame ? leftX(frame) : null;
+
+      // Funnel arrows anchor to the data-center cylinder icon.
+      const dc = document.getElementById("dc");
+      const dcAnchor = dc ? (dc.querySelector(".icon-wrap img") || dc) : null;
+      if (!dcAnchor) return;
+      const dcRect = dcAnchor.getBoundingClientRect();
+      const dcLeft  = { x: dcRect.left  - dRect.left, y: dcRect.top - dRect.top + dcRect.height / 2 };
+      const dcRight = { x: dcRect.right - dRect.left, y: dcRect.top - dRect.top + dcRect.height / 2 };
+
+      // Evenly space the three arrowheads on each side of the cylinder
+      // (top / middle / bottom), independent of how far each source/bot sits.
+      const spread = dcRect.height * 0.32;
+
+      // Sources -> data center (funnel in)
       for (let i = 0; i < 3; i++) {
         const src = document.getElementById("src" + i);
+        if (!src) continue;
+        const start = { x: rightX(src) + 8, y: midY(src) };
+        const end   = { x: dcLeft.x - 8,    y: dcLeft.y + (i - 1) * spread };
+        addPath(svg, start, end);
+      }
+
+      // Data center -> each bot tab (funnel out)
+      for (let i = 0; i < 3; i++) {
         const tab = document.getElementById("tab" + i);
-        if (!src || !tab) continue;
-        // End just OUTSIDE the dashboard frame so the arrowhead stays visible
+        if (!tab) continue;
+        const tY = midY(tab);
         const endX = (frameX !== null ? frameX : leftX(tab)) - 10;
-        addPath(svg,
-          { x: rightX(src) + 8, y: midY(src) },
-          { x: endX,            y: midY(tab) });
+        const start = { x: dcRight.x + 8, y: dcRight.y + (i - 1) * spread };
+        const end   = { x: endX,          y: tY };
+        addPath(svg, start, end);
       }
     }
 
-    function addPath(svg, a, b) {
+    function addPath(svg, a, b, opts) {
+      opts = opts || {};
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      const cx1 = a.x + (b.x - a.x) * 0.45;
-      const cx2 = a.x + (b.x - a.x) * 0.55;
-      const d = `M ${a.x} ${a.y} C ${cx1} ${a.y}, ${cx2} ${b.y}, ${b.x} ${b.y}`;
+      let d;
+      if (opts.viaY != null) {
+        const midX = (a.x + b.x) / 2;
+        const c = opts.viaY;
+        d = `M ${a.x} ${a.y} C ${a.x + (midX - a.x) * 0.6} ${a.y}, ${midX - 44} ${c}, ${midX} ${c} S ${b.x - (b.x - midX) * 0.6} ${b.y}, ${b.x} ${b.y}`;
+      } else {
+        const cx1 = a.x + (b.x - a.x) * 0.45;
+        const cx2 = a.x + (b.x - a.x) * 0.55;
+        d = `M ${a.x} ${a.y} C ${cx1} ${a.y}, ${cx2} ${b.y}, ${b.x} ${b.y}`;
+      }
       path.setAttribute("d", d);
       path.setAttribute("class", "arrow");
       path.setAttribute("fill", "none");
-      path.setAttribute("stroke", "#1a1a1a");
+      path.setAttribute("stroke", opts.color || "#1a1a1a");
       path.setAttribute("stroke-width", "2.25");
       path.setAttribute("marker-start", "url(#arrowhead)");
       path.setAttribute("marker-end", "url(#arrowhead)");
       svg.appendChild(path);
     }
 
-    // Nudge each source row to line up vertically with its tab's center, so the
-    // arrows stay roughly horizontal even when the tabs grow taller than the
-    // sources column. Measures live, so it adapts if the copy changes.
-    function alignSources() {
-      const rows = [];
-      for (let i = 0; i < 3; i++) {
-        const src = document.getElementById("src" + i);
-        const row = src ? src.closest(".source-row") : null;
-        const tab = document.getElementById("tab" + i);
-        if (!row || !tab) continue;
-        row.style.transform = "none";
-        rows.push({ row, tab });
-      }
-      rows.forEach(({ row, tab }) => {
-        const rc = row.getBoundingClientRect();
-        const tc = tab.getBoundingClientRect();
-        const delta = (tc.top + tc.height / 2) - (rc.top + rc.height / 2);
-        row.style.transform = `translateY(${delta}px)`;
-      });
-    }
-
     function refresh() {
-      alignSources();
       drawArrows();
     }
 
