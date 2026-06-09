@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sportek AI Assistant (Phase 2 Mockup)</title>
+
+  <style>
+    :root {
+      --forest: #0a4c3a;
+      --ink: #1a201d;
+      --muted: #6b716c;
+      --line: #e3e0d8;
+      --bg: #f6f5f1;
+      --bot-bubble: #eef2ee;
+      --user-bubble: #0a4c3a;
+
+      --shopify: #3e8e82;
+      --quickbooks: #4254a3;
+      --hubspot: #8a8a1e;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body { padding-bottom: 48px; }
+
+    .app {
+      max-width: 1160px;
+      margin: 0 auto;
+      min-height: calc(100vh - 48px);
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+    }
+
+    /* ---- Header ---- */
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header .brand-block { display: flex; flex-direction: column; gap: 3px; }
+    header .brand {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--forest);
+    }
+    header .brand-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    header .user {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    header .head-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    header .brand-logo {
+      width: 74px;
+      height: auto;
+      display: block;
+    }
+
+    /* ---- Connected-source strip ---- */
+    .sources-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 24px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfbf9;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .sources-strip .label { font-weight: 600; }
+    .sources-strip .pill {
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #fff;
+    }
+    .pill.shopify { background: var(--shopify); }
+    .pill.quickbooks { background: var(--quickbooks); }
+    .pill.hubspot { background: var(--hubspot); }
+
+    /* ---- Chat panel + knowledge side panel ---- */
+    .panel {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+    }
+    .panel-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .knowledge {
+      flex: 0 0 300px;
+      border-left: 1px solid var(--line);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      padding: 20px 18px;
+    }
+    .knowledge .k-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.35;
+    }
+
+    .chat {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .chat::after {
+      content: "";
+      flex: 0 0 auto;
+      height: 44px;
+    }
+
+    .intro {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      padding: 8px 0 4px;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 11px 15px;
+      border-radius: 14px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .msg.bot {
+      align-self: flex-start;
+      background: var(--bot-bubble);
+      color: var(--ink);
+      border-bottom-left-radius: 4px;
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--user-bubble);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    /* ---- Source tags under a blended answer ---- */
+    .src-tags {
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: -8px 0 2px 2px;
+      flex-wrap: wrap;
+    }
+    .src-tags .from { font-size: 11px; color: var(--muted); }
+    .src-tags .src-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 8px;
+      color: #fff;
+    }
+    .src-tag.shopify { background: var(--shopify); }
+    .src-tag.quickbooks { background: var(--quickbooks); }
+    .src-tag.hubspot { background: var(--hubspot); }
+
+    /* ---- Input bar ---- */
+    .composer {
+      display: flex;
+      gap: 10px;
+      padding: 14px 24px 20px;
+      border-top: 1px solid var(--line);
+    }
+    .composer input {
+      flex: 1;
+      font: inherit;
+      font-size: 14.5px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      outline: none;
+    }
+    .composer input:focus { border-color: var(--forest); }
+    .composer button {
+      font: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      color: #fff;
+      background: var(--forest);
+      border: none;
+      border-radius: 10px;
+      padding: 0 20px;
+      cursor: pointer;
+    }
+    .composer button:hover { background: #08402f; }
+
+    /* ---- AI-suggested fact card (teach the bot) ---- */
+    .fact-card {
+      margin: 0;
+      border: 1px solid var(--forest);
+      border-radius: 12px;
+      background: #f1f7f2;
+      padding: 12px 14px;
+      box-shadow: 0 2px 10px rgba(10, 76, 58, 0.1);
+    }
+    .fact-card .fc-head {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--forest);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+    .fact-card .fc-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--forest);
+      flex: 0 0 auto;
+    }
+    .fact-card textarea {
+      width: 100%;
+      resize: vertical;
+      min-height: 92px;
+      font: inherit;
+      font-size: 14px;
+      line-height: 1.4;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      outline: none;
+    }
+    .fact-card textarea:focus { border-color: var(--forest); }
+    .fact-card .fc-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .fact-card .fc-actions button {
+      font: inherit;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 8px;
+      padding: 7px 15px;
+      cursor: pointer;
+      border: 1px solid var(--line);
+    }
+    .fact-card .fc-cancel { background: #fff; color: var(--muted); }
+    .fact-card .fc-cancel:hover { color: var(--ink); }
+    .fact-card .fc-save { background: var(--forest); color: #fff; border-color: var(--forest); }
+    .fact-card .fc-save:hover { background: #08402f; }
+
+    @media (max-width: 860px) {
+      .panel { flex-direction: column; }
+      .knowledge {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <span class="brand-block">
+        <span class="brand">Sportek AI Assistant</span>
+        <span class="brand-sub">One assistant across all your systems</span>
+      </span>
+      <span class="head-right"><span class="user">Staff · signed in</span><img class="brand-logo" src="images/sportek-logo.svg" alt="Sportek" /></span>
+    </header>
+
+    <div class="sources-strip">
+      <span class="label">Connected:</span>
+      <span class="pill shopify">Shopify</span>
+      <span class="pill quickbooks">QuickBooks</span>
+      <span class="pill hubspot">HubSpot</span>
+      <span>· reads all three together to answer one question</span>
+    </div>
+
+    <section class="panel">
+      <div class="panel-main">
+        <div class="chat">
+          <div class="msg bot">Hi, I'm connected to Shopify, QuickBooks, and HubSpot at once. Ask me anything, even questions that cross all three systems.</div>
+
+          <div class="msg user">How many of yesterday's online orders were from Maria's accounts?</div>
+          <div class="msg bot">Of 142 Shopify orders yesterday, 23 came from accounts Maria reps in QuickBooks, worth $4,180. That's 16% of the day's online orders.</div>
+          <div class="src-tags"><span class="from">Answered using</span><span class="src-tag shopify">Shopify</span><span class="src-tag quickbooks">QuickBooks</span></div>
+
+          <div class="msg user">What did our top online customers also buy wholesale this year?</div>
+          <div class="msg bot">Your top 5 online customers also placed wholesale orders in QuickBooks this year totaling $186,400. Westside Sports leads: $61k online plus $48k wholesale. The Pro Trail Jacket shows up in both channels for 4 of the 5.</div>
+          <div class="src-tags"><span class="from">Answered using</span><span class="src-tag shopify">Shopify</span><span class="src-tag quickbooks">QuickBooks</span></div>
+
+          <div class="msg user">Which reps have open deals in HubSpot but falling net sales this quarter?</div>
+          <div class="msg bot">2 reps fit that pattern:
+• Devin R. — $39k in open HubSpot deals, but net sales down 18% vs last quarter.
+• Sara L. — $22k open, net sales down 11%.
+Worth a check-in before those deals slip.</div>
+          <div class="src-tags"><span class="from">Answered using</span><span class="src-tag hubspot">HubSpot</span><span class="src-tag quickbooks">QuickBooks</span></div>
+
+          <div class="msg user">How did the spring email push affect store revenue and invoices?</div>
+          <div class="msg bot">The April "Spring Trail" email campaign in HubSpot reached 8,400 contacts. In the two weeks after, Shopify store revenue rose 14% ($112k) and QuickBooks wholesale invoices tied to those accounts rose $39k. The Elite Trail line drove most of the lift across both.</div>
+          <div class="src-tags"><span class="from">Answered using</span><span class="src-tag hubspot">HubSpot</span><span class="src-tag shopify">Shopify</span><span class="src-tag quickbooks">QuickBooks</span></div>
+        </div>
+        <form class="composer">
+          <input type="text" placeholder="Ask anything across Shopify, QuickBooks, and HubSpot…" />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+
+      <aside class="knowledge">
+        <div class="k-title">The more the team teaches it, the sharper its combined answers get</div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">"Maria's accounts" means the customers where Maria is the rep in QuickBooks.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">Match a Shopify customer to a QuickBooks customer by company name and email.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fc-head"><span class="fc-dot"></span> Want me to remember this?</div>
+          <textarea rows="2">"Wholesale" means QuickBooks invoices tagged trade, not Shopify retail orders.</textarea>
+          <div class="fc-actions">
+            <button class="fc-cancel" type="button">Dismiss</button>
+            <button class="fc-save" type="button">Save</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </div>
+
+  <script>
+    // Mockup only: nothing is functional. The Send button just prevents reload.
+    document.querySelectorAll(".composer").forEach(form => {
+      form.addEventListener("submit", e => e.preventDefault());
+    });
+  </script>
+</body>
+</html>
